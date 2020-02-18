@@ -7,7 +7,6 @@ import Button from '../components/styles/Button'
 import Input from '../components/Input'
 
 
-
 import Book from '../components/Book'
 
 const StyledLibraryContent = styled.div`
