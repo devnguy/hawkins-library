@@ -81,9 +81,9 @@ const NavBar = () => {
             <NavItem route="/" pageName="Admin" />
             <div className="admin-dropdown-menu">
               <AdminNavItem route="/admin/manage-books" pageName="Manage Books" />
-              <AdminNavItem route="/manage-events" pageName="Manage Events" />
-              <AdminNavItem route="/checkouts" pageName="Manage Checkouts" />
-              <AdminNavItem route="/" pageName="Another" />
+              <AdminNavItem route="/admin/manage-events" pageName="Manage Events" />
+              <AdminNavItem route="/admin/manage-checkouts" pageName="Manage Checkouts" />
+              <AdminNavItem route="/admin/manage-customers" pageName="Manage Customers" />
             </div>
 
           </div>

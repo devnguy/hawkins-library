@@ -12,19 +12,19 @@ import Form from '../../components/Form'
 /**
  * Post request to server. Insert customer into db.
  */
-const ManageBooks = () => {
+const ManageCheckouts = () => {
   const url = `http://localhost:3000`
   const sampleDataFromServer = {
     headers: ['name', 'age', 'food'],
     data: [
       {
-        name: 'fred',
-        age: '12',
-        food: 'chicky nuggies'
+        name: 'marney',
+        age: '54',
+        food: 'poppy seeds'
       }, {
-        name: 'mills',
-        age: '34',
-        food: 'chicky parm parm'
+        name: 'marvin',
+        age: '81',
+        food: 'bagel'
       }
     ]
   }
@@ -50,7 +50,7 @@ const ManageBooks = () => {
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
-        <PageContent pageTitle="Admin: Manage Books">
+        <PageContent pageTitle="Admin: Manage Checkouts">
           
           <TableContext.Provider value={{ tableData, setTableData }}>
             <Table />
@@ -63,4 +63,4 @@ const ManageBooks = () => {
   )
 }
 
-export default ManageBooks
+export default ManageCheckouts
