@@ -10,9 +10,6 @@ import Input from '../components/Input'
 import Book from '../components/Book'
 
 const StyledLibraryContent = styled.div`
-  /* display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2.4rem 2.4rem;
@@ -25,7 +22,6 @@ const StyledLibraryContent = styled.div`
 `
 
 const StyledCheckoutInput = styled.div`
-  /* background: red; */
   width: 100%;
 `
 

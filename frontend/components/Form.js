@@ -16,9 +16,6 @@ const Divider = styled.hr`
 `
 
 const FormFields = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.4rem 2.4rem;
@@ -29,15 +26,10 @@ const FormFields = styled.div`
 
 // May not need this because we're using display: grid now
 const FormFieldRow = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
 `
 
 
 const FormField = styled.div`
-  /* max-width: 1000px; */
-  /* margin-bottom: 2.4rem;
-  width: 100%; */
 `
 
 const Form = () => (
