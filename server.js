@@ -1,5 +1,6 @@
 const express = require('express')
 const next = require('next')
+var mysql = require('./dbcon.js')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -17,7 +18,7 @@ app.prepare().then(() => {
   
   server.get('/library', (req, res) => {
     console.log('library pageeeee');
-    return app.render(req, res, '/library', req.query)
+    return app.render(req, res, '/library', req.query);
   })
 
 
