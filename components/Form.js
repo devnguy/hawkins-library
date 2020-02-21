@@ -22,6 +22,9 @@ export const FormFields = styled.div`
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     grid-template-columns: 1fr;
   }
+  button {
+    margin-top: 1.6rem;
+  }
 `
 
 // May not need this because we're using display: grid now

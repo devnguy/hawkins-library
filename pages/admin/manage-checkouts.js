@@ -9,42 +9,30 @@ import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
 import Form from '../../components/Form'
 
-/**
- * Post request to server. Insert customer into db.
- */
-const ManageCheckouts = () => {
-  const url = `http://localhost:3000/get-checkout-orders`
-  const sampleDataFromServer = {
-    headers: ['name', 'age', 'food'],
-    data: [
-      {
-        name: 'marney',
-        age: '54',
-        food: 'poppy seeds'
-      }, {
-        name: 'marvin',
-        age: '81',
-        food: 'bagel'
-      }
-    ]
-  }
 
-  const [tableData, setTableData] = useState(sampleDataFromServer)
+const ManageCheckouts = () => {
+  const url = `http://localhost:3000`
+  const isEditable = false
+
+  const [tableData, setTableData] = useState([])
+  const [tableHeaders, setTableHeaders] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}`)
+        const response = await fetch(`${url}/get-checkout-orders`)
         const checkoutsData = await response.json()
-        console.log(checkoutsData)
+        setTableHeaders(Object.keys(checkoutsData[0]))
+        setTableHeaders(
+          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
+        )
+        setTableData(checkoutsData)
       } catch (error) {
         console.log(error)
       }
     }
     fetchData()
-    
-  })
-
+  }, [])
 
   return (
     <Page>
@@ -52,7 +40,7 @@ const ManageCheckouts = () => {
       <Layout>
         <PageContent pageTitle="Admin: Manage Checkouts">
           
-          <TableContext.Provider value={{ tableData, setTableData }}>
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
           </TableContext.Provider>
 
