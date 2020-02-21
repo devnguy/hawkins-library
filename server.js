@@ -143,6 +143,73 @@ app.prepare().then(() => {
       })
   })
 
+  server.post('/add-event', (req,res,next) => {
+    mysql.pool.query(`INSERT INTO events (name, date, guest) VALUES (?, ?, ?)`,
+      [
+        req.body.name, 
+        req.body.date, 
+        req.body.guest
+      ],
+      (err, rows, fields) => {
+        if(err) {
+          next(err);
+          return;
+        }
+        mysql.pool.query(`SELECT * FROM events`, (err, rows, fields) => {
+          if(err) {
+            next(err);
+            return;
+          }
+          res.send(rows);
+        })
+      })
+  })
+
+  server.post('/add-customer', (req,res,next) => {
+    mysql.pool.query(`INSERT INTO customers (firstName, lastName, email, phone) VALUES (?, ?, ?, ?)`,
+      [
+        req.body.firstName, 
+        req.body.lastName, 
+        req.body.email, 
+        req.body.phone
+      ],
+      (err, rows, fields) => {
+        if(err) {
+          next(err);
+          return;
+        }
+        mysql.pool.query(`SELECT * FROM customers`, (err, rows, fields) => {
+          if(err) {
+            next(err);
+            return;
+          }
+          res.send(rows);
+        })
+      })
+  })
+
+  server.post('/add-checkout-order', (req,res,next) => {
+    mysql.pool.query(`INSERT INTO checkoutOrders (cid, checkoutDate, dueDate) VALUES (?, ?, ?)`,
+      [
+        req.body.cid, 
+        req.body.checkoutDate, 
+        req.body.dueDate
+      ],
+      (err, rows, fields) => {
+        if(err) {
+          next(err);
+          return;
+        }
+        mysql.pool.query(`SELECT * FROM checkoutOrders`, (err, rows, fields) => {
+          if(err) {
+            next(err);
+            return;
+          }
+          res.send(rows);
+        })
+      })
+  })
+
   server.all('*', (req, res) => {
     return handle(req, res)
   })
