@@ -14,35 +14,21 @@ import Form from '../../components/Form'
  */
 const ManageRegistrations = () => {
   const url = `http://localhost:3000/get-event-registrations`
-  const sampleDataFromServer = {
-    headers: ['name', 'age', 'food'],
-    data: [
-      {
-        name: 'jacob',
-        age: '23',
-        food: 'eggplant lasagna'
-      }, {
-        name: 'mcsweeney',
-        age: '98',
-        food: 'pudding'
-      }
-    ]
-  }
-
-  const [tableData, setTableData] = useState(sampleDataFromServer)
+  const [tableData, setTableData] = useState([])
+  const [tableHeaders, setTableHeaders] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${url}`)
-        const eventsData = await response.json()
-        console.log(eventsData)
+        const registrationData = await response.json()
+        setTableHeaders(Object.keys(registrationData[0]))
+        setTableData(registrationData)
       } catch (error) {
         console.log(error)
       }
     }
     fetchData()
-    
   })
 
 
@@ -52,7 +38,7 @@ const ManageRegistrations = () => {
       <Layout>
         <PageContent pageTitle="Admin: Manage Events">
           
-          <TableContext.Provider value={{ tableData, setTableData }}>
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData }}>
             <Table />
           </TableContext.Provider>
 

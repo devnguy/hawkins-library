@@ -1,14 +1,16 @@
 const express = require('express')
 const next = require('next')
 const mysql = require('./dbcon.js')
+const bodyParser = require('body-parser')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const server = express()
+server.use(bodyParser.json())
 
 app.prepare().then(() => {
-  const server = express()
 
   server.get('/', (req, res) => {
     console.log('hello hello testing server');

@@ -15,7 +15,7 @@ const Divider = styled.hr`
   margin-bottom: 2em;
 `
 
-const FormFields = styled.div`
+export const FormFields = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.4rem 2.4rem;
