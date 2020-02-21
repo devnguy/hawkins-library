@@ -51,6 +51,16 @@ app.prepare().then(() => {
     })
   })
 
+  server.get('/get-checkout-orders', (req,res,next) => {
+    mysql.pool.query(`SELECT * FROM checkoutOrders`, (err, rows, fields) => {
+      if(err) {
+        next(err)
+        return
+      }
+      res.send(rows)
+    })
+  })
+
   server.all('*', (req, res) => {
     return handle(req, res)
   })
