@@ -21,6 +21,16 @@ app.prepare().then(() => {
     return app.render(req, res, '/library', req.query);
   })
 
+  server.get('/get-data', (req,res,next) => {
+    mysql.pool.query(`SELECT * FROM books`, (err, rows, fields) => {
+      if (err) {
+        next(err)
+        return
+      }
+      res.send(rows)
+    })
+  })
+
 
   server.all('*', (req, res) => {
     return handle(req, res)

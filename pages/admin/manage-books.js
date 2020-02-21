@@ -13,7 +13,8 @@ import Form from '../../components/Form'
  * Post request to server. Insert customer into db.
  */
 const ManageBooks = () => {
-  const url = `http://localhost:3000`
+  const url = `http://localhost:3000/get-data`
+  
   const sampleDataFromServer = {
     headers: ['name', 'age', 'food'],
     data: [
