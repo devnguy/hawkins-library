@@ -7,12 +7,15 @@ const StyledTdRow = styled.tr`
 `
 
 
-const TdRow = ({ row }) => (
-  <StyledTdRow>
-    <Td content={row.name} />
-    <Td content={row.age} />
-    <Td content={row.food} />
-  </StyledTdRow>
-)
+const TdRow = ({ row }) => {
+  const values = Object.values(row)
+  return (
+    <StyledTdRow>
+      {values.map(value => (
+        <Td key={value} content={value} />
+      ))}
+    </StyledTdRow>
+  )
+}
 
 export default TdRow

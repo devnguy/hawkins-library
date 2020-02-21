@@ -13,11 +13,11 @@ const StyledTable = styled.table`
 
 
 const Table = () => {
-  const { tableData } = useContext(TableContext)
+  const { tableData, tableHeaders } = useContext(TableContext)  
   return (
     <StyledTable>
-      <Thead columns={tableData.headers} />
-      <Tbody data={tableData.data} />
+      <Thead columns={tableHeaders} />
+      <Tbody data={tableData} />
     </StyledTable>
   )
 }

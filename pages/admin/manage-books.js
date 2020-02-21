@@ -15,24 +15,8 @@ import Form from '../../components/Form'
 const ManageBooks = () => {
   const url = `http://localhost:3000/get-books`
 
-  const sampleDataFromServer = {
-    headers: ['name', 'age', 'food'],
-    data: [
-      {
-        name: 'fred',
-        age: '12',
-        food: 'chicky nuggies'
-      }, {
-        name: 'mills',
-        age: '34',
-        food: 'chicky parm parm'
-      }
-    ]
-  }
-
-  const [tableData, setTableData] = useState(sampleDataFromServer)
-
-  const [tableHeaders, setTableHeaders] = useState({})
+  const [tableData, setTableData] = useState([])
+  const [tableHeaders, setTableHeaders] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,9 +25,7 @@ const ManageBooks = () => {
         const bookData = await response.json()
         setTableHeaders(Object.keys(bookData[0]))
         
-        setTableData(bookData)
-        // console.log(bookData);
-        
+        setTableData(bookData)        
         
       } catch (error) {
         console.log(error)
@@ -52,17 +34,13 @@ const ManageBooks = () => {
     fetchData()
   }, [])
 
-  console.log(`table headers: ${tableHeaders}`);
-
-  
-
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Books">
           
-          <TableContext.Provider value={{ tableData, setTableData }}>
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData }}>
             <Table />
           </TableContext.Provider>
 
