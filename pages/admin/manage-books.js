@@ -51,8 +51,6 @@ const ManageBooks = () => {
       publisher,
       genre
     }
-    // console.log(data);
-    
     try {
       const response = await fetch(`${url}/add-book`, {
         method: 'POST',
@@ -63,12 +61,12 @@ const ManageBooks = () => {
       })
       const bookData = await response.json()
       setTableData(bookData)
+      // Reset input fields.
       setTitle('')
       setAuthor('')
       setPublisher('')
       setGenre('')
       
-  
     } catch (error) {
       console.log(error)
     }

@@ -8,7 +8,7 @@ import TableContext from '../../context/table-context'
 
 
 const StyledTable = styled.table`
-
+  width: 100%;
 `
 
 

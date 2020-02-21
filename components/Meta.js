@@ -7,8 +7,7 @@ const Meta = () => (
     <link rel="shortcut icon" href="/static/favicon.png" />
     {/* <link rel="stylesheet" type="text/css" href="/static/nprogress.css" /> */}
     <link href={`https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:700&display=swap`} rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <title>Hawkins Public Library</title>
   </Head>
 )
