@@ -1,38 +1,127 @@
-import styled from 'styled-components'
+import { useState } from 'react'
+
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
-import { LargeButton } from '../components/styles/Button'
 
+import { FormFields } from '../components/Form'
+import Input from '../components/Input'
+import Button from '../components/styles/Button'
 
-import Form from '../components/Form'
+const Signup = () => {
+  const url = `http://localhost:3000`
+  const isEditable = true
 
-const StyledSignupContent = styled.div`
-  /* display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; */
-`
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [dateJoined, setDateJoined] = useState('')
+  const [lateFee, setLateFee] = useState('')
 
+  const addCustomer = async (e) => {
+    e.preventDefault()
+    const data = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      dateJoined,
+      lateFee
+    }
 
+    try {
+      const response = await fetch(`${url}/add-customer`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
 
-/**
- * Post request to server. Insert customer into db.
- */
-const Signup = () => (
-  <Page>
-    <PageBanner bannerUrl="/banners/signup-banner.jpeg" />
-    <Layout>
-      <PageContent pageTitle="Become a Hawkins Library Patron">
-        
-        <StyledSignupContent>
-          <Form />
-          <LargeButton>Sign Up <i className="material-icons">arrow_forward_ios</i></LargeButton>
-        </StyledSignupContent>
+      const customerData = await response.json()
+      console.log(customerData)
 
-      </PageContent>
-    </Layout>
-  </Page>
-)
+      setFirstName('')
+      setLastName('')
+      setEmail('')
+      setPhone('')
+      setDateJoined('')
+      setLateFee('')
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  /**
+   * Post request to server. Insert customer into db.
+   */
+  return (
+    <Page>
+      <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
+      <Layout>
+        <PageContent pageTitle="Become a Hawkins Library Patron">
+          <p>
+            Fill out the form below to become a member of Hawkins Public Library.
+          </p>
+
+          <form onSubmit={addCustomer}>
+            <FormFields>
+              <Input
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                name="firstName"
+                id="firstName"
+                onChange={(e) => { setFirstName(e.target.value) }}
+              />
+              <Input
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                name="lastName"
+                id="lastName"
+                onChange={(e) => { setLastName(e.target.value) }}
+              />
+              <Input
+                type="text"
+                placeholder="Email"
+                value={email}
+                name="email"
+                id="email"
+                onChange={(e) => { setEmail(e.target.value) }}
+              />
+              <Input
+                type="tel"
+                placeholder="Phone"
+                value={phone}
+                name="phone"
+                id="phone"
+                onChange={(e) => { setPhone(e.target.value) }}
+              />
+              <Input
+                  type="hidden"
+                  name="dateJoined"
+                  id="dateJoined"
+                  onChange={(e) => {setDateJoined(new Date())}}
+                />
+              <Input
+                type="hidden"
+                value="0"
+                name="lateFee"
+                id="lateFee"
+                onChange={(e) => { setLateFee(e.target.value) }}
+              />
+            </FormFields>
+            <Button>Become a Member!</Button>
+          </form>
+
+        </PageContent>
+      </Layout>
+    </Page>
+  )
+}
 
 export default Signup
