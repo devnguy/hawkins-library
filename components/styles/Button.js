@@ -36,6 +36,10 @@ export const LargeButton = styled.button`
   font-size: 1.3rem;
   i {
     font-size: 1rem;
+    transition: 700ms cubic-bezier(0.23,1,0.32,1);
+  }
+  :hover i {
+    transform: translate(5px, 0);
   }
 `
 
