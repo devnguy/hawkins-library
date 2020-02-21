@@ -9,42 +9,44 @@ import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
 import Form from '../../components/Form'
 
+import { FormFields } from '../../components/Form'
+import Input from '../../components/Input'
+import Button from '../../components/styles/Button'
+
 /**
  * Post request to server. Insert customer into db.
  */
 const ManageCustomers = () => {
-  const url = `http://localhost:3000/get-customers`
-  const sampleDataFromServer = {
-    headers: ['name', 'age', 'food'],
-    data: [
-      {
-        name: 'jimothy',
-        age: '27',
-        food: 'grilled cheese'
-      }, {
-        name: 'pamela',
-        age: '26',
-        food: 'french onion'
-      }
-    ]
-  }
+  const url = `http://localhost:3000`
+  const isEditable = true
+  
+  const [tableData, setTableData] = useState([])
+  const [tableHeaders, setTableHeaders] = useState([])
 
-  const [tableData, setTableData] = useState(sampleDataFromServer)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [dateJoined, setDateJoined] = useState('')
+  const [lateFee, setLateFee] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}`)
-        const bookData = await response.json()
-        console.log(bookData)
-      } catch (error) {
+        const response = await fetch(`${url}/get-customers`)
+        const customerData = await response.json()
+
+        setTableHeaders(Object.keys(customerData[0]))
+        setTableHeaders(
+          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
+        )
+        setTableData(customerData)
+      } catch(error) {
         console.log(error)
       }
     }
     fetchData()
-    
-  })
-
+  }, [])
 
   return (
     <Page>
@@ -52,7 +54,7 @@ const ManageCustomers = () => {
       <Layout>
         <PageContent pageTitle="Admin: Manage Checkouts">
           
-          <TableContext.Provider value={{ tableData, setTableData }}>
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
           </TableContext.Provider>
 
