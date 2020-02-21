@@ -12,20 +12,13 @@ const StyledBannerContent = styled.div`
   color: ${props => props.theme.white};
   height: 300px;
   padding-top: 9.6rem;
-  /* img {
-    object-fit: cover;
-    padding-top: 1.6rem;
-    width: 100%;
-    height: 340px;
-    z-index: -1;
-  } */
 `
 
 const StyledBannerBackgroundImage = styled.div`
   background-image: url(${props => props.bannerUrl});
   height: 300px;
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
 `
 

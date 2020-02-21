@@ -75,6 +75,10 @@ const StyledFooterTopRow = styled.div`
     line-height: 4.8rem;
     font-size: 1.4rem;
     margin: 0 1.6rem;
+    font-weight: 700;
+  }
+  li i {
+    font-size: 2.4rem;
   }
   padding-bottom: 1.6rem;
 `
@@ -107,23 +111,14 @@ const Footer = () => (
         <StyledFooterTopRow>
           <ul>
             <li>FOLLOW US</li>
-            <li>these will be icons eventually</li>
-            <li><a href="/">FB</a></li>
-            <li><a href="/">TW</a></li>
-            <li><a href="/">GIT</a></li>
-            <li><a href="/">IN</a></li>
+            <li><a href="https://github.com/hdn301" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-alt"></i></a></li>
+            <li><a href="https://github.com/RebekahKoon" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i></a></li>
+            <li><a href="https://github.com/hdn301/hawkins-library" target="_blank" rel="noopener noreferrer"><i className="fas fa-file-code"></i></a></li>
           </ul>
         </StyledFooterTopRow>
-        {/* <ul>
-          <NavItem route="/library" pageName="Library" />
-          <NavItem route="/events" pageName="Events" />
-          <NavItem route="/return-books" pageName="Return Books" />
-          <NavItem route="/join" pageName="Sign Up" />
-          <NavItem route="/admin" pageName="Admin" />
-        </ul> */}
         <StyledFooterBottomRow>
           <h4>Hawkins Public Library</h4>
-          <p>Images from Unsplash</p>
+          <p>Images from <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
         </StyledFooterBottomRow>
       </StyledFooterRowContainer>
     </StyledFooter>

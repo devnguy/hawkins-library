@@ -36,30 +36,30 @@ const StyledFeatureImage = styled.div`
 
 `
 
-export const LeftFeature = () => (
+export const LeftFeature = (props) => (
   <StyledFeature>
     <StyledFeatureBody size="2" bgColor={props => props.theme.white} fontColor={props => props.theme.black}>
-      <h2>That perfect tranquility of life, which is nowhere to be found but in retreat, a faithful friend, and a good library.</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat ab iusto facere, minus non pariatur. Animi iste sunt omnis aliquid ipsam, recusandae, vero, mollitia illo totam odit.</p>
+      <h2>{props.content.title}</h2>
+      <p>{props.content.body}</p>
       <p></p>
 
-      <Button>See our collection <i className="material-icons">arrow_forward_ios</i></Button>
+      <Button>{props.content.button} <i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
     <StyledFeatureImage size="1" paddingLeft="2.4rem" paddingRight="0">
-      <img src="/features/feature03.jpeg"></img>
+      <img src={props.content.imgSrc}></img>
     </StyledFeatureImage>
   </StyledFeature>
 )
 
-export const RightFeature = () => (
+export const RightFeature = (props) => (
   <StyledFeature>
     <StyledFeatureImage size="1" paddingLeft="0" paddingRight="0">
-      <img src="/features/feature02.jpeg"></img>
+      <img src={props.content.imgSrc}></img>
     </StyledFeatureImage>
     <StyledFeatureBody size="2" bgColor={props => props.theme.black} fontColor={props => props.theme.white}>
-      <h2>There is no such thing as a child who hates to read; there are only children who have not found the right book.</h2>
-      <p>At our monthly reading clubs, pairs of volunteers read aloud to small groups of children, while their parents receive training on how to encourage their children to read at home.</p>
-      <Button>Find out more <i className="material-icons">arrow_forward_ios</i></Button>
+      <h2>{props.content.title}</h2>
+      <p>{props.content.body}</p>
+      <Button>{props.content.button}<i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
   </StyledFeature>
 )
