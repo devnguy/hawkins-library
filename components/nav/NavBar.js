@@ -84,6 +84,7 @@ const NavBar = () => {
               <AdminNavItem route="/admin/manage-events" pageName="Manage Events" />
               <AdminNavItem route="/admin/manage-checkouts" pageName="Manage Checkouts" />
               <AdminNavItem route="/admin/manage-customers" pageName="Manage Customers" />
+              <AdminNavItem route="/admin/manage-registrations" pageName="Manage Registrations" />
             </div>
 
           </div>

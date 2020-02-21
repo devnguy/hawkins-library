@@ -13,7 +13,7 @@ import Form from '../../components/Form'
  * Post request to server. Insert customer into db.
  */
 const ManageEvents = () => {
-  const url = `http://localhost:3000`
+  const url = `http://localhost:3000/get-events`
   const sampleDataFromServer = {
     headers: ['name', 'age', 'food'],
     data: [
@@ -35,8 +35,8 @@ const ManageEvents = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${url}`)
-        const bookData = await response.json()
-        console.log(bookData)
+        const eventsData = await response.json()
+        console.log(eventsData)
       } catch (error) {
         console.log(error)
       }

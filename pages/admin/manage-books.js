@@ -13,8 +13,8 @@ import Form from '../../components/Form'
  * Post request to server. Insert customer into db.
  */
 const ManageBooks = () => {
-  const url = `http://localhost:3000/get-data`
-  
+  const url = `http://localhost:3000/get-books`
+
   const sampleDataFromServer = {
     headers: ['name', 'age', 'food'],
     data: [
@@ -32,20 +32,29 @@ const ManageBooks = () => {
 
   const [tableData, setTableData] = useState(sampleDataFromServer)
 
+  const [tableHeaders, setTableHeaders] = useState({})
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${url}`)
         const bookData = await response.json()
-        console.log(bookData)
+        setTableHeaders(Object.keys(bookData[0]))
+        
+        setTableData(bookData)
+        // console.log(bookData);
+        
+        
       } catch (error) {
         console.log(error)
       }
     }
     fetchData()
-    
-  })
+  }, [])
 
+  console.log(`table headers: ${tableHeaders}`);
+
+  
 
   return (
     <Page>

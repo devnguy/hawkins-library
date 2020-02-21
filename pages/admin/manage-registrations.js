@@ -12,19 +12,19 @@ import Form from '../../components/Form'
 /**
  * Post request to server. Insert customer into db.
  */
-const ManageCheckouts = () => {
-  const url = `http://localhost:3000/get-checkout-orders`
+const ManageRegistrations = () => {
+  const url = `http://localhost:3000/get-event-registrations`
   const sampleDataFromServer = {
     headers: ['name', 'age', 'food'],
     data: [
       {
-        name: 'marney',
-        age: '54',
-        food: 'poppy seeds'
+        name: 'jacob',
+        age: '23',
+        food: 'eggplant lasagna'
       }, {
-        name: 'marvin',
-        age: '81',
-        food: 'bagel'
+        name: 'mcsweeney',
+        age: '98',
+        food: 'pudding'
       }
     ]
   }
@@ -35,8 +35,8 @@ const ManageCheckouts = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(`${url}`)
-        const checkoutsData = await response.json()
-        console.log(checkoutsData)
+        const eventsData = await response.json()
+        console.log(eventsData)
       } catch (error) {
         console.log(error)
       }
@@ -50,7 +50,7 @@ const ManageCheckouts = () => {
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
-        <PageContent pageTitle="Admin: Manage Checkouts">
+        <PageContent pageTitle="Admin: Manage Events">
           
           <TableContext.Provider value={{ tableData, setTableData }}>
             <Table />
@@ -63,4 +63,4 @@ const ManageCheckouts = () => {
   )
 }
 
-export default ManageCheckouts
+export default ManageRegistrations
