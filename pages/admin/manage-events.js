@@ -32,7 +32,7 @@ const ManageEvents = () => {
       try {
         const response = await fetch(`${url}/get-events`)
         const eventData = await response.json()
-        setTableHeaders(Object.keys(bookData[0]))
+        setTableHeaders(Object.keys(eventData[0]))
 
         setTableHeaders(
           isEditable ? headers => [...headers, 'modify'] : headers => [...headers]

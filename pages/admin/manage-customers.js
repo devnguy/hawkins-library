@@ -52,7 +52,7 @@ const ManageCustomers = () => {
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
-        <PageContent pageTitle="Admin: Manage Checkouts">
+        <PageContent pageTitle="Admin: Manage Customers">
           
           <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
