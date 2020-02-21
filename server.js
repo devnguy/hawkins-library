@@ -40,34 +40,34 @@ app.prepare().then(() => {
     return app.render(req, res, '/signup', req.query);
   })
 
-  server.get('/manage-books', (req, res) => {
+  server.get('/admin/manage-books', (req, res) => {
     console.log('Manage books!!');
 
-    return app.render(req, res, '/manage-books', req.query);
+    return app.render(req, res, '/admin/manage-books', req.query);
   })
 
-  server.get('/manage-checkouts', (req, res) => {
+  server.get('/admin/manage-checkouts', (req, res) => {
     console.log('Manage checkouts!!!');
 
-    return app.render(req, res, '/manage-checkouts', req.query);
+    return app.render(req, res, '/admin/manage-checkouts', req.query);
   })
 
-  server.get('/manage-customers', (req, res) => {
+  server.get('/admin/manage-customers', (req, res) => {
     console.log('Manage customers!!!!');
 
-    return app.render(req, res, '/manage-customers', req.query);
+    return app.render(req, res, '/admin/manage-customers', req.query);
   })
 
-  server.get('/manage-events', (req, res) => {
+  server.get('/admin/manage-events', (req, res) => {
     console.log('Manage events!!!!!');
 
-    return app.render(req, res, '/manage-events', req.query);
+    return app.render(req, res, '/admin/manage-events', req.query);
   })
 
-  server.get('/manage-registrations', (req, res) => {
+  server.get('/admin/manage-registrations', (req, res) => {
     console.log('Manage registrations!!!!!!');
 
-    return app.render(req, res, '/manage-registrations', req.query);
+    return app.render(req, res, '/admin/manage-registrations', req.query);
   })
 
   server.get('/get-books', (req,res,next) => {
