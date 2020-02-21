@@ -9,6 +9,11 @@ import TableContext from '../../context/table-context'
 
 const StyledTable = styled.table`
   width: 100%;
+  border-collapse: collapse;
+  th, td {
+    padding: 1.6rem;
+  }
+  margin-bottom: 3.2rem;
 `
 
 

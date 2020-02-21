@@ -113,10 +113,19 @@ app.prepare().then(() => {
   })
 
   server.get('/get-event-registrations', (req,res,next) => {
-    mysql.pool.query(`SELECT * FROM eventRegistrations`, (err, rows, fields) => {
-      if(err) {
-        next(err);
-        return;
+    mysql.pool.query(
+      `
+        SELECT eid, cid, 
+        name AS eventName, CONCAT(firstName, ' ', lastName) AS fullName 
+        FROM customers
+        INNER JOIN eventRegistrations ON customers.customerId = eventRegistrations.cid
+        INNER JOIN events ON events.eventId = eventRegistrations.eid
+        ORDER BY eid, fullName
+      `, 
+      (err, rows, fields) => {
+        if(err) {
+          next(err);
+          return;
       }
       res.send(rows);
     })

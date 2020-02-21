@@ -12,11 +12,10 @@ import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
 
-/**
- * Post request to server. Insert customer into db.
- */
+
 const ManageBooks = () => {
   const url = `http://localhost:3000`
+  const isEditable = true
 
   // Table state
   const [tableData, setTableData] = useState([])
@@ -35,7 +34,12 @@ const ManageBooks = () => {
         const response = await fetch(`${url}/get-books`)
         const bookData = await response.json()
         setTableHeaders(Object.keys(bookData[0]))
+        // Append 'modify' header if table isEditable.
+        setTableHeaders(
+          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
+        )
         setTableData(bookData)
+
       } catch (error) {
         console.log(error)
       }
@@ -43,6 +47,7 @@ const ManageBooks = () => {
     fetchData()
   }, [])
 
+  // Send data as post request to server to insert book.
   const addBook = async (e) => {
     e.preventDefault()
     const data = {
@@ -59,9 +64,10 @@ const ManageBooks = () => {
           'Content-Type': 'application/json'
         }
       })
+      // Convert returned promise to json and set state.
       const bookData = await response.json()
       setTableData(bookData)
-      // Reset input fields.
+      // Reset input state and fields.
       setTitle('')
       setAuthor('')
       setPublisher('')
@@ -78,7 +84,7 @@ const ManageBooks = () => {
       <Layout>
         <PageContent pageTitle="Admin: Manage Books">
           
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData }}>
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
 
             <form onSubmit={addBook}>

@@ -29,14 +29,14 @@ const ManageRegistrations = () => {
       }
     }
     fetchData()
-  })
+  }, [])
 
 
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
-        <PageContent pageTitle="Admin: Manage Events">
+        <PageContent pageTitle="Admin: Manage Registrations">
           
           <TableContext.Provider value={{ tableData, tableHeaders, setTableData }}>
             <Table />
