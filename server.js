@@ -21,7 +21,7 @@ app.prepare().then(() => {
     return app.render(req, res, '/library', req.query);
   })
 
-  server.get('/get-data', (req,res,next) => {
+  server.get('/get-books', (req,res,next) => {
     mysql.pool.query(`SELECT * FROM books`, (err, rows, fields) => {
       if (err) {
         next(err)
@@ -31,6 +31,25 @@ app.prepare().then(() => {
     })
   })
 
+  server.get('/get-events', (req,res,next) => {
+    mysql.pool.query(`SELECT * FROM events`, (err, rows, fields) => {
+      if (err) {
+        next(err)
+        return
+      }
+      res.send(rows)
+    })
+  })
+
+  server.get('/get-customers', (req,res,next) => {
+    mysql.pool.query(`SELECT * FROM customers`, (err, rows, fields) => {
+      if(err) {
+        next(err)
+        return
+      }
+      res.send(rows)
+    })
+  })
 
   server.all('*', (req, res) => {
     return handle(req, res)
