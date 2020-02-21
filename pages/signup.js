@@ -17,8 +17,6 @@ const Signup = () => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [dateJoined, setDateJoined] = useState('')
-  const [lateFee, setLateFee] = useState('')
 
   const addCustomer = async (e) => {
     e.preventDefault()
@@ -27,8 +25,6 @@ const Signup = () => {
       lastName,
       email,
       phone,
-      dateJoined,
-      lateFee
     }
 
     try {
@@ -47,8 +43,6 @@ const Signup = () => {
       setLastName('')
       setEmail('')
       setPhone('')
-      setDateJoined('')
-      setLateFee('')
 
     } catch (error) {
       console.log(error)
@@ -100,19 +94,6 @@ const Signup = () => {
                 name="phone"
                 id="phone"
                 onChange={(e) => { setPhone(e.target.value) }}
-              />
-              <Input
-                  type="hidden"
-                  name="dateJoined"
-                  id="dateJoined"
-                  onChange={(e) => {setDateJoined(new Date())}}
-                />
-              <Input
-                type="hidden"
-                value="0"
-                name="lateFee"
-                id="lateFee"
-                onChange={(e) => { setLateFee(e.target.value) }}
               />
             </FormFields>
             <Button>Become a Member!</Button>

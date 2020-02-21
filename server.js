@@ -189,6 +189,7 @@ app.prepare().then(() => {
           next(err);
           return;
         }
+        // res.redirect('/admin/manage-customers');
         mysql.pool.query(`SELECT * FROM customers`, (err, rows, fields) => {
           if(err) {
             next(err);
