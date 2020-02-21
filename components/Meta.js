@@ -9,6 +9,7 @@ const Meta = () => (
     <link href={`https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:700&display=swap`} rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="/styles/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="/styles/nprogress.css" rel="stylesheet" />
     {/* <link href="/styles/font-awesome/brands.css" rel="stylesheet" /> */}
     <title>Hawkins Public Library</title>
   </Head>
