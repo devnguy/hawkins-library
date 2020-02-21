@@ -61,6 +61,16 @@ app.prepare().then(() => {
     })
   })
 
+  server.get('/get-event-registrations', (req,res,next) => {
+    mysql.pool.query(`SELECT * FROM eventRegistrations`, (err, rows, fields) => {
+      if(err) {
+        next(err)
+        return
+      }
+      res.send(rows)
+    })
+  })
+
   server.all('*', (req, res) => {
     return handle(req, res)
   })
