@@ -7,11 +7,6 @@ import PageBanner from '../../components/PageBanner'
 import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
-import Form from '../../components/Form'
-
-import { FormFields } from '../../components/Form'
-import Input from '../../components/Input'
-import Button from '../../components/styles/Button'
 
 /**
  * Post request to server. Insert customer into db.
@@ -22,13 +17,6 @@ const ManageCustomers = () => {
   
   const [tableData, setTableData] = useState([])
   const [tableHeaders, setTableHeaders] = useState([])
-
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
-  const [dateJoined, setDateJoined] = useState('')
-  const [lateFee, setLateFee] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
