@@ -34,7 +34,7 @@ const ManageBooks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}/api/get-books`)
+        const response = await fetch(`/api/get-books`)
         const bookData = await response.json()
         setTableHeaders(Object.keys(bookData[0]))
         // Append 'modify' header if table isEditable.
