@@ -12,12 +12,8 @@ import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
 
-import { endpoint, prodEndpoint } from '../../config'
-
-
 
 const ManageBooks = () => {
-  const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint
   const isEditable = true
 
   // Table state
@@ -34,9 +30,10 @@ const ManageBooks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/get-books`)
+        const response = await fetch('/api/books')
         const bookData = await response.json()
-        setTableHeaders(Object.keys(bookData[0]))
+        // setTableHeaders(Object.keys(bookData[0]))
+        setTableHeaders(['id', 'oid', 'title', 'author', 'publisher', 'genre'])
         // Append 'modify' header if table isEditable.
         setTableHeaders(
           isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
@@ -60,7 +57,7 @@ const ManageBooks = () => {
       genre
     }
     try {
-      const response = await fetch(`${url}/add-book`, {
+      const response = await fetch('/api/books', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

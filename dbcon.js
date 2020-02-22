@@ -1,3 +1,9 @@
+/**
+ * 
+ * DELETE WHEN WE KNOW WE'RE NO LONGER USING SQL
+ * 
+ */
+
 const mysql = require ('mysql');
 
 let pool = mysql.createPool({

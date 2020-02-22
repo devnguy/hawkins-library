@@ -1,3 +1,10 @@
+/**
+ * 
+ * CURRENTLY NOT IN USE BY APP
+ * DELETE EVENTUALLY
+ * 
+ */
+
 const express = require('express')
 const next = require('next')
 const mysql = require('./dbcon.js')
