@@ -76,15 +76,15 @@ app.prepare().then(() => {
     res.send('hello world testing')
   })
 
-  server.get('/get-books', (req,res,next) => {
-    mysql.pool.query(`SELECT * FROM books`, (err, rows, fields) => {
-      if (err) {
-        next(err);
-        return;
-      }
-      res.send(rows);
-    })
-  })
+  // server.get('/get-books', (req,res,next) => {
+  //   mysql.pool.query(`SELECT * FROM books`, (err, rows, fields) => {
+  //     if (err) {
+  //       next(err);
+  //       return;
+  //     }
+  //     res.send(rows);
+  //   })
+  // })
 
   server.get('/get-events', (req,res,next) => {
     mysql.pool.query(`SELECT * FROM events`, (err, rows, fields) => {
