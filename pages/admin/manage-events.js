@@ -17,7 +17,8 @@ import Button from '../../components/styles/Button'
  * Post request to server. Insert customer into db.
  */
 const ManageEvents = () => {
-  const url = `http://localhost:3000`
+  // const url = `http://localhost:3000`
+  const url = `https://hawkins-library.now.sh`
   const isEditable = true
 
   const [tableData, setTableData] = useState([])
