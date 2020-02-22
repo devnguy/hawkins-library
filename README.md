@@ -10,48 +10,48 @@ npm run dev
 ## Migration to MongoDB
 - [x] Set up MongoDB (db credentials in next.config.js)
 - [x] Connect to app (middleware/database.js)
-- Files to remove:
+###### Files to remove:
  - [ ] server.js
  - [ ] dbcon.js
  - [ ] config.js
  - [ ] nodemon.json
--Node modules to uninstall:
+###### Node modules to uninstall:
  - [ ] body-parser
  - [ ] cross-env
  - [ ] express
  - [ ] mysql
  - [ ] utils?
 
-- [x] create books collection
-- [ ] manage-books.js
+###### manage-books.js
+ - [x] create books collection
  - [x] Create: User can add books via input forms
  - [x] Read: Render db books to page
  - [ ] Update
  - [ ] Delete
 
-- [x] create customers collection
-- [ ] manage-customers.js
+###### manage-customers.js
+ - [x] create customers collection
  - [ ] Create
  - [ ] Read
  - [ ] Update
  - [ ] Delete
 
-- [ ] create events collection
-- [ ] manage-events.js
+###### manage-events.js
+ - [ ] create events collection
  - [ ] Create
  - [ ] Read
  - [ ] Update
  - [ ] Delete
 
-- [ ] create checkouts collection
-- [ ] manage-checkouts.js
+###### manage-checkouts.js
+ - [ ] create checkouts collection
  - [ ] Create
  - [ ] Read
 
-- [ ] create registrations collection
-- [ ] manage-registrations.js
+###### manage-registrations.js
+ - [ ] create registrations collection
  - [ ] Create
  - [ ] Read
 
-## Deployment
+###### Deployment
 - [ ] Setup environmental variables and app secrets
