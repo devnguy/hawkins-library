@@ -55,7 +55,7 @@ const Signup = () => {
    */
   return (
     <Page>
-      <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
+      <PageBanner bannerUrl="/banners/signup-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Become a Hawkins Library Patron">
           <p>
