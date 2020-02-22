@@ -77,6 +77,8 @@ const ManageBooks = () => {
       console.log(error)
     }
   }
+  console.log(process.env.MONGO_CONNECTION)
+  
 
   return (
     <Page>
