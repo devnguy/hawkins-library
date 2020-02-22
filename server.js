@@ -72,6 +72,10 @@ app.prepare().then(() => {
     return app.render(req, res, '/admin/manage-registrations', req.query);
   })
 
+  server.get('/test', (req, res) => {
+    res.send('hello world testing')
+  })
+
   server.get('/get-books', (req,res,next) => {
     mysql.pool.query(`SELECT * FROM books`, (err, rows, fields) => {
       if (err) {
