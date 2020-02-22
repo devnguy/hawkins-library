@@ -12,9 +12,12 @@ import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
 
+import { endpoint, prodEndpoint } from '../../config'
+
+
 
 const ManageBooks = () => {
-  const url = `http://localhost:3000`
+  const url = process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint
   const isEditable = true
 
   // Table state
