@@ -112,13 +112,19 @@ VALUES
         "2020-02-17", "2020-03-17");
 ​
 -- Inserting books into the Books table.
-INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`) 
+INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
 VALUES
         ("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Bloomsbury Publishing", "Fantasy", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1)),
+            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1), 'https://res.cloudinary.com/hawkins/image/upload/v1567801421/hawkins/books/efazzzqzpzdotkvzpcvy.jpg'),
         ("The Fault in Our Stars", "John Green", "Dutton Books", "Young Adult", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1)),
+            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1), 'https://res.cloudinary.com/hawkins/image/upload/v1582573189/hawkins/books/81yAo5ElQlL_jiz8xh.jpg'),
         ("Pride and Prejudice", "Jane Austen", "T. Egerton", "Classic", 
-            NULL),
+            NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1582573290/hawkins/books/9781847493699_zsq8kc.jpg'),
         ("The Hunger Games", "Suzanne Collins", "Scholastic", "Dystopian", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 2));
+            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 2), 'https://res.cloudinary.com/hawkins/image/upload/v1582573519/hawkins/books/41V56ye3PrL._SX328_BO1_204_203_200__ckqt45.jpg'),
+        ("The Hobbit", "JRR Tolkein", "George Allen & Unwin", "Fantasy", 
+            NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1567801705/hawkins/books/ofugewrumzxbilgw76m5.jpg'),
+        ("The Very Hungry Caterpillar", "Eric Carle", "World Publishing Company", "Children's Literature", 
+            NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1567906037/hawkins/books/a8c2d31b7afcuymocdg9.jpg'),
+        ("The Little Prince", "Antoine de Saint-Exupéry", "Reynal & Hitchcock", "Children's Literature", 
+            NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1567801168/hawkins/books/uv09q7h64qc4ewcgitcf.jpg');
