@@ -43,7 +43,7 @@ export const LeftFeature = (props) => (
       <p>{props.content.description}</p>
       <p></p>
 
-      <Button>{props.button} <i className="material-icons">arrow_forward_ios</i></Button>
+      <Button>{props.button ? props.button : 'Register'} <i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
     <StyledFeatureImage size="1" paddingLeft="2.4rem" paddingRight="0">
       <img src={props.content.imgUrl}></img>
@@ -59,7 +59,7 @@ export const RightFeature = (props) => (
     <StyledFeatureBody size="2" bgColor={props => props.theme.black} fontColor={props => props.theme.white}>
       <h2>{props.content.name}</h2>
       <p>{props.content.description}</p>
-      <Button>{props.button}<i className="material-icons">arrow_forward_ios</i></Button>
+      <Button>{props.button ? props.button : 'Register'}<i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
   </StyledFeature>
 )

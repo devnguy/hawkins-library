@@ -42,7 +42,7 @@ const Library = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/books/get-books')
+        const response = await fetch('/api/books/get-library-books')
         const bookData = await response.json()
         setBooks(bookData)
       } catch (error) {

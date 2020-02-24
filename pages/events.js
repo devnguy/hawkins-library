@@ -48,7 +48,7 @@ const Events = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/library-events/get-events')
+        const response = await fetch('/api/library-events/get-library-events')
         const eventData = await response.json()
         setEvents(eventData)
       } catch (error) {
