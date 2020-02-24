@@ -62,7 +62,7 @@ const Library = () => {
           <StyledLibraryContent>
 
             {books.map(book => (
-              <Book key={book.bookId} bookTitle={book.title} bookImgUrl="https://res.cloudinary.com/zlibrary/image/upload/v1567801421/hawkins/efazzzqzpzdotkvzpcvy.jpg" bookAuthor={book.author} action="add"/>
+              <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add"/>
             ))}
 
           </StyledLibraryContent>
