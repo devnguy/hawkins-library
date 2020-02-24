@@ -17,8 +17,6 @@ import Button from '../../components/styles/Button'
  * Post request to server. Insert customer into db.
  */
 const ManageEvents = () => {
-  // const url = `http://localhost:3000`
-  const url = `https://hawkins-library.now.sh`
   const isEditable = true
 
   const [tableData, setTableData] = useState([])
@@ -31,7 +29,7 @@ const ManageEvents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}/get-events`)
+        const response = await fetch('/api/library-events/get-events')
         const eventData = await response.json()
         setTableHeaders(Object.keys(eventData[0]))
 
@@ -56,7 +54,7 @@ const ManageEvents = () => {
     }
 
     try {
-      const response = await fetch(`${url}/add-event`, {
+      const response = await fetch('/api/library-events/add-event', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

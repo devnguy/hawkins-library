@@ -13,14 +13,13 @@ import Form from '../../components/Form'
  * Post request to server. Insert customer into db.
  */
 const ManageRegistrations = () => {
-  const url = `http://localhost:3000/get-event-registrations`
   const [tableData, setTableData] = useState([])
   const [tableHeaders, setTableHeaders] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}`)
+        const response = await fetch('/api/registrations/get-registrations')
         const registrationData = await response.json()
         setTableHeaders(Object.keys(registrationData[0]))
         setTableData(registrationData)
