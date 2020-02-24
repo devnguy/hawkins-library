@@ -28,9 +28,9 @@ CREATE TABLE `events` (
     `eventId` int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(255) NOT NULL,
     `date` date NOT NULL,
-    `guest` varchar(255) NOT NULL,
+    `guest` varchar(255),
     `description` varchar(255) NOT NULL,
-    `imgUrl` varchar(255) NOT NULL
+    `imgUrl` varchar(255)
 );
 ​
 -- Creating the eventRegistrations table, which will list
@@ -69,7 +69,7 @@ CREATE TABLE `books` (
     `author` VARCHAR(255) NOT NULL,
     `publisher` VARCHAR(255) NOT NULL,
     `genre` VARCHAR(255) NOT NULL,
-    `imgUrl` VARCHAR(255) NOT NULL
+    `imgUrl` VARCHAR(255)
 );
 ​
 ​
