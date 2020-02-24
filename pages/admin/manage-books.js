@@ -30,7 +30,7 @@ const ManageBooks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/books')
+        const response = await fetch('/api/book')
         const bookData = await response.json()
         // setTableHeaders(Object.keys(bookData[0]))
         setTableHeaders(['id', 'oid', 'title', 'author', 'publisher', 'genre'])
