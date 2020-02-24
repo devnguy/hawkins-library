@@ -25,6 +25,7 @@ const ManageBooks = () => {
   const [author, setAuthor] = useState('')
   const [publisher, setPublisher] = useState('')
   const [genre, setGenre] = useState('')
+  const [imgUrl, setImgUrl] = useState('')
 
   // Get initial state from db.
   useEffect(() => {
@@ -54,7 +55,8 @@ const ManageBooks = () => {
       title,
       author,
       publisher,
-      genre
+      genre,
+      imgUrl
     }
     try {
       const response = await fetch('/api/books/add-book', {
@@ -72,6 +74,7 @@ const ManageBooks = () => {
       setAuthor('')
       setPublisher('')
       setGenre('')
+      setImgUrl('')
       
     } catch (error) {
       console.log(error)
@@ -120,6 +123,14 @@ const ManageBooks = () => {
                   name="genre" 
                   id="genre"
                   onChange={(e) => {setGenre(e.target.value)}}
+                />
+                <Input
+                  type="text"
+                  placeholder="Book Image URL"
+                  value={imgUrl}
+                  name="imgUrl"
+                  id="imgUrl"
+                  onChange={(e) => {setImgUrl(e.target.value)}}
                 />
               </FormFields>
               <Button>Add Book</Button>

@@ -25,6 +25,8 @@ const ManageEvents = () => {
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
   const [guest, setGuest] = useState('')
+  const [description, setDescription] = useState('')
+  const [imgUrl, setImgUrl] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +52,9 @@ const ManageEvents = () => {
     const data = {
       name,
       date,
-      guest
+      guest,
+      description,
+      imgUrl
     }
 
     try {
@@ -68,6 +72,9 @@ const ManageEvents = () => {
       setName('')
       setDate('')
       setGuest('')
+      setDescription('')
+      setImgUrl('')
+
     } catch (error) {
       console.log(error)
     }
@@ -106,6 +113,22 @@ const ManageEvents = () => {
                   name="guest"
                   id="guest"
                   onChange={(e) => {setGuest(e.target.value)}}
+                />
+                <Input
+                  type="text"
+                  placeholder="Event Description"
+                  value={description}
+                  name="description"
+                  id="description"
+                  onChange={(e) => {setDescription(e.target.value)}}
+                />
+                <Input
+                  type="text"
+                  placeholder="Event Image URL"
+                  value={imgUrl}
+                  name="imgUrl"
+                  id="imgUrl"
+                  onChange={(e) => {setImgUrl(e.target.value)}}
                 />
               </FormFields>
               <Button>Add Event</Button>

@@ -3,7 +3,7 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
   const books = await db.query(escape`
-    SELECT *
+    SELECT bookId, oid, title, author, publisher, genre
     FROM books
   `)
   
