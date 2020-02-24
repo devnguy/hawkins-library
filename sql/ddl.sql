@@ -13,7 +13,7 @@ CREATE TABLE `customers` (
     `customerId` int(11) NOT NULL AUTO_INCREMENT,
     `firstName` varchar(255) NOT NULL,
     `lastName` varchar(255) NOT NULL,
-    `email` varchar(255) NOT NULL,
+    `email` varchar(255) UNIQUE NOT NULL,
     `phone` varchar(10) NOT NULL,
     `dateJoined` datetime NOT NULL
         DEFAULT CURRENT_TIMESTAMP,
@@ -29,7 +29,7 @@ CREATE TABLE `events` (
     `name` varchar(255) NOT NULL,
     `date` date NOT NULL,
     `guest` varchar(255),
-    `description` varchar(255) NOT NULL,
+    `description` varchar(255),
     `imgUrl` varchar(255)
 );
 ​
