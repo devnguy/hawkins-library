@@ -30,7 +30,7 @@ const ManageBooks = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/book')
+        const response = await fetch('/api/books/get-books')
         const bookData = await response.json()
         // setTableHeaders(Object.keys(bookData[0]))
         setTableHeaders(['id', 'oid', 'title', 'author', 'publisher', 'genre'])
@@ -57,7 +57,7 @@ const ManageBooks = () => {
       genre
     }
     try {
-      const response = await fetch('/api/books', {
+      const response = await fetch('/api/books/add-book', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {

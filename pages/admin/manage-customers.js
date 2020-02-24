@@ -21,7 +21,7 @@ const ManageCustomers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}/get-customers`)
+        const response = await fetch(`/api/customers/get-customers`)
         const customerData = await response.json()
 
         setTableHeaders(Object.keys(customerData[0]))
