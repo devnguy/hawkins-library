@@ -7,49 +7,53 @@ npm install
 npm run dev
 ```
 
-## Migration to MongoDB
-- [x] Set up MongoDB (db credentials in next.config.js)
-- [x] Connect to app (middleware/database.js)
+## Migration to Serverless Functions and Google MySql
+- [x] Set up DB (lib/db.js)
+- [x] Connect to DB (lib/db.js)
 ###### Files to remove:
  - [ ] server.js
  - [ ] dbcon.js
- - [ ] config.js
+ - [x] config.js
  - [ ] nodemon.json
+ - [x] middleware/database.js
+
 ###### Node modules to uninstall:
  - [ ] body-parser
  - [ ] cross-env
  - [ ] express
+ - [ ] mongodb
  - [ ] mysql
+ - [ ] next-connect
  - [ ] utils?
 
 ###### manage-books.js
- - [x] create books collection
+ - [x] create books table
  - [x] Create: User can add books via input forms
- - [x] Read: Render db books to page
+ - [x] Read: Render db books to table
  - [ ] Update
  - [ ] Delete
 
 ###### manage-customers.js
- - [x] create customers collection
+ - [x] create customers table
  - [ ] Create
  - [ ] Read
  - [ ] Update
  - [ ] Delete
 
 ###### manage-events.js
- - [ ] create events collection
- - [ ] Create
- - [ ] Read
+ - [x] create events table
+ - [x] Create: User can add events via input forms
+ - [x] Read: Render db events to table
  - [ ] Update
  - [ ] Delete
 
 ###### manage-checkouts.js
- - [ ] create checkouts collection
+ - [x] create checkouts table
  - [ ] Create
  - [ ] Read
 
 ###### manage-registrations.js
- - [ ] create registrations collection
+ - [x] create registrations table
  - [ ] Create
  - [ ] Read
 

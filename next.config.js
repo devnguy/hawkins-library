@@ -1,6 +1,8 @@
 module.exports = {
   env: {
-    MONGO_CONNECTION: 'mongodb+srv://hdn301:eleven11@hawkins-library-rsffm.mongodb.net/test?retryWrites=true&w=majority',
-    DB_NAME: 'library'
+    MYSQL_HOST: '35.247.96.250',
+    MYSQL_USER: 'root',
+    MYSQL_DATABASE: 'hawkins',
+    MYSQL_PASSWORD: 'eleven11',
   }
 }

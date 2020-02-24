@@ -8,11 +8,8 @@ import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
 
-/**
- * Post request to server. Insert customer into db.
- */
+
 const ManageCustomers = () => {
-  const url = `http://localhost:3000`
   const isEditable = true
   
   const [tableData, setTableData] = useState([])
@@ -21,7 +18,7 @@ const ManageCustomers = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/customers/get-customers`)
+        const response = await fetch('/api/customers/get-customers')
         const customerData = await response.json()
 
         setTableHeaders(Object.keys(customerData[0]))
