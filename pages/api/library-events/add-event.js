@@ -3,8 +3,9 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
     await db.query(escape`
-      INSERT INTO events (name, date, guest, description)
-      VALUES (${req.body.name}, ${req.body.date}, ${req.body.guest}, ${req.body.description}})`
+      INSERT INTO events (name, date, guest, description, imgUrl)
+      VALUES (${req.body.name}, ${req.body.date}, ${req.body.guest}, 
+        ${req.body.description}, ${req.body.imgUrl})`
     )
 
     const events = await db.query(escape`
