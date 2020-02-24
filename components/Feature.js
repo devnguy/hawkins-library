@@ -39,14 +39,14 @@ const StyledFeatureImage = styled.div`
 export const LeftFeature = (props) => (
   <StyledFeature>
     <StyledFeatureBody size="2" bgColor={props => props.theme.white} fontColor={props => props.theme.black}>
-      <h2>{props.content.title}</h2>
-      <p>{props.content.body}</p>
+      <h2>{props.content.name}</h2>
+      <p>{props.content.description}</p>
       <p></p>
 
-      <Button>{props.content.button} <i className="material-icons">arrow_forward_ios</i></Button>
+      <Button>{props.button} <i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
     <StyledFeatureImage size="1" paddingLeft="2.4rem" paddingRight="0">
-      <img src={props.content.imgSrc}></img>
+      <img src={props.content.imgUrl}></img>
     </StyledFeatureImage>
   </StyledFeature>
 )
@@ -54,12 +54,12 @@ export const LeftFeature = (props) => (
 export const RightFeature = (props) => (
   <StyledFeature>
     <StyledFeatureImage size="1" paddingLeft="0" paddingRight="0">
-      <img src={props.content.imgSrc}></img>
+      <img src={props.content.imgUrl}></img>
     </StyledFeatureImage>
     <StyledFeatureBody size="2" bgColor={props => props.theme.black} fontColor={props => props.theme.white}>
-      <h2>{props.content.title}</h2>
-      <p>{props.content.body}</p>
-      <Button>{props.content.button}<i className="material-icons">arrow_forward_ios</i></Button>
+      <h2>{props.content.name}</h2>
+      <p>{props.content.description}</p>
+      <Button>{props.button}<i className="material-icons">arrow_forward_ios</i></Button>
     </StyledFeatureBody>
   </StyledFeature>
 )

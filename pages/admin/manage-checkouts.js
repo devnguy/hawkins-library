@@ -11,7 +11,6 @@ import Form from '../../components/Form'
 
 
 const ManageCheckouts = () => {
-  const url = `http://localhost:3000`
   const isEditable = false
 
   const [tableData, setTableData] = useState([])
@@ -20,7 +19,7 @@ const ManageCheckouts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${url}/get-checkout-orders`)
+        const response = await fetch('/api/checkouts/get-checkouts')
         const checkoutsData = await response.json()
         setTableHeaders(Object.keys(checkoutsData[0]))
         setTableHeaders(

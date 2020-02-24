@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import Page from '../components/Page'
@@ -15,36 +17,54 @@ const StyledEventsContent = styled.div`
 
 const Events = () => {
   // Replace this garbage with data from db.
-  const features = [
-    {
-      title: 'That perfect tranquility of life, which is nowhere to be found but in retreat, a faithful friend, and a good library.',
-      body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat ab iusto facere, minus non pariatur. Animi iste sunt omnis aliquid ipsam, recusandae, vero, mollitia illo totam odit.',
-      button: 'Register ',
-      imgSrc: '/features/feature04.jpeg'
-    }, {
-      title: 'There is no such thing as a child who hates to read; there are only children who have not found the right book.',
-      body: 'At our monthly reading clubs, pairs of volunteers read aloud to small groups of children, while their parents receive training on how to encourage their children to read at home.',
-      button: 'Register ',
-      imgSrc: '/features/feature01.jpeg'
-    }, {
-      title: 'A reader lives a thousand lives before he dies. The man who never reads lives only one.',
-      body: 'Meet George R.R. Martin, the renowned author of Harry Pooter and the Storm of Swords. At this book signing and Q&A, ask him questions like "How dare you?" and "Will you marry me?"',
-      button: 'Register ',
-      imgSrc: '/features/feature02.jpeg'
-    }, {
-      title: 'We read to know we\'re not alone.',
-      body: 'After 1000 years of solitude, Huckleberry Finn is finally able to escape the evil grasps of Jay Gatsby. He meets the love of his life, Peta, a talking chocolate factory.',
-      button: 'Register ',
-      imgSrc: '/features/feature03.jpeg'
+  // const features = [
+  //   {
+  //     title: 'That perfect tranquility of life, which is nowhere to be found but in retreat, a faithful friend, and a good library.',
+  //     body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat ab iusto facere, minus non pariatur. Animi iste sunt omnis aliquid ipsam, recusandae, vero, mollitia illo totam odit.',
+  //     button: 'Register ',
+  //     imgSrc: '/features/feature04.jpeg'
+  //   }, {
+  //     title: 'There is no such thing as a child who hates to read; there are only children who have not found the right book.',
+  //     body: 'At our monthly reading clubs, pairs of volunteers read aloud to small groups of children, while their parents receive training on how to encourage their children to read at home.',
+  //     button: 'Register ',
+  //     imgSrc: '/features/feature01.jpeg'
+  //   }, {
+  //     title: 'A reader lives a thousand lives before he dies. The man who never reads lives only one.',
+  //     body: 'Meet George R.R. Martin, the renowned author of Harry Pooter and the Storm of Swords. At this book signing and Q&A, ask him questions like "How dare you?" and "Will you marry me?"',
+  //     button: 'Register ',
+  //     imgSrc: '/features/feature02.jpeg'
+  //   }, {
+  //     title: 'We read to know we\'re not alone.',
+  //     body: 'After 1000 years of solitude, Huckleberry Finn is finally able to escape the evil grasps of Jay Gatsby. He meets the love of his life, Peta, a talking chocolate factory.',
+  //     button: 'Register ',
+  //     imgSrc: '/features/feature03.jpeg'
+  //   }
+  // ]
+
+  // Events state
+  const [events, setEvents] = useState([])
+
+  // Get initial state from db.
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/library-events/get-events')
+        const eventData = await response.json()
+        setEvents(eventData)
+      } catch (error) {
+        console.log(error)
+      }
     }
-  ]
+    fetchData()
+  }, [])
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/events-banner.jpeg" />
       <Layout>
-        {features.map((feature, index) => (
+        {events.map((event, index) => (
           <Section key={index}>
-            {index % 2 ? <RightFeature content={feature} /> : <LeftFeature content={feature} />}
+            {index % 2 ? <RightFeature content={event} button="Register" /> : <LeftFeature content={event} button="Register" />}
           </Section>
         ))}
       </Layout>
