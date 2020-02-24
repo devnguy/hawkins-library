@@ -31,7 +31,7 @@ const ManageEvents = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/library-events/get-events')
+        const response = await fetch('/api/library-events/get-manage-events')
         const eventData = await response.json()
         setTableHeaders(Object.keys(eventData[0]))
 
