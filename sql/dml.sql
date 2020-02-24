@@ -26,7 +26,7 @@ SET firstName = :firstNameInput,
     lastName = :lastNameInput,
     email = :emailInput,
     phone = :phoneInput,
-WHERE customerID = :customerIdSelectedFromCustomersPage
+WHERE customerId = :customerIdSelectedFromCustomersPage
 
 --
 -- EVENTS
@@ -41,14 +41,14 @@ VALUES  (:nameInput, :dateInput, :guestInput)
 
 -- Delete event (admin).
 DELETE FROM events
-WHERE eventID = :eventIdSelectedFromEventsPage
+WHERE eventId = :eventIdSelectedFromEventsPage
 
 -- Update event (admin).
 UPDATE events
 SET name = :nameInput,
     date = :dateInput,
     guest = :guestInput,
-WHERE eventID = :eventIdSelectedFromEventsPage
+WHERE eventId = :eventIdSelectedFromEventsPage
 
 --
 -- EVENT_REGISTRATIONS
