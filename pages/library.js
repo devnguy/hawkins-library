@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
 
@@ -36,6 +36,8 @@ const StyledCheckoutInput = styled.div`
 const Library = (props) => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
+
+  const [checkedBooks, addBook] = useState([])
 
   return (
     <Page>

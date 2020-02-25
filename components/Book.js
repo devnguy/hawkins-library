@@ -1,3 +1,4 @@
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 
@@ -75,29 +76,43 @@ const StyledAddIcon = styled.div`
   justify-content: flex-end;
 `
 
-const Book = props => (
-  <HoverStyles>
-    <StyledBook className="hvr-underline-reveal">
-      <StyledBookImage>
-        <img src={props.bookImgUrl}></img>
-      </StyledBookImage>
-      <StyledBookInfo>
-        <div>
-          <h3>{props.bookTitle}</h3>
-          <p>{props.bookAuthor}</p>
-        </div>
-        <StyledAddIcon>
-          <Link href="/">
-            <a>
-              <i className="material-icons">{props.action}</i>
-            </a>
-            
-          </Link>
-          
-        </StyledAddIcon>
-      </StyledBookInfo>
-    </StyledBook>
-  </HoverStyles>
-)
+const Book = props => {
+  const [icon, setIcon] = useState(props.action)
+  const clickBook = () => {
+    if (icon == props.action) {
+      setIcon('check')
+    }
+    else {
+      setIcon(props.action)
+    }
+  }
+
+  return (
+    <HoverStyles>
+      <StyledBook 
+        className="hvr-underline-reveal"
+        onClick={clickBook}
+      >
+        <StyledBookImage>
+          <img src={props.bookImgUrl}></img>
+        </StyledBookImage>
+        <StyledBookInfo>
+          <div>
+            <h3>{props.bookTitle}</h3>
+            <p>{props.bookAuthor}</p>
+          </div>
+          <StyledAddIcon>
+            <Link href="/">
+              <a>
+                <i className="material-icons">{icon}</i>
+              </a>
+            </Link>
+
+          </StyledAddIcon>
+        </StyledBookInfo>
+      </StyledBook>
+    </HoverStyles>
+  )
+}
 
 export default Book
