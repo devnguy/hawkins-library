@@ -9,9 +9,15 @@ const StyledTdRow = styled.tr`
 `
 
 
-const TdRow = ({ row }) => {
+const TdRow = (props) => {
   const { isEditable } = useContext(TableContext)
-  const values = Object.values(row)
+  const values = Object.values(props.row)
+  
+  // Have access to bookId, delete where bookId = props.bookId
+  const handleDelete = () => {
+    console.log(props.bookId);
+  }
+  
   return (
     <StyledTdRow>
       {values.map(value => (
@@ -21,7 +27,7 @@ const TdRow = ({ row }) => {
         isEditable &&
         <td>
           <i className="material-icons">edit</i>
-          <i className="material-icons">delete</i>
+          <i onClick={handleDelete} className="material-icons">delete</i>
         </td>
       }
     </StyledTdRow>

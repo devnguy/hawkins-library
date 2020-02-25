@@ -12,7 +12,7 @@ const StyledTbody = styled.tbody`
 const Tbody = ({ data }) => (
   <StyledTbody>
     {data.map(row => (
-      <TdRow key={row.title} row={row} />
+      <TdRow key={row.bookId} bookId={row.bookId} row={row} />
     ))}
   </StyledTbody>
 )
