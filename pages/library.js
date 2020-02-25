@@ -53,7 +53,7 @@ const Library = (props) => {
 
           <StyledCheckoutInput>
             <Input placeholder="User ID" />
-            <Button>Check Out</Button>
+            <Button>Check Out <i className="material-icons">arrow_forward_ios</i></Button>
           </StyledCheckoutInput>
         </PageContent>
       </Layout>

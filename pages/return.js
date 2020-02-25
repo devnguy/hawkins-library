@@ -9,7 +9,7 @@ import PageContent from '../components/styles/PageContent'
 import { LargeButton } from '../components/styles/Button'
 import Book from '../components/Book'
 
-// Using flex. Change to grid?
+
 const StyledReturnContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -36,7 +36,7 @@ const Return = (props) => {
             ))}
 
           </StyledReturnContent>
-          <LargeButton>Return Selected Books ></LargeButton>
+          <LargeButton>Return Selected Books <i className="material-icons">arrow_forward_ios</i></LargeButton>
         </PageContent>
       </Layout>
     </Page>
