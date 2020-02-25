@@ -20,19 +20,12 @@ const StyledFooterLogo = styled.div`
   }
 `
 
-const FlexContainer = styled.div`
-  /* display: flex;
-  flex-direction: ${props => props.direction}; */
-`
-
 const FooterLogo = () => (
   <div>
     <StyledFooterLogo>
-        <Link href="/">
-          <a>HAWKINS</a>
-        </Link>
-
-
+      <Link href="/">
+        <a>HAWKINS</a>
+      </Link>
     </StyledFooterLogo>
   </div>
 )
@@ -41,16 +34,10 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-between;
   background-color: ${props => props.theme.white};
-  /* position: fixed;
-  top: 0px;
-  left: 0px; */
   z-index: 1;
-  margin: 0;
-  width: 100%;
-  /* height: 7rem; */
-  /* background: red; */
-  /* padding: 0 5%; */
-  /* box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.1); */
+  margin: auto;
+  max-width: ${props => props.theme.maxWidthNav};
+  padding: 0 2.4rem 0 1.2rem;
 
   ul {
     text-decoration: none;
@@ -64,8 +51,6 @@ const StyledFooter = styled.footer`
 
 const StyledFooterContainer = styled.div`
   padding: 2.4rem 0;
-  /* background: blue; */
-  
 `
 
 const StyledFooterTopRow = styled.div`
@@ -87,8 +72,6 @@ const StyledFooterBottomRow = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: 1.2rem;
-  /* padding-bottom: 3.6rem; */
-  /* background: green; */
 `
 
 const StyledFooterRowContainer = styled.div`
@@ -100,7 +83,6 @@ const StyledFooterRowContainer = styled.div`
   p {
     color: ${props => props.theme.grey};
   }
-  /* background: pink; */
 `
 
 const Footer = () => (
@@ -123,7 +105,6 @@ const Footer = () => (
       </StyledFooterRowContainer>
     </StyledFooter>
   </StyledFooterContainer>
-
 )
 
 export default Footer
