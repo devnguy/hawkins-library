@@ -1,44 +1,58 @@
+import { useState } from 'react'
+import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
+
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
 import { LargeButton } from '../components/styles/Button'
-
-
 import Book from '../components/Book'
 
 // Using flex. Change to grid?
 const StyledReturnContent = styled.div`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.4rem 2.4rem;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    grid-template-columns: 1fr;
+  }
 `
 
-const Return = () => (
-  <Page>
-    <PageBanner bannerUrl="/banners/return-banner.jpeg" />
-    <Layout>
-      <PageContent pageTitle="Return Books">
-        <StyledReturnContent>
-          {/* Content will be replaced with database content */}
+const Return = (props) => {
+  const [books, setBooks] = useState(props.bookData)
+  return (
+    <Page>
+      <PageBanner bannerUrl="/banners/return-banner.jpeg" />
+      <Layout>
+        <PageContent pageTitle="Return Books">
+          <StyledReturnContent>
 
-          <Book bookTitle="To Kill A Mockingbird" bookImgUrl="/books/to-kill-a-mockingbird.jpg" bookAuthor="Harper Lee" action="keyboard_return" />
-          <Book bookTitle="Pride and Prejudice" bookImgUrl="/books/pride-and-prejudice.jpg" bookAuthor="Jane Austen" action="keyboard_return" />
-          <Book bookTitle="The Hunger Games" bookImgUrl="/books/hunger-games.jpg" bookAuthor="Suzanne Collins" action="keyboard_return" />
-          <Book bookTitle="Harry Potter and The Sorcerer's Stone" bookImgUrl="/books/harry-potter-sorcerers-stone.jpg" bookAuthor="JK Rowling" action="keyboard_return" />
-          <Book bookTitle="The Fault In Our Stars" bookImgUrl="/books/fault-in-our-stars.jpg" bookAuthor="John Green" action="keyboard_return" />
-          <Book bookTitle="The Elephant Tree" bookImgUrl="/books/elephant-tree.jpg" bookAuthor="John Green" action="keyboard_return" />
-          <Book bookTitle="The Book Thief" bookImgUrl="/books/book-thief.jpg" bookAuthor="RD Ronald" action="keyboard_return" />
-          <Book bookTitle="1984" bookImgUrl="/books/1984.jpg" bookAuthor="George Orwell" action="keyboard_return" />
-          <Book bookTitle="The Giving Tree" bookImgUrl="/books/giving-tree.jpg" bookAuthor="Shel Silverstein" action="keyboard_return" />
-          <Book bookTitle="The Alchemist" bookImgUrl="/books/alchemist.jpg" bookAuthor="Paulo Coelho" action="keyboard_return" />
+            {books.map(book => (
+              <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="keyboard_return"/>
+            ))}
 
-        </StyledReturnContent>
-        <LargeButton>Return Selected Books ></LargeButton>
-      </PageContent>
-    </Layout>
-  </Page>
-)
+          </StyledReturnContent>
+          <LargeButton>Return Selected Books ></LargeButton>
+        </PageContent>
+      </Layout>
+    </Page>
+  )
+}
+
+Return.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/books/get-library-books`)
+  const data = await response.json()
+
+  return {
+    bookData: data.map(entry => entry)
+  }
+}
 
 export default Return

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
+import fetch from 'isomorphic-unfetch'
 
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
-import PageContent from '../components/styles/PageContent'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 
@@ -15,23 +15,9 @@ const StyledEventsContent = styled.div`
   flex-wrap: wrap; */
 `
 
-const Events = () => {
+const Events = (props) => {
   // Events state
-  const [events, setEvents] = useState([])
-
-  // Get initial state from db.
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/library-events/get-library-events')
-        const eventData = await response.json()
-        setEvents(eventData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
+  const [events, setEvents] = useState(props.eventData)
 
   return (
     <Page>
@@ -45,6 +31,18 @@ const Events = () => {
       </Layout>
     </Page>
   )
+}
+
+Events.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/library-events/get-library-events`)
+  const data = await response.json()
+
+  return {
+    eventData: data.map(entry => entry)
+  }
 }
 
 export default Events

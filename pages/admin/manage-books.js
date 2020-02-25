@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import fetch from 'isomorphic-unfetch'
 
 import Layout from '../../components/Layout'
 import Page from '../../components/Page'
@@ -13,12 +13,15 @@ import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
 
 
-const ManageBooks = () => {
+const ManageBooks = (props) => {
   const isEditable = true
 
-  // Table state
-  const [tableData, setTableData] = useState([])
-  const [tableHeaders, setTableHeaders] = useState([])
+  // Table state using initial props
+  const [tableData, setTableData] = useState(props.bookData)
+  // tableHeaders probably doesn't need to useState
+  const [tableHeaders, setTableHeaders] = useState(
+    isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
+  )
 
   // Form state
   const [title, setTitle] = useState('')
@@ -26,27 +29,6 @@ const ManageBooks = () => {
   const [publisher, setPublisher] = useState('')
   const [genre, setGenre] = useState('')
   const [imgUrl, setImgUrl] = useState('')
-
-  // Get initial state from db.
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/books/get-manage-books')
-        const bookData = await response.json()
-        // setTableHeaders(Object.keys(bookData[0]))
-        setTableHeaders(['id', 'oid', 'title', 'author', 'publisher', 'genre'])
-        // Append 'modify' header if table isEditable.
-        setTableHeaders(
-          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
-        )
-        setTableData(bookData)
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
 
   // Send data as post request to server to insert book.
   const addBook = async (e) => {
@@ -142,6 +124,19 @@ const ManageBooks = () => {
       </Layout>
     </Page>
   )
+}
+
+ManageBooks.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/books/get-manage-books`)
+  const data = await response.json()
+
+  return {
+    keys: Object.keys(data[0]),
+    bookData: data.map(entry => entry)
+  }
 }
 
 export default ManageBooks

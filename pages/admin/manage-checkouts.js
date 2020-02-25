@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import fetch from 'isomorphic-unfetch'
 
 import styled from 'styled-components'
 import Layout from '../../components/Layout'
@@ -7,31 +8,15 @@ import PageBanner from '../../components/PageBanner'
 import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
-import Form from '../../components/Form'
 
-
-const ManageCheckouts = () => {
+const ManageCheckouts = (props) => {
   const isEditable = false
 
-  const [tableData, setTableData] = useState([])
-  const [tableHeaders, setTableHeaders] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/checkouts/get-checkouts')
-        const checkoutsData = await response.json()
-        setTableHeaders(Object.keys(checkoutsData[0]))
-        setTableHeaders(
-          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
-        )
-        setTableData(checkoutsData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
+  const [tableData, setTableData] = useState(props.checkoutData)
+  // tableHeaders probably doesn't need to useState
+  const [tableHeaders, setTableHeaders] = useState(
+    isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
+  )
 
   return (
     <Page>
@@ -48,6 +33,19 @@ const ManageCheckouts = () => {
     </Page>
 
   )
+}
+
+ManageCheckouts.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/checkouts/get-checkouts`)
+  const data = await response.json()
+
+  return {
+    keys: Object.keys(data[0]),
+    checkoutData: data.map(entry => entry)
+  }
 }
 
 export default ManageCheckouts

@@ -1,51 +1,32 @@
 import { useState, useEffect } from 'react'
+import fetch from 'isomorphic-unfetch'
 
-import styled from 'styled-components'
 import Layout from '../../components/Layout'
 import Page from '../../components/Page'
 import PageBanner from '../../components/PageBanner'
 import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
-import Form from '../../components/Form'
 
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
 
-/**
- * Post request to server. Insert customer into db.
- */
-const ManageEvents = () => {
+
+const ManageEvents = (props) => {
   const isEditable = true
 
-  const [tableData, setTableData] = useState([])
-  const [tableHeaders, setTableHeaders] = useState([])
+  const [tableData, setTableData] = useState(props.eventData)
+  // tableHeaders probably doesn't need to useState
+  const [tableHeaders, setTableHeaders] = useState(
+    isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
+  )
 
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
   const [guest, setGuest] = useState('')
   const [description, setDescription] = useState('')
   const [imgUrl, setImgUrl] = useState('')
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/library-events/get-manage-events')
-        const eventData = await response.json()
-        setTableHeaders(Object.keys(eventData[0]))
-
-        setTableHeaders(
-          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
-        )
-
-        setTableData(eventData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
 
   const addEvent = async (e) => {
     e.preventDefault()
@@ -141,6 +122,19 @@ const ManageEvents = () => {
     </Page>
 
   )
+}
+
+ManageEvents.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/library-events/get-manage-events`)
+  const data = await response.json()
+
+  return {
+    keys: Object.keys(data[0]),
+    eventData: data.map(entry => entry)
+  }
 }
 
 export default ManageEvents

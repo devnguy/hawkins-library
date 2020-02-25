@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
+import fetch from 'isomorphic-unfetch'
 
-import styled from 'styled-components'
 import Layout from '../../components/Layout'
 import Page from '../../components/Page'
 import PageBanner from '../../components/PageBanner'
@@ -9,29 +9,14 @@ import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
 
 
-const ManageCustomers = () => {
+const ManageCustomers = (props) => {
   const isEditable = true
   
-  const [tableData, setTableData] = useState([])
-  const [tableHeaders, setTableHeaders] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/customers/get-customers')
-        const customerData = await response.json()
-
-        setTableHeaders(Object.keys(customerData[0]))
-        setTableHeaders(
-          isEditable ? headers => [...headers, 'modify'] : headers => [...headers]
-        )
-        setTableData(customerData)
-      } catch(error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
+  const [tableData, setTableData] = useState(props.customerData)
+  // tableHeaders probably doesn't need to useState
+  const [tableHeaders, setTableHeaders] = useState(
+    isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
+  )
 
   return (
     <Page>
@@ -49,5 +34,19 @@ const ManageCustomers = () => {
 
   )
 }
+
+ManageCustomers.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/customers/get-customers`)
+  const data = await response.json()
+
+  return {
+    keys: Object.keys(data[0]),
+    customerData: data.map(entry => entry)
+  }
+}
+
 
 export default ManageCustomers

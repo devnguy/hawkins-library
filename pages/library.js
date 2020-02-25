@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
-
+import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
+
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
 import Button from '../components/styles/Button'
 import Input from '../components/Input'
-
-
 import Book from '../components/Book'
 
 const StyledLibraryContent = styled.div`
@@ -34,24 +33,9 @@ const StyledCheckoutInput = styled.div`
  * Send request to database to with changes.
  * Modal pop up confirming checkout successful.
  */
-const Library = () => {
+const Library = (props) => {
   // Books state
-  const [books, setBooks] = useState([])
-
-  // Get initial state from db.
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/books/get-library-books')
-        const bookData = await response.json()
-        setBooks(bookData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchData()
-  }, [])
-
+  const [books, setBooks] = useState(props.bookData)
 
   return (
     <Page>
@@ -77,18 +61,16 @@ const Library = () => {
   )
 }
 
+Library.getInitialProps = async () => {
+  const url = process.env.NODE_ENV !== 'production' ? 
+    process.env.DEV_ENDPOINT : 
+    process.env.PROD_ENDPOINT
+  const response = await fetch(`${url}/api/books/get-library-books`)
+  const data = await response.json()
+
+  return {
+    bookData: data.map(entry => entry)
+  }
+}
+
 export default Library
-
-
-/* 
-<Book bookTitle="To Kill A Mockingbird" bookImgUrl="/books/to-kill-a-mockingbird.jpg" bookAuthor="Harper Lee" action="add" />
-<Book bookTitle="Pride and Prejudice" bookImgUrl="/books/pride-and-prejudice.jpg" bookAuthor="Jane Austen" action="add" />
-<Book bookTitle="The Hunger Games" bookImgUrl="/books/hunger-games.jpg" bookAuthor="Suzanne Collins" action="add" />
-<Book bookTitle="Harry Potter and The Sorcerer's Stone" bookImgUrl="/books/harry-potter-sorcerers-stone.jpg" bookAuthor="JK Rowling" action="add" />
-<Book bookTitle="The Fault In Our Stars" bookImgUrl="/books/fault-in-our-stars.jpg" bookAuthor="John Green" action="add" />
-<Book bookTitle="The Elephant Tree" bookImgUrl="/books/elephant-tree.jpg" bookAuthor="John Green" action="add" />
-<Book bookTitle="The Book Thief" bookImgUrl="/books/book-thief.jpg" bookAuthor="RD Ronald" action="add" />
-<Book bookTitle="1984" bookImgUrl="/books/1984.jpg" bookAuthor="George Orwell" action="add" />
-<Book bookTitle="The Giving Tree" bookImgUrl="/books/giving-tree.jpg" bookAuthor="Shel Silverstein" action="add" />
-<Book bookTitle="The Alchemist" bookImgUrl="/books/alchemist.jpg" bookAuthor="Paulo Coelho" action="add" /> 
-*/
