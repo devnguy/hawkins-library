@@ -14,7 +14,7 @@ const theme = {
   white: '#FFFFFF', 
   maxWidth: '1200px', 
   maxWidthBanner: '1320px', 
-  innerWidth: '1200px', 
+  maxWidthNav: '1440px', 
   fontFamily: `'Open Sans', sans-serif`,
   // fontFamily: `'Roboto', sans-serif`,
   screenSizeMed: '768px',

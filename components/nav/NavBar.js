@@ -3,33 +3,7 @@ import NavItem, { AdminNavItem } from './NavItem'
 import useScrollFromTop from '../hooks/useScrollFromTop'
 import NavLogo from './NavLogo'
 
-
-const StyledNavBar = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  background-color: ${props => props.theme.white};
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: 1;
-  margin: 0;
-  width: 100%;
-  /* height: 7rem; */
-  /* padding: 0 5%; */
-  box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.1);
-  transition: 250ms;
-
-  ul {
-    text-decoration: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-size: 1.3rem;
-  }
-`
-
-const StyledNavContainer = styled.div`
+const Styles = styled.div`
   /* Transparent nav, active when at the top of page. */
   .default-nav {
     background: transparent;
@@ -69,32 +43,61 @@ const StyledNavContainer = styled.div`
   }
 `
 
+const StyledNavBar = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: ${props => props.theme.maxWidthNav};
+  padding: 0 0.5rem;
+  ul {
+    text-decoration: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 1.3rem;
+  }
+`
+
+const StyledNavContainer = styled.div`
+  width: 100%;
+  background-color: ${props => props.theme.white};
+  position: fixed;
+  /* box-shadow: 0px 4px 6px -1px rgba(0,0,0,0.1); */
+  box-shadow: 0px 10px 12px -10px rgba(0,0,0,0.5);
+  transition: 250ms;
+  z-index: 1;
+`
+
+
 const NavBar = () => {
   const isTop = useScrollFromTop()
   
   return (
-    <StyledNavContainer>
-      <StyledNavBar className={isTop ? 'default-nav' : ''} id="nav">
-        <NavLogo />
-        <ul>
-          <div className="admin-dropdown">
-            <NavItem route="/" pageName="Admin" />
-            <div className="admin-dropdown-menu">
-              <AdminNavItem route="/admin/manage-books" pageName="Manage Books" />
-              <AdminNavItem route="/admin/manage-events" pageName="Manage Events" />
-              <AdminNavItem route="/admin/manage-checkouts" pageName="Manage Checkouts" />
-              <AdminNavItem route="/admin/manage-customers" pageName="Manage Customers" />
-              <AdminNavItem route="/admin/manage-registrations" pageName="Manage Registrations" />
-            </div>
+    <Styles>
+      <StyledNavContainer className={isTop ? 'default-nav' : ''} id="nav">
+        <StyledNavBar>
+          <NavLogo />
+          <ul>
+            <div className="admin-dropdown">
+              <NavItem route="/" pageName="Admin" />
+              <div className="admin-dropdown-menu">
+                <AdminNavItem route="/admin/manage-books" pageName="Manage Books" />
+                <AdminNavItem route="/admin/manage-events" pageName="Manage Events" />
+                <AdminNavItem route="/admin/manage-checkouts" pageName="Manage Checkouts" />
+                <AdminNavItem route="/admin/manage-customers" pageName="Manage Customers" />
+                <AdminNavItem route="/admin/manage-registrations" pageName="Manage Registrations" />
+              </div>
 
-          </div>
-          <NavItem route="/library" pageName="Library" />
-          <NavItem route="/events" pageName="Events" />
-          <NavItem route="/return" pageName="Return Books" />
-          <NavItem route="/signup" pageName="Sign Up" />
-        </ul>
-      </StyledNavBar>
-    </StyledNavContainer>
+            </div>
+            <NavItem route="/library" pageName="Library" />
+            <NavItem route="/events" pageName="Events" />
+            <NavItem route="/return" pageName="Return Books" />
+            <NavItem route="/signup" pageName="Sign Up" />
+          </ul>
+        </StyledNavBar>
+      </StyledNavContainer>
+    </Styles>
   )
 }
 

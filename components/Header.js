@@ -13,9 +13,6 @@ Router.onRouteChangeError = () => {
   NProgress.done()
 }
 
-const linkStyle = {
-  marginRight: 15
-}
 
 const Header = () => (
   <>
