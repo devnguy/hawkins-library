@@ -5,14 +5,12 @@ import styled from 'styled-components'
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
+import { LeftEvent, RightEvent } from '../components/Event'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 
 
 const StyledEventsContent = styled.div`
-  /* display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; */
 `
 
 const Events = (props) => {
@@ -25,7 +23,11 @@ const Events = (props) => {
       <Layout>
         {events.map((event, index) => (
           <Section key={index}>
-            {index % 2 ? <RightFeature content={event} button="Register" /> : <LeftFeature content={event} button="Register" />}
+            {
+              index % 2 ? 
+                <RightFeature content={event} button="Register" eventId={event.eventId} /> : 
+                <LeftFeature content={event} button="Register" eventId={event.eventId} />
+            }
           </Section>
         ))}
       </Layout>

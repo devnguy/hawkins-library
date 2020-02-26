@@ -3,7 +3,7 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
   const events = await db.query(escape`
-    SELECT *
+    SELECT *, DATE_FORMAT(date, '%m/%d/%Y') AS date
     FROM events
   `)
   
