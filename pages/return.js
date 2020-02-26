@@ -8,6 +8,8 @@ import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
 import { LargeButton } from '../components/styles/Button'
 import Book from '../components/Book'
+import BookContext from '../context/book-context'
+
 
 
 const StyledReturnContent = styled.div`
@@ -24,6 +26,16 @@ const StyledReturnContent = styled.div`
 
 const Return = (props) => {
   const [books, setBooks] = useState(props.bookData)
+  const [checkedBooks, setCheckedBooks] = useState([])
+
+  const addCheckedBook = (newBook) => {
+    setCheckedBooks([...checkedBooks, newBook])
+  }
+
+  const removeCheckedBook = (book) => {
+    setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/return-banner.jpeg" />
@@ -31,12 +43,16 @@ const Return = (props) => {
         <PageContent pageTitle="Return Books">
           <StyledReturnContent>
 
-            {books.map(book => (
-              <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="keyboard_return"/>
-            ))}
+            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
+              {books.map(book => (
+                <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="keyboard_return"/>
+              ))}
+            </BookContext.Provider>
 
           </StyledReturnContent>
           <LargeButton>Return Selected Books <i className="material-icons">arrow_forward_ios</i></LargeButton>
+
+
         </PageContent>
       </Layout>
     </Page>
