@@ -64,7 +64,8 @@ ORDER BY eid, fullName
 
 -- Add eventRegistration (Executed when customer registers for an event).
 INSERT INTO eventRegistrations (cid, eid) 
-VALUES  (:customerIdInput, :eventIdSelectedFromEventsPage)
+VALUES  ((SELECT customerId FROM customers WHERE email = :emailInput), 
+          :eventIdSelectedFromEventsPage)
 
 --
 -- BOOKS
@@ -111,5 +112,5 @@ SELECT cid, checkoutDate, dueDate FROM checkoutOrders;
 
 -- Query to add a new checkout order.
 INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`, `dueDate`) VALUES 
-    ((SELECT `customerId` FROM `customers` WHERE firstName = :fName and lastName = :lName), 
+    ((SELECT `customerId` FROM `customers` WHERE email = :emailInput), 
         :checkoutDateAsCurrentDate, :dueDateOneMonth);

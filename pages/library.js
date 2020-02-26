@@ -55,12 +55,12 @@ const Library = (props) => {
         <PageContent pageTitle="Library">
           
           <StyledLibraryContent>
-            <BookContext.Provider value={{checkedBooks, addCheckedBook, removeCheckedBook}}>
-            {
-              books.map(book => (
-                <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add"/>
-              ))
-            }
+            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
+              {
+                books.map(book => (
+                  <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add" />
+                ))
+              }
             </BookContext.Provider>
           </StyledLibraryContent>
 
