@@ -15,8 +15,11 @@ module.exports = async (req, res) => {
       res.json({ message: 'Event not found.', statusNo: 2 })
     } else if (addRegistration.error.sqlMessage.includes('\'cid\' cannot be null')) {
       res.json({ message: 'Email not found.', statusNo: 3 })
+    } else {
+      res.json(addRegistration.error)
     }
+  } else {
+    res.status(200).json({ message: 'Registered Successfully!', statusNo: 0 })
   }
-  res.status(200).json({ message: 'Registered Successfully!', statusNo: 0 })
 }
 

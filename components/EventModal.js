@@ -6,8 +6,9 @@ import Input from '../components/Input'
 import Button from '../components/styles/Button'
 import Divider from '../components/styles/Divider'
 import ModalContext from '../context/modal-context'
-import { FormFields } from '../components/Form'
 import { modalStyleEvent, StyledModalContent } from '../components/styles/modalStyle'
+import Spinner from '../components/Spinner'
+
 
 const StyledEventModalContainer = styled.div`
   display: flex;
@@ -53,6 +54,7 @@ const EventModal = (props) => {
   const { isOpen, closeModal } = useContext(ModalContext)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
 
   // Reset state on modal close.
   useEffect(() => {
@@ -63,6 +65,7 @@ const EventModal = (props) => {
 
   const addRegistration = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     const data = {
       email,
       eventId: props.eventId
@@ -78,6 +81,7 @@ const EventModal = (props) => {
       // Convert returned promise to json and set state.
       const res = await response.json()
       setStatus(res)
+      setIsLoading(false)
       // Reset input state and fields, close modal.
       setEmail('')
       
@@ -102,16 +106,20 @@ const EventModal = (props) => {
               <span>Event Date:</span> {props.date}<br />
               <span>Guest:</span> {props.guest}<br />
             </p>
-            { 
-              status &&
-              <h4 className={status.statusNo ? 'status--error' : 'status--ok'}>
-                {status.message}
-              </h4>
+            {
+              isLoading ? 
+                <Spinner /> :
+                status && 
+                  <span className={status.statusNo ? 
+                    'status--error' : 
+                    'status--ok'}>
+                      {status.message}
+                  </span>
             }
             <Divider />
             <form onSubmit={addRegistration}>
               <Input 
-                type="text" 
+                type="email" 
                 placeholder="User Email *" 
                 value={email}
                 name="title" 

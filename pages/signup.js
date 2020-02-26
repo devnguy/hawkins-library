@@ -1,9 +1,12 @@
+import styled from 'styled-components'
 import { useState } from 'react'
 
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
+import Spinner from '../components/Spinner'
+
 
 import { FormFields, FormField } from '../components/Form'
 import Input from '../components/Input'
@@ -11,16 +14,29 @@ import { LargeButton } from '../components/styles/Button'
 import Divider from '../components/styles/Divider'
 
 
-const Signup = () => {
-  const url = `http://localhost:3000`
+const StyledStatus = styled.span`
+  font-weight: 700;
+  margin-left: 2.4rem;
+  .status--ok {
+    color: green;
+  }
+  .status--error {
+    color: ${props => props.theme.red};
+  }
+`
 
+const Signup = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [status, setStatus] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
+
 
   const addCustomer = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     const data = {
       firstName,
       lastName,
@@ -29,30 +45,28 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch(`${url}/add-customer`, {
+      const response = await fetch('/api/customers/add-customer', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-
-      const customerData = await response.json()
-      console.log(customerData)
-
-      setFirstName('')
-      setLastName('')
-      setEmail('')
-      setPhone('')
-
+      const res = await response.json()
+      setStatus(res)
+      
+      if (!res.statusNo) {
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        setPhone('')
+      }
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
   }
 
-  /**
-   * Post request to server. Insert customer into db.
-   */
   return (
     <Page>
       <PageBanner bannerUrl="/banners/signup-banner.jpeg" />
@@ -97,7 +111,7 @@ const Signup = () => {
               <FormField>
                 <label>Email *</label><br />
                 <Input
-                  type="text"
+                  type="email"
                   placeholder="michaelscott@dundermifflin.com"
                   value={email}
                   name="email"
@@ -119,9 +133,22 @@ const Signup = () => {
                 />
               </FormField>
             </FormFields>
-            <LargeButton>Become a Member <i className="material-icons">arrow_forward_ios</i></LargeButton>
+            <LargeButton>
+              Become a Member <i className="material-icons">arrow_forward_ios</i>
+            </LargeButton>
+            <StyledStatus>
+              {
+                isLoading ? 
+                  <Spinner /> :
+                  status && 
+                    <span className={status.statusNo ? 
+                      'status--error' : 
+                      'status--ok'}>
+                        {status.message}
+                    </span>
+              }
+            </StyledStatus>
           </form>
-
         </PageContent>
       </Layout>
     </Page>
