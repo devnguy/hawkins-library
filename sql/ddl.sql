@@ -90,25 +90,25 @@ VALUES  ('Children''s Reading Club', 20200315, 'Ananya Jaiswal', 'At our monthly
 -- will show library customers who have signed up for each event.
 INSERT INTO `eventRegistrations` (`cid`, `eid`) 
 VALUES 
-        ((SELECT customerId FROM customers WHERE firstName = 'Sara' AND lastName = 'Smith'), 
+        ((SELECT customerId FROM customers WHERE email = "smithsara@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 11)),
-        ((SELECT customerId FROM customers WHERE firstName = 'Sara' AND lastName = 'Smith'), 
+        ((SELECT customerId FROM customers WHERE email = "smithsara@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 12)),
-        ((SELECT customerId FROM customers WHERE firstName = 'Miguel' AND lastName = 'Cabrera'), 
+        ((SELECT customerId FROM customers WHERE firstName = "cm@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 11)),
-        ((SELECT customerId FROM customers WHERE firstName = 'Miguel' AND lastName = 'Cabrera'), 
+        ((SELECT customerId FROM customers WHERE firstName = "cm@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 13)),
-        ((SELECT customerId FROM customers WHERE firstName = 'Bo' AND lastName = 'Chang'), 
+        ((SELECT customerId FROM customers WHERE email = "bochang@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 12)),
-        ((SELECT customerId FROM customers WHERE firstName = 'Bo' AND lastName = 'Chang'), 
+        ((SELECT customerId FROM customers WHERE email = "bochang@hello.com"), 
         (SELECT eventId FROM events WHERE eventId = 11));
 ​
 -- Inserting checkout orders that customers have made into checkoutOrders table.
 INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`, `dueDate`) 
 VALUES 
-        ((SELECT `customerId` FROM `customers` WHERE firstName = "Sara" and lastName = "Smith"), 
+        ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com"), 
         "2020-02-15", "2020-03-15"),
-        ((SELECT `customerId` FROM `customers` WHERE firstName = "Bo" and lastName = "Chang"), 
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), 
         "2020-02-17", "2020-03-17");
 ​
 -- Inserting books into the Books table.
