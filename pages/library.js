@@ -9,6 +9,7 @@ import PageContent from '../components/styles/PageContent'
 import Button from '../components/styles/Button'
 import Input from '../components/Input'
 import Book from '../components/Book'
+import BookContext from '../context/book-context'
 
 const StyledLibraryContent = styled.div`
   display: grid;
@@ -36,8 +37,16 @@ const StyledCheckoutInput = styled.div`
 const Library = (props) => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
+  // var checkedBooks = []
+  const [checkedBooks, setCheckedBooks] = useState([])
 
-  const [checkedBooks, addBook] = useState([])
+  const addCheckedBook = (newBook) => {
+    setCheckedBooks([...checkedBooks, newBook])
+  }
+
+  const removeCheckedBook = (book) => {
+    setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
+  }
 
   return (
     <Page>
@@ -46,11 +55,13 @@ const Library = (props) => {
         <PageContent pageTitle="Library">
           
           <StyledLibraryContent>
-
-            {books.map(book => (
-              <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add"/>
-            ))}
-
+            <BookContext.Provider value={{checkedBooks, addCheckedBook, removeCheckedBook}}>
+            {
+              books.map(book => (
+                <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add"/>
+              ))
+            }
+            </BookContext.Provider>
           </StyledLibraryContent>
 
           <StyledCheckoutInput>

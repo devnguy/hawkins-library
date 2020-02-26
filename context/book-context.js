@@ -1,5 +1,5 @@
 import React from 'react'
 
-const IconContext = React.createContext()
+const BookContext = React.createContext()
 
-export default IconContext
+export default BookContext

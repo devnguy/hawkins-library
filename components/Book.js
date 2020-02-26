@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
+import BookContext from '../context/book-context'
 
 const HoverStyles = styled.div`
 .hvr-underline-reveal {
@@ -77,13 +78,24 @@ const StyledAddIcon = styled.div`
 `
 
 const Book = props => {
+  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(BookContext)
   const [icon, setIcon] = useState(props.action)
+
   const clickBook = () => {
     if (icon == props.action) {
       setIcon('check')
+      addCheckedBook(props.bookTitle)
+      console.log(checkedBooks)
+      // checkedBook = props.bookTitle
+      // alert(checkedBook)
+      // props.checkedBooks = [...props.checkedBooks, props.bookTitle]
+      // alert(props.checkedBooks)
     }
     else {
       setIcon(props.action)
+      removeCheckedBook(props.bookTitle)
+      // checkedBook = ''
+      // alert(checkedBook)
     }
   }
 
