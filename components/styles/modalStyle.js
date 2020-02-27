@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 export const modalStyle = {
-  modal: {
-  },
+  modal: {},
   content: {
     padding: '3.6rem',
     top: '50%',
@@ -14,17 +13,16 @@ export const modalStyle = {
     borderRadius: '0',
     border: 'none',
     boxShadow: '0px 20px 20px -20px rgba(0,0,0,1)',
-    width: '70vw',
+    width: '70vw'
   },
   overlay: {
     backgroundColor: 'rgba(0,0,0,0.4)',
     zIndex: '2'
-  } 
+  }
 }
 
 export const modalStyleEvent = {
-  modal: {
-  },
+  modal: {},
   content: {
     padding: '0',
     top: '50%',
@@ -36,12 +34,12 @@ export const modalStyleEvent = {
     borderRadius: '0',
     border: 'none',
     boxShadow: '0px 20px 20px -20px rgba(0,0,0,1)',
-    width: '70vw',
+    width: '70vw'
   },
   overlay: {
     backgroundColor: 'rgba(0,0,0,0.4)',
     zIndex: '2'
-  } 
+  }
 }
 
 export const StyledModalContent = styled.div`

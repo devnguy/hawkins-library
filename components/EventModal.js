@@ -6,9 +6,11 @@ import Input from '../components/Input'
 import Button from '../components/styles/Button'
 import Divider from '../components/styles/Divider'
 import ModalContext from '../context/modal-context'
-import { modalStyleEvent, StyledModalContent } from '../components/styles/modalStyle'
+import {
+  modalStyleEvent,
+  StyledModalContent
+} from '../components/styles/modalStyle'
 import Spinner from '../components/Spinner'
-
 
 const StyledEventModalContainer = styled.div`
   display: flex;
@@ -38,7 +40,7 @@ const StyledEventForm = styled.div`
 `
 const StyledEventModalImage = styled.div`
   flex: 1;
-  background-color: ${props => props.theme.red};;
+  background-color: ${props => props.theme.red};
   overflow: hidden;
   padding-left: 1.6rem;
   img {
@@ -46,11 +48,11 @@ const StyledEventModalImage = styled.div`
     width: 100%;
     object-fit: cover;
     /* position: center; */
-    box-shadow: -3px 10px 15px -3px rgba(0,0,0,0.5); /*tailwindcss large shadow*/
+    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
   }
 `
 
-const EventModal = (props) => {
+const EventModal = props => {
   const { isOpen, closeModal } = useContext(ModalContext)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState({})
@@ -63,7 +65,7 @@ const EventModal = (props) => {
     }
   }, [isOpen])
 
-  const addRegistration = async (e) => {
+  const addRegistration = async e => {
     e.preventDefault()
     setIsLoading(true)
     const data = {
@@ -84,7 +86,6 @@ const EventModal = (props) => {
       setIsLoading(false)
       // Reset input state and fields, close modal.
       setEmail('')
-      
     } catch (error) {
       console.log(error)
     }
@@ -103,28 +104,33 @@ const EventModal = (props) => {
             <h2>Register</h2>
             <h4>{props.title}</h4>
             <p>
-              <span>Event Date:</span> {props.date}<br />
-              <span>Guest:</span> {props.guest}<br />
+              <span>Event Date:</span> {props.date}
+              <br />
+              <span>Guest:</span> {props.guest}
+              <br />
             </p>
-            {
-              isLoading ? 
-                <Spinner /> :
-                status && 
-                  <span className={status.statusNo ? 
-                    'status--error' : 
-                    'status--ok'}>
-                      {status.message}
-                  </span>
-            }
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              status && (
+                <span
+                  className={status.statusNo ? 'status--error' : 'status--ok'}
+                >
+                  {status.message}
+                </span>
+              )
+            )}
             <Divider />
             <form onSubmit={addRegistration}>
-              <Input 
-                type="email" 
-                placeholder="User Email *" 
+              <Input
+                type="email"
+                placeholder="User Email *"
                 value={email}
-                name="title" 
+                name="title"
                 id="title"
-                onChange={(e) => {setEmail(e.target.value)}}
+                onChange={e => {
+                  setEmail(e.target.value)
+                }}
                 required
               />
               <Button>Register</Button>
@@ -134,7 +140,6 @@ const EventModal = (props) => {
           <StyledEventModalImage>
             <img src={props.imgUrl} />
           </StyledEventModalImage>
-
         </StyledEventModalContainer>
       </StyledModalContent>
     </Modal>

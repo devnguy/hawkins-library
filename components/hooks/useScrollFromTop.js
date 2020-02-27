@@ -17,9 +17,9 @@ const useScrollFromTop = () => {
     }
     window.addEventListener('scroll', handleScroll)
     // Remove event listener (subscription) on unmount.
-    return (() => {
+    return () => {
       window.removeEventListener('scroll', handleScroll)
-    })
+    }
   }, [])
 
   return isTop

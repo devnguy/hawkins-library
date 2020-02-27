@@ -13,7 +13,6 @@ Router.onRouteChangeError = () => {
   NProgress.done()
 }
 
-
 const Header = () => (
   <>
     <NavBar />

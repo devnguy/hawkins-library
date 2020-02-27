@@ -5,7 +5,7 @@ const StyledNavLogo = styled.div`
   margin: 0 1em;
   text-transform: uppercase;
   line-height: 8rem;
-  padding: 0 .94rem;
+  padding: 0 0.94rem;
   height: 7rem;
   a {
     font-family: 'Raleway', sans-serif;

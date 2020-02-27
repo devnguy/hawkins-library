@@ -6,10 +6,10 @@ const StyledNavItem = styled.li`
   margin: 0 1em;
   text-transform: uppercase;
   line-height: 8rem;
-  padding: 0 .94rem;
+  padding: 0 0.94rem;
 `
 
-const NavItem = (props) => (
+const NavItem = props => (
   <StyledNavItem lineHeight={props.lineHeight}>
     <Link href={props.route}>
       <a>{props.pageName}</a>
@@ -22,10 +22,10 @@ export const StyledAdminNavItem = styled.li`
   margin: 0 1em;
   text-transform: uppercase;
   line-height: 4rem;
-  padding: 0 .94rem;
+  padding: 0 0.94rem;
 `
 
-export const AdminNavItem = (props) => (
+export const AdminNavItem = props => (
   <StyledAdminNavItem lineHeight={props.lineHeight}>
     <Link href={props.route}>
       <a>{props.pageName}</a>

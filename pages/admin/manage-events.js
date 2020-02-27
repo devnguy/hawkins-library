@@ -14,7 +14,10 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
+import {
+  modalStyle,
+  StyledModalContent
+} from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -41,7 +44,7 @@ const StyledAddButton = styled.div`
 /**
  * COMPONENT
  */
-const ManageEvents = (props) => {
+const ManageEvents = props => {
   const isEditable = true
   const [tableData, setTableData] = useState(props.eventData)
   // tableHeaders probably doesn't need to useState
@@ -63,7 +66,7 @@ const ManageEvents = (props) => {
     setIsOpen(false)
   }
 
-  const addEvent = async (e) => {
+  const addEvent = async e => {
     e.preventDefault()
     const data = {
       name,
@@ -88,7 +91,6 @@ const ManageEvents = (props) => {
       setDescription('')
       setImgUrl('')
       closeModal()
-
     } catch (error) {
       console.log(error)
     }
@@ -105,7 +107,7 @@ const ManageEvents = (props) => {
               <Button onClick={openModal}>Add Event +</Button>
             </StyledAddButton>
           </FlexContainer>
-          
+
           <Modal
             isOpen={isOpen}
             onRequestClose={closeModal}
@@ -125,7 +127,9 @@ const ManageEvents = (props) => {
                     value={name}
                     name="name"
                     id="name"
-                    onChange={(e) => {setName(e.target.value)}}
+                    onChange={e => {
+                      setName(e.target.value)
+                    }}
                     required
                   />
                   <Input
@@ -133,7 +137,9 @@ const ManageEvents = (props) => {
                     value={date}
                     name="date"
                     id="date"
-                    onChange={(e) => {setDate(e.target.value)}}
+                    onChange={e => {
+                      setDate(e.target.value)
+                    }}
                     required
                   />
                   <Input
@@ -142,7 +148,9 @@ const ManageEvents = (props) => {
                     value={guest}
                     name="guest"
                     id="guest"
-                    onChange={(e) => {setGuest(e.target.value)}}
+                    onChange={e => {
+                      setGuest(e.target.value)
+                    }}
                   />
                   <Input
                     type="text"
@@ -150,7 +158,9 @@ const ManageEvents = (props) => {
                     value={description}
                     name="description"
                     id="description"
-                    onChange={(e) => {setDescription(e.target.value)}}
+                    onChange={e => {
+                      setDescription(e.target.value)
+                    }}
                   />
                   <Input
                     type="text"
@@ -158,20 +168,22 @@ const ManageEvents = (props) => {
                     value={imgUrl}
                     name="imgUrl"
                     id="imgUrl"
-                    onChange={(e) => {setImgUrl(e.target.value)}}
+                    onChange={e => {
+                      setImgUrl(e.target.value)
+                    }}
                   />
                 </FormFields>
                 <Button>Add Event</Button>
                 <a onClick={closeModal}>CANCEL</a>
-              
               </form>
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{ tableData, tableHeaders, setTableData, isEditable }}
+          >
             <Table />
           </TableContext.Provider>
-
         </PageContent>
       </Layout>
     </Page>
@@ -179,9 +191,10 @@ const ManageEvents = (props) => {
 }
 
 ManageEvents.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/library-events/get-manage-events`)
   const data = await response.json()
 

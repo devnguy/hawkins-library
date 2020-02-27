@@ -34,17 +34,17 @@ const StyledCheckoutInput = styled.div`
  * Send request to database to with changes.
  * Modal pop up confirming checkout successful.
  */
-const Library = (props) => {
+const Library = props => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
   // var checkedBooks = []
   const [checkedBooks, setCheckedBooks] = useState([])
 
-  const addCheckedBook = (newBook) => {
+  const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
 
-  const removeCheckedBook = (book) => {
+  const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
   }
 
@@ -53,20 +53,27 @@ const Library = (props) => {
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Library">
-          
           <StyledLibraryContent>
-            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
-              {
-                books.map(book => (
-                  <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="add" />
-                ))
-              }
+            <BookContext.Provider
+              value={{ checkedBooks, addCheckedBook, removeCheckedBook }}
+            >
+              {books.map(book => (
+                <Book
+                  key={book.bookId}
+                  bookTitle={book.title}
+                  bookImgUrl={book.imgUrl}
+                  bookAuthor={book.author}
+                  action="add"
+                />
+              ))}
             </BookContext.Provider>
           </StyledLibraryContent>
 
           <StyledCheckoutInput>
             <Input placeholder="User ID" />
-            <Button>Check Out <i className="material-icons">arrow_forward_ios</i></Button>
+            <Button>
+              Check Out <i className="material-icons">arrow_forward_ios</i>
+            </Button>
           </StyledCheckoutInput>
         </PageContent>
       </Layout>
@@ -75,9 +82,10 @@ const Library = (props) => {
 }
 
 Library.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-library-books`)
   const data = await response.json()
 

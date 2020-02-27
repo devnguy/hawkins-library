@@ -7,6 +7,6 @@ module.exports = async (req, res) => {
     DATE_FORMAT(date, '%Y %m %d') AS date
     FROM events
   `)
-  
+
   res.status(200).json(events)
 }

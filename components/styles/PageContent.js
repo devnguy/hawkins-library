@@ -9,7 +9,7 @@ const StyledPageContent = styled.div`
   h1 {
     margin-top: 0;
   }
-  box-shadow: 0px 20px 20px -20px rgba(0,0,0,0.4); /*xl shadow*/
+  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4); /*xl shadow*/
 `
 
 const PageContent = props => (

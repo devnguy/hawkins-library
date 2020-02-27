@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import Container, { BannerContainer } from '../components/styles/Container'
 
-
 const StyledBanner = styled.div`
   background-color: ${props => props.theme.black};
   height: 280px;

@@ -9,7 +9,7 @@ import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
 
-const ManageCheckouts = (props) => {
+const ManageCheckouts = props => {
   const isEditable = false
 
   const [tableData, setTableData] = useState(props.checkoutData)
@@ -23,22 +23,22 @@ const ManageCheckouts = (props) => {
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Checkouts">
-          
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{ tableData, tableHeaders, setTableData, isEditable }}
+          >
             <Table />
           </TableContext.Provider>
-
         </PageContent>
       </Layout>
     </Page>
-
   )
 }
 
 ManageCheckouts.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/checkouts/get-checkouts`)
   const data = await response.json()
 

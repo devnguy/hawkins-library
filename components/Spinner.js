@@ -12,22 +12,30 @@ const StyledSpinner = styled.div`
     border-radius: 50%;
 
     -webkit-animation: nprogress-spinner 400ms linear infinite;
-            animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 400ms linear infinite;
   }
   @-webkit-keyframes nprogress-spinner {
-    0%   { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
   }
   @keyframes nprogress-spinner {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
   display: inline-block;
 `
 
 const Spinner = () => (
   <StyledSpinner>
-    <div className='spinner-icon'></div>
+    <div className="spinner-icon"></div>
   </StyledSpinner>
 )
 

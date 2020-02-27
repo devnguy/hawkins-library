@@ -7,7 +7,7 @@ const StyledFooterLogo = styled.div`
   margin: 0 1em;
   text-transform: uppercase;
   /* line-height: 8rem; */
-  padding: 0 .94rem;
+  padding: 0 0.94rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -77,7 +77,8 @@ const StyledFooterBottomRow = styled.div`
 const StyledFooterRowContainer = styled.div`
   display: flex;
   flex-direction: column;
-  h4, p {
+  h4,
+  p {
     margin: 0 1.6rem;
   }
   p {
@@ -93,14 +94,47 @@ const Footer = () => (
         <StyledFooterTopRow>
           <ul>
             <li>FOLLOW US</li>
-            <li><a href="https://github.com/hdn301" target="_blank" rel="noopener noreferrer"><i className="fab fa-github-alt"></i></a></li>
-            <li><a href="https://github.com/RebekahKoon" target="_blank" rel="noopener noreferrer"><i className="fab fa-github"></i></a></li>
-            <li><a href="https://github.com/hdn301/hawkins-library" target="_blank" rel="noopener noreferrer"><i className="fas fa-file-code"></i></a></li>
+            <li>
+              <a
+                href="https://github.com/hdn301"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-github-alt"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/RebekahKoon"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fab fa-github"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/hdn301/hawkins-library"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i className="fas fa-file-code"></i>
+              </a>
+            </li>
           </ul>
         </StyledFooterTopRow>
         <StyledFooterBottomRow>
           <h4>Hawkins Public Library</h4>
-          <p>Images from <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a></p>
+          <p>
+            Images from{' '}
+            <a
+              href="https://unsplash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Unsplash
+            </a>
+          </p>
         </StyledFooterBottomRow>
       </StyledFooterRowContainer>
     </StyledFooter>

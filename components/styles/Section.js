@@ -5,11 +5,6 @@ const StyledSection = styled.section`
   margin: 5.4rem 0;
 `
 
-
-const Section = props => (
-  <StyledSection>
-    {props.children}
-  </StyledSection>
-)
+const Section = props => <StyledSection>{props.children}</StyledSection>
 
 export default Section

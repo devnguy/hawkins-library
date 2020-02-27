@@ -1,11 +1,8 @@
 import Container from './styles/Container'
 
-
 const Layout = props => (
   <>
-    <Container>
-      {props.children}
-    </Container>
+    <Container>{props.children}</Container>
   </>
 )
 

@@ -9,11 +9,9 @@ import { LeftEvent, RightEvent } from '../components/Event'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 
+const StyledEventsContent = styled.div``
 
-const StyledEventsContent = styled.div`
-`
-
-const Events = (props) => {
+const Events = props => {
   // Events state
   const [events, setEvents] = useState(props.eventData)
 
@@ -23,11 +21,19 @@ const Events = (props) => {
       <Layout>
         {events.map((event, index) => (
           <Section key={index}>
-            {
-              index % 2 ? 
-                <RightFeature content={event} button="Register" eventId={event.eventId} /> : 
-                <LeftFeature content={event} button="Register" eventId={event.eventId} />
-            }
+            {index % 2 ? (
+              <RightFeature
+                content={event}
+                button="Register"
+                eventId={event.eventId}
+              />
+            ) : (
+              <LeftFeature
+                content={event}
+                button="Register"
+                eventId={event.eventId}
+              />
+            )}
           </Section>
         ))}
       </Layout>
@@ -36,9 +42,10 @@ const Events = (props) => {
 }
 
 Events.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/library-events/get-library-events`)
   const data = await response.json()
 

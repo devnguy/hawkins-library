@@ -6,6 +6,6 @@ module.exports = async (req, res) => {
     SELECT *
     FROM customers
   `)
-  
+
   res.status(200).json(books)
 }

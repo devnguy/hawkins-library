@@ -1,18 +1,14 @@
 import { useState, useEffect, useReducer } from 'react'
 
-
 const NoteApp = () => {
   const notesReducer = (state, action) => {
     switch (action.type) {
       case 'POPULATE_NOTES':
         return action.notes
       case 'ADD_NOTE':
-        return [
-          ...state,
-          { title: action.title, body: action.body }
-        ]
+        return [...state, { title: action.title, body: action.body }]
       case 'REMOVE_NOTE':
-        return state.filter((note) => note.title !== action.title )
+        return state.filter(note => note.title !== action.title)
       default:
         return state
     }
@@ -22,7 +18,7 @@ const NoteApp = () => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
-  const addNote = (e) => {
+  const addNote = e => {
     e.preventDefault()
     dispatch({
       type: 'ADD_NOTE',
@@ -33,7 +29,7 @@ const NoteApp = () => {
     setBody('')
   }
 
-  const removeNote = (title) => {
+  const removeNote = title => {
     dispatch({
       type: 'REMOVE_NOTE',
       title
@@ -57,42 +53,42 @@ const NoteApp = () => {
       <h1>Notes</h1>
 
       {/* Render state to page */}
-      {notes.map((note) => (
+      {notes.map(note => (
         <Note key={note.title} note={note} removeNote={removeNote} />
       ))}
 
       <p>Add note</p>
       <form onSubmit={addNote}>
-
         <label>Title</label>
-        <input 
-          value={title} 
-          onChange={(e) => {setTitle(e.target.value)}} 
+        <input
+          value={title}
+          onChange={e => {
+            setTitle(e.target.value)
+          }}
         />
 
         <label>Body</label>
-        <input 
-          value={body} 
-          onChange={(e) => {setBody(e.target.value)}} 
+        <input
+          value={body}
+          onChange={e => {
+            setBody(e.target.value)
+          }}
         />
 
         <button>add note</button>
-
       </form>
-
     </div>
   )
 }
 
 const Note = ({ note, removeNote }) => {
   useEffect(() => {
-    console.log('setting up effect running on notsdfe');
-    
+    console.log('setting up effect running on notsdfe')
+
     return () => {
-      console.log('cleaning up use EFFECT');
+      console.log('cleaning up use EFFECT')
     }
   }, [])
-
 
   return (
     <div>
@@ -113,7 +109,7 @@ const Note = ({ note, removeNote }) => {
 //   useEffect(() => {
 //     console.log('use effect ran');
 //     document.title = count
-    
+
 //   }, [count])
 
 //   return (

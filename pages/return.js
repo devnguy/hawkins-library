@@ -10,8 +10,6 @@ import { LargeButton } from '../components/styles/Button'
 import Book from '../components/Book'
 import BookContext from '../context/book-context'
 
-
-
 const StyledReturnContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -24,15 +22,15 @@ const StyledReturnContent = styled.div`
   }
 `
 
-const Return = (props) => {
+const Return = props => {
   const [books, setBooks] = useState(props.bookData)
   const [checkedBooks, setCheckedBooks] = useState([])
 
-  const addCheckedBook = (newBook) => {
+  const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
 
-  const removeCheckedBook = (book) => {
+  const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
   }
 
@@ -42,17 +40,28 @@ const Return = (props) => {
       <Layout>
         <PageContent pageTitle="Return Books">
           <StyledReturnContent>
-
-            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
+            <BookContext.Provider
+              value={{ checkedBooks, addCheckedBook, removeCheckedBook }}
+            >
               {books.map(book => (
-                <Book key={book.bookId} bookTitle={book.title} bookImgUrl={book.imgUrl} bookAuthor={book.author} action="keyboard_return"/>
+                <Book
+                  key={book.bookId}
+                  bookTitle={book.title}
+                  bookImgUrl={book.imgUrl}
+                  bookAuthor={book.author}
+                  action="keyboard_return"
+                />
               ))}
             </BookContext.Provider>
-
           </StyledReturnContent>
-          <LargeButton>Return Selected Books <i className="material-icons">arrow_forward_ios</i></LargeButton>
+          <LargeButton>
+            Return Selected Books{' '}
+            <i className="material-icons">arrow_forward_ios</i>
+          </LargeButton>
 
-
+          {checkedBooks.map(checkedBook => (
+            <div>{checkedBook}</div>
+          ))}
         </PageContent>
       </Layout>
     </Page>
@@ -60,9 +69,10 @@ const Return = (props) => {
 }
 
 Return.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-library-books`)
   const data = await response.json()
 

@@ -14,7 +14,10 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
+import {
+  modalStyle,
+  StyledModalContent
+} from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -41,7 +44,7 @@ const StyledAddButton = styled.div`
 /**
  * COMPONENT
  */
-const ManageBooks = (props) => {
+const ManageBooks = props => {
   const isEditable = true
   const [tableData, setTableData] = useState(props.bookData)
   // tableHeaders probably doesn't need to useState
@@ -65,7 +68,7 @@ const ManageBooks = (props) => {
   }
 
   // Send data as post request to server to insert book.
-  const addBook = async (e) => {
+  const addBook = async e => {
     e.preventDefault()
     const data = {
       title,
@@ -92,7 +95,6 @@ const ManageBooks = (props) => {
       setGenre('')
       setImgUrl('')
       closeModal()
-      
     } catch (error) {
       console.log(error)
     }
@@ -122,40 +124,48 @@ const ManageBooks = (props) => {
               <Divider />
               <form onSubmit={addBook}>
                 <FormFields>
-                  <Input 
-                    type="text" 
-                    placeholder="Title *" 
+                  <Input
+                    type="text"
+                    placeholder="Title *"
                     value={title}
-                    name="title" 
+                    name="title"
                     id="title"
-                    onChange={(e) => {setTitle(e.target.value)}}
+                    onChange={e => {
+                      setTitle(e.target.value)
+                    }}
                     required
-                    />
-                  <Input 
-                    type="text" 
-                    placeholder="Author *" 
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Author *"
                     value={author}
-                    name="author" 
+                    name="author"
                     id="author"
-                    onChange={(e) => {setAuthor(e.target.value)}}
+                    onChange={e => {
+                      setAuthor(e.target.value)
+                    }}
                     required
-                    />
-                  <Input 
-                    type="text" 
-                    placeholder="Publisher *" 
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Publisher *"
                     value={publisher}
-                    name="publisher" 
+                    name="publisher"
                     id="publisher"
-                    onChange={(e) => {setPublisher(e.target.value)}}
+                    onChange={e => {
+                      setPublisher(e.target.value)
+                    }}
                     required
-                    />
-                  <Input 
-                    type="text" 
-                    placeholder="Genre *" 
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Genre *"
                     value={genre}
-                    name="genre" 
+                    name="genre"
                     id="genre"
-                    onChange={(e) => {setGenre(e.target.value)}}
+                    onChange={e => {
+                      setGenre(e.target.value)
+                    }}
                     required
                   />
                   <Input
@@ -164,7 +174,9 @@ const ManageBooks = (props) => {
                     value={imgUrl}
                     name="imgUrl"
                     id="imgUrl"
-                    onChange={(e) => {setImgUrl(e.target.value)}}
+                    onChange={e => {
+                      setImgUrl(e.target.value)
+                    }}
                   />
                 </FormFields>
                 <Button>Add Book</Button>
@@ -173,10 +185,11 @@ const ManageBooks = (props) => {
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{ tableData, tableHeaders, setTableData, isEditable }}
+          >
             <Table />
           </TableContext.Provider>
-
         </PageContent>
       </Layout>
     </Page>
@@ -184,9 +197,10 @@ const ManageBooks = (props) => {
 }
 
 ManageBooks.getInitialProps = async () => {
-  const url = process.env.NODE_ENV !== 'production' ? 
-    process.env.DEV_ENDPOINT : 
-    process.env.PROD_ENDPOINT
+  const url =
+    process.env.NODE_ENV !== 'production'
+      ? process.env.DEV_ENDPOINT
+      : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-manage-books`)
   const data = await response.json()
 

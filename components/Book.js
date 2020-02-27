@@ -4,44 +4,45 @@ import styled from 'styled-components'
 import BookContext from '../context/book-context'
 
 const HoverStyles = styled.div`
-.hvr-underline-reveal {
-  /* display: inline-block; */
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
-  position: relative;
-  overflow: hidden;
-}
-.hvr-underline-reveal:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: ${props => props.theme.red};
-  height: 0.8rem;
-  -webkit-transform: translateY(0.8rem);
-  transform: translateY(0.8rem);
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  -webkit-transition-duration: 250ms;
-  transition-duration: 250ms;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.hvr-underline-reveal:hover:before, .hvr-underline-reveal:focus:before, .hvr-underline-reveal:active:before {
-  -webkit-transform: translateY(0);
-  transform: translateY(0);
-}
+  .hvr-underline-reveal {
+    /* display: inline-block; */
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
+    position: relative;
+    overflow: hidden;
+  }
+  .hvr-underline-reveal:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${props => props.theme.red};
+    height: 0.8rem;
+    -webkit-transform: translateY(0.8rem);
+    transform: translateY(0.8rem);
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 250ms;
+    transition-duration: 250ms;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  .hvr-underline-reveal:hover:before,
+  .hvr-underline-reveal:focus:before,
+  .hvr-underline-reveal:active:before {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 `
-
 
 const StyledBook = styled.div`
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 10px 12px -10px rgba(0,0,0,0.5); /*lg shadow*/
+  box-shadow: 0px 10px 12px -10px rgba(0, 0, 0, 0.5); /*lg shadow*/
   width: 320px;
   margin-bottom: 3.6rem;
 `
@@ -61,7 +62,8 @@ const StyledBookInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  h3, p {
+  h3,
+  p {
     margin: 0;
   }
   h3 {
@@ -78,7 +80,9 @@ const StyledAddIcon = styled.div`
 `
 
 const Book = props => {
-  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(BookContext)
+  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(
+    BookContext
+  )
   const [icon, setIcon] = useState(props.action)
 
   const clickBook = () => {
@@ -90,8 +94,7 @@ const Book = props => {
       // alert(checkedBook)
       // props.checkedBooks = [...props.checkedBooks, props.bookTitle]
       // alert(props.checkedBooks)
-    }
-    else {
+    } else {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
       // checkedBook = ''
@@ -101,10 +104,7 @@ const Book = props => {
 
   return (
     <HoverStyles>
-      <StyledBook 
-        className="hvr-underline-reveal"
-        onClick={clickBook}
-      >
+      <StyledBook className="hvr-underline-reveal" onClick={clickBook}>
         <StyledBookImage>
           <img src={props.bookImgUrl}></img>
         </StyledBookImage>
@@ -119,7 +119,6 @@ const Book = props => {
                 <i className="material-icons">{icon}</i>
               </a>
             </Link>
-
           </StyledAddIcon>
         </StyledBookInfo>
       </StyledBook>

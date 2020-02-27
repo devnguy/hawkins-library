@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import Input from '../components/Input'
 import Divider from '../components/styles/Divider'
 
-const StyledForm = styled.form`
-`
+const StyledForm = styled.form``
 
 export const FormFields = styled.div`
   display: grid;
@@ -18,67 +17,70 @@ export const FormFields = styled.div`
 `
 
 // May not need this because we're using display: grid now
-const FormFieldRow = styled.div`
-`
+const FormFieldRow = styled.div``
 
-
-export const FormField = styled.div`
-`
+export const FormField = styled.div``
 
 const Form = () => (
   <StyledForm>
-    <p>We would love for you to join our library! As a patron, you get exclusive 
-      crazy once in a life time never before seen vip limited time offer curated 
-      privileged access to our vast 8 book collection. Did I look up synonnyms 
-      for 'exclusive' after running out? Yes but it wasn't helpful. Could I have 
-      used Lorem Ipsum instead? Yes. Is writing all of this a waste of time? 
-      Nobody answer that.</p>
+    <p>
+      We would love for you to join our library! As a patron, you get exclusive
+      crazy once in a life time never before seen vip limited time offer curated
+      privileged access to our vast 8 book collection. Did I look up synonnyms
+      for 'exclusive' after running out? Yes but it wasn't helpful. Could I have
+      used Lorem Ipsum instead? Yes. Is writing all of this a waste of time?
+      Nobody answer that.
+    </p>
     <Divider />
 
     <FormFields>
       {/* <FormFieldRow> */}
 
-        <FormField>
-          <label>First Name *</label><br />
-          <Input 
-            type="text" 
-            placeholder="Michael" 
-            name="first-name" 
-            id="first-name"
-          />
-        </FormField>
+      <FormField>
+        <label>First Name *</label>
+        <br />
+        <Input
+          type="text"
+          placeholder="Michael"
+          name="first-name"
+          id="first-name"
+        />
+      </FormField>
 
-        <FormField>
-          <label>Last Name *</label><br />
-          <Input 
-            type="text" 
-            placeholder="Scott" 
-            name="last-name" 
-            id="last-name"
-          />
-        </FormField>
+      <FormField>
+        <label>Last Name *</label>
+        <br />
+        <Input
+          type="text"
+          placeholder="Scott"
+          name="last-name"
+          id="last-name"
+        />
+      </FormField>
 
       {/* </FormFieldRow>
       <FormFieldRow> */}
 
-        <FormField>
-          <label>Email *</label><br />
-          <Input 
-            type="email" 
-            placeholder="michaelscott@dundermifflin.com" 
-            name="email" 
-            id="email"
-          />
-        </FormField>
-        <FormField>
-          <label>Phone *</label><br />
-          <Input 
-            type="phone" 
-            placeholder="123-456-7890" 
-            name="phone" 
-            id="phone"
-          />
-        </FormField>
+      <FormField>
+        <label>Email *</label>
+        <br />
+        <Input
+          type="email"
+          placeholder="michaelscott@dundermifflin.com"
+          name="email"
+          id="email"
+        />
+      </FormField>
+      <FormField>
+        <label>Phone *</label>
+        <br />
+        <Input
+          type="phone"
+          placeholder="123-456-7890"
+          name="phone"
+          id="phone"
+        />
+      </FormField>
 
       {/* </FormFieldRow> */}
     </FormFields>
