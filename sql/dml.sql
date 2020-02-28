@@ -35,6 +35,11 @@ WHERE customerId = :customerIdSelectedFromCustomersPage
 SELECT *
 FROM events
 
+-- Select all event information except imgUrl
+SELECT eventId, name, date, guest, description,
+DATE_FORMAT(date, '%Y %m %d') AS date
+FROM events
+
 -- Add event (admin).
 INSERT INTO events (name, date, guest) 
 VALUES  (:nameInput, :dateInput, :guestInput)
@@ -79,6 +84,10 @@ WHERE oid = NULL;
 -- Get all book information to display on library page.
 SELECT * 
 FROM books;
+
+-- Get all book information except imgUrl
+SELECT bookId, oid, title, author, publisher, genre
+FROM books
 
 -- Add a new book to the library.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`) 
