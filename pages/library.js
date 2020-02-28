@@ -54,9 +54,7 @@ const Library = props => {
       <Layout>
         <PageContent pageTitle="Library">
           <StyledLibraryContent>
-            <BookContext.Provider
-              value={{ checkedBooks, addCheckedBook, removeCheckedBook }}
-            >
+            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
               {books.map(book => (
                 <Book
                   key={book.bookId}
@@ -83,9 +81,7 @@ const Library = props => {
 
 Library.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-library-books`)
   const data = await response.json()
 

@@ -6,14 +6,14 @@ import Input from '../components/Input'
 import Button from '../components/styles/Button'
 import Divider from '../components/styles/Divider'
 import ModalContext from '../context/modal-context'
-import {
-  modalStyleEvent,
-  StyledModalContent
-} from '../components/styles/modalStyle'
+import { modalStyleEvent, StyledModalContent } from '../components/styles/modalStyle'
 import Spinner from '../components/Spinner'
 
 const StyledEventModalContainer = styled.div`
   display: flex;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    flex-direction: column-reverse;
+  }
 `
 
 const StyledEventForm = styled.div`
@@ -37,12 +37,18 @@ const StyledEventForm = styled.div`
   .status--error {
     color: ${props => props.theme.red};
   }
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+  }
 `
+
 const StyledEventModalImage = styled.div`
   flex: 1;
   background-color: ${props => props.theme.red};
   overflow: hidden;
   padding-left: 1.6rem;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    max-height: 100px;
+  }
   img {
     height: 100%;
     width: 100%;
@@ -113,9 +119,7 @@ const EventModal = props => {
               <Spinner />
             ) : (
               status && (
-                <span
-                  className={status.statusNo ? 'status--error' : 'status--ok'}
-                >
+                <span className={status.statusNo ? 'status--error' : 'status--ok'}>
                   {status.message}
                 </span>
               )
