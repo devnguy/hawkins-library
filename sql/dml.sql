@@ -17,8 +17,8 @@ INSERT INTO customers (firstName, lastName, email, phone)
 VALUES  (:firstNameInput, :lastNameInput, :emailInput, phoneInput)
 
 -- Delete customer (admin)
-DELETE FROM customers
-WHERE customerId = :customerIdSelectedFromCustomersPage
+DELETE FROM `customers` 
+WHERE customerId = :customerIdInput
 
 -- Update customers (admin)
 UPDATE customers
@@ -45,8 +45,8 @@ INSERT INTO events (name, date, guest)
 VALUES  (:nameInput, :dateInput, :guestInput)
 
 -- Delete event (admin).
-DELETE FROM events
-WHERE eventId = :eventIdSelectedFromEventsPage
+DELETE FROM `events` 
+WHERE eventId = :eventIdInput
 
 -- Update event (admin).
 UPDATE events
@@ -95,7 +95,7 @@ VALUES (:titleInput, :authorInput, :publisherInput, :genreInput)
 
 -- Delete a book from the library.
 DELETE FROM `books`
-WHERE bookId = :findIdFromTitleInput
+WHERE bookId = :bookIdInput
 
 -- Update a book's order number in the library when it gets checked 
 --      out/returned
