@@ -14,9 +14,7 @@ CREATE TABLE `customers` (
     `email` varchar(255) UNIQUE NOT NULL,
     `phone` varchar(10) NOT NULL,
     `dateJoined` datetime NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    `lateFee` int(11) NOT NULL
-        DEFAULT 0
+        DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the events table, which will list upcoming library events.
@@ -38,9 +36,11 @@ CREATE TABLE `eventRegistrations` (
     PRIMARY KEY (`registrationId`),
     `registrationId` int(11) NOT NULL AUTO_INCREMENT,
     `cid` int(11) NOT NULL,
-        FOREIGN KEY(`cid`) REFERENCES `customers` (`customerId`),
+        FOREIGN KEY(`cid`) REFERENCES `customers` (`customerId`)
+        ON DELETE CASCADE,
     `eid` int(11) NOT NULL,
-        FOREIGN KEY(`eid`) REFERENCES `events` (`eventId`),
+        FOREIGN KEY(`eid`) REFERENCES `events` (`eventId`)
+        ON DELETE CASCADE,
         CONSTRAINT `uniqueRegistration` 
         UNIQUE (`cid`, `eid`)
 );
@@ -52,7 +52,8 @@ CREATE TABLE `checkoutOrders` (
     PRIMARY KEY (`orderId`),
     `orderId` INT(11) NOT NULL AUTO_INCREMENT,
     `cid` INT(11),
-        FOREIGN KEY (`cid`) REFERENCES `customers` (`customerId`),
+        FOREIGN KEY (`cid`) REFERENCES `customers` (`customerId`)
+        ON DELETE CASCADE,
     `checkoutDate` DATE NOT NULL,
     `dueDate` DATE NOT NULL
 );
@@ -64,7 +65,8 @@ CREATE TABLE `books` (
     PRIMARY KEY (`bookId`),
     `bookId` INT(11) NOT NULL AUTO_INCREMENT,
     `oid` INT(11),
-        FOREIGN KEY (`oid`) REFERENCES `checkoutOrders` (`orderId`),
+        FOREIGN KEY (`oid`) REFERENCES `checkoutOrders` (`orderId`)
+        ON DELETE SET NULL,
     `title` VARCHAR(255) NOT NULL,
     `author` VARCHAR(255) NOT NULL,
     `publisher` VARCHAR(255) NOT NULL,
