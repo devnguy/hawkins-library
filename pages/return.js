@@ -12,10 +12,10 @@ import BookContext from '../context/book-context'
 
 const StyledReturnContent = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2.4rem 2.4rem;
   @media (max-width: 1100px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     grid-template-columns: 1fr;
@@ -40,9 +40,7 @@ const Return = props => {
       <Layout>
         <PageContent pageTitle="Return Books">
           <StyledReturnContent>
-            <BookContext.Provider
-              value={{ checkedBooks, addCheckedBook, removeCheckedBook }}
-            >
+            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
               {books.map(book => (
                 <Book
                   key={book.bookId}
@@ -55,8 +53,7 @@ const Return = props => {
             </BookContext.Provider>
           </StyledReturnContent>
           <LargeButton>
-            Return Selected Books{' '}
-            <i className="material-icons">arrow_forward_ios</i>
+            Return Selected Books <i className="material-icons">arrow_forward_ios</i>
           </LargeButton>
 
           {checkedBooks.map(checkedBook => (
@@ -70,9 +67,7 @@ const Return = props => {
 
 Return.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-library-books`)
   const data = await response.json()
 

@@ -9,6 +9,9 @@ const StyledFeature = styled.div`
   /* max-width: ${props => props.theme.maxWidth}; */
   box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); /*tailwindcss large shadow*/
   margin: auto;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    flex-direction: column;
+  }
 `
 
 const StyledFeatureBody = styled.div`
@@ -18,6 +21,9 @@ const StyledFeatureBody = styled.div`
   color: ${props => props.fontColor};
   padding: 6.4rem;
   width: 100%;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    padding: 3.2rem;
+  }
 `
 
 const StyledFeatureImage = styled.div`
@@ -25,9 +31,12 @@ const StyledFeatureImage = styled.div`
   flex: ${props => props.size};
   overflow: hidden;
   padding-left: ${props => props.paddingLeft};
-  padding-right: ${props => props.paddingRight};
-  height: 360px;
+  /* height: 360px; */
   width: 100%;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    padding-left: 0;
+    max-height: 236px;
+  }
   img {
     height: 100%;
     width: 100%;

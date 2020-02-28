@@ -43,8 +43,11 @@ const StyledBook = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 0px 10px 12px -10px rgba(0, 0, 0, 0.5); /*lg shadow*/
-  width: 320px;
+  width: 250px;
   margin-bottom: 3.6rem;
+  :hover {
+    cursor: pointer;
+  }
 `
 
 const StyledBookImage = styled.div`
@@ -67,7 +70,7 @@ const StyledBookInfo = styled.div`
     margin: 0;
   }
   h3 {
-    font-size: 2.4rem;
+    font-size: 2rem;
     line-height: 3.2rem;
     font-weight: 400;
   }
@@ -80,9 +83,7 @@ const StyledAddIcon = styled.div`
 `
 
 const Book = props => {
-  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(
-    BookContext
-  )
+  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(BookContext)
   const [icon, setIcon] = useState(props.action)
 
   const clickBook = () => {
