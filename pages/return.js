@@ -11,7 +11,7 @@ import Book from '../components/Book'
 import BookContext from '../context/book-context'
 
 const StyledReturnContent = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2.4rem 2.4rem;
   @media (max-width: 1100px) {
@@ -19,7 +19,10 @@ const StyledReturnContent = styled.div`
   }
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     grid-template-columns: 1fr;
-  }
+  } */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `
 
 const Return = props => {
