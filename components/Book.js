@@ -83,7 +83,15 @@ const StyledAddIcon = styled.div`
 `
 
 const Book = props => {
-  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(BookContext)
+  const {
+    checkedBooks,
+    addCheckedBook,
+    removeCheckedBook,
+    checkedBooksLen,
+    increaseLength,
+    decreaseLength
+  } = useContext(BookContext)
+
   const [icon, setIcon] = useState(props.action)
 
   const clickBook = () => {
@@ -91,6 +99,7 @@ const Book = props => {
       setIcon('check')
       addCheckedBook(props.bookTitle)
       console.log(checkedBooks)
+      // increaseLength()
       // checkedBook = props.bookTitle
       // alert(checkedBook)
       // props.checkedBooks = [...props.checkedBooks, props.bookTitle]
@@ -98,6 +107,7 @@ const Book = props => {
     } else {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
+      // decreaseLength()
       // checkedBook = ''
       // alert(checkedBook)
     }

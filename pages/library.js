@@ -10,6 +10,8 @@ import Button from '../components/styles/Button'
 import Input from '../components/Input'
 import Book from '../components/Book'
 import BookContext from '../context/book-context'
+import LibraryModal from '../components/LibraryModal'
+import ModalContext from '../context/modal-context'
 
 const StyledLibraryContent = styled.div`
   display: grid;
@@ -37,16 +39,32 @@ const StyledCheckoutInput = styled.div`
 const Library = props => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
+
   // var checkedBooks = []
   const [checkedBooks, setCheckedBooks] = useState([])
-
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
-
   const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
   }
+
+  // Modal state and functions
+  const [isOpen, setIsOpen] = useState(false)
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
+  // const [checkedBooksLen, setCheckedBooksLen] = useState(0)
+  // const increaseLength = () => {
+  //   setCheckedBooksLen(checkedBooksLen + 1)
+  // }
+  // const decreaseLength = () => {
+  //   setCheckedBooksLen(checkedBooksLen - 1)
+  // }
 
   return (
     <Page>
@@ -54,7 +72,16 @@ const Library = props => {
       <Layout>
         <PageContent pageTitle="Library">
           <StyledLibraryContent>
-            <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
+            <BookContext.Provider
+              value={{
+                checkedBooks,
+                addCheckedBook,
+                removeCheckedBook
+                // checkedBooksLen,
+                // increaseLength,
+                // decreaseLength
+              }}
+            >
               {books.map(book => (
                 <Book
                   key={book.bookId}
@@ -68,10 +95,13 @@ const Library = props => {
           </StyledLibraryContent>
 
           <StyledCheckoutInput>
-            <Input placeholder="User ID" />
-            <Button>
+            <Button onClick={checkedBooks && openModal}>
               Check Out <i className="material-icons">arrow_forward_ios</i>
             </Button>
+
+            <ModalContext.Provider value={{ isOpen, closeModal }}>
+              <LibraryModal checkedBooks={checkedBooks} />
+            </ModalContext.Provider>
           </StyledCheckoutInput>
         </PageContent>
       </Layout>

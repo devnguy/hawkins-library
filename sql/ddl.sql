@@ -54,9 +54,16 @@ CREATE TABLE `checkoutOrders` (
     `cid` INT(11),
         FOREIGN KEY (`cid`) REFERENCES `customers` (`customerId`)
         ON DELETE CASCADE,
-    `checkoutDate` DATE NOT NULL,
+    `checkoutDate` DATE NOT NULL
+        DEFAULT CURRENT_TIMESTAMP,
     `dueDate` DATE NOT NULL
+        DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TRIGGER test_trigger BEFORE INSERT ON `checkoutOrders` 
+FOR EACH ROW SET
+    NEW.checkoutDate = IFNULL(NEW.checkoutDate, NOW()),
+    NEW.dueDate = TIMESTAMPADD(DAY, 30, NEW.checkoutDate);
 
 -- Creating the books table, which will list information of
 -- books held at the library.
@@ -105,12 +112,11 @@ VALUES
         (SELECT eventId FROM events WHERE eventId = 1));
         
 -- Inserting checkout orders that customers have made into checkoutOrders table.
-INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`, `dueDate`) 
+INSERT INTO `checkoutOrders` (`cid`) 
 VALUES 
-        ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com"), 
-        "2020-02-15", "2020-03-15"),
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), 
-        "2020-02-17", "2020-03-17");
+        ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com")),
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com")),
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
         
 -- Inserting books into the Books table.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
