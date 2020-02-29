@@ -116,19 +116,18 @@ INSERT INTO `checkoutOrders` (`cid`)
 VALUES 
         ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com")),
         ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com")),
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
+
+INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`) 
+VALUES 
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), "2020-02-20");
         
 -- Inserting books into the Books table.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
 VALUES
-        ("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Bloomsbury Publishing", "Fantasy", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1), 'https://res.cloudinary.com/hawkins/image/upload/v1567801421/hawkins/books/efazzzqzpzdotkvzpcvy.jpg'),
-        ("The Fault in Our Stars", "John Green", "Dutton Books", "Young Adult", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 1), 'https://res.cloudinary.com/hawkins/image/upload/v1582573189/hawkins/books/81yAo5ElQlL_jiz8xh.jpg'),
-        ("Pride and Prejudice", "Jane Austen", "T. Egerton", "Classic", 
-            NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1582573290/hawkins/books/9781847493699_zsq8kc.jpg'),
-        ("The Hunger Games", "Suzanne Collins", "Scholastic", "Dystopian", 
-            (SELECT `orderId` FROM `checkoutOrders` WHERE cid = 2), 'https://res.cloudinary.com/hawkins/image/upload/v1582573519/hawkins/books/41V56ye3PrL._SX328_BO1_204_203_200__ckqt45.jpg'),
+        ("Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Bloomsbury Publishing", "Fantasy", 1, 'https://res.cloudinary.com/hawkins/image/upload/v1567801421/hawkins/books/efazzzqzpzdotkvzpcvy.jpg'),
+        ("The Fault in Our Stars", "John Green", "Dutton Books", "Young Adult", 2, 'https://res.cloudinary.com/hawkins/image/upload/v1582573189/hawkins/books/81yAo5ElQlL_jiz8xh.jpg'),
+        ("Pride and Prejudice", "Jane Austen", "T. Egerton", "Classic", 2, 'https://res.cloudinary.com/hawkins/image/upload/v1582573290/hawkins/books/9781847493699_zsq8kc.jpg'),
+        ("The Hunger Games", "Suzanne Collins", "Scholastic", "Dystopian", 3, 'https://res.cloudinary.com/hawkins/image/upload/v1582573519/hawkins/books/41V56ye3PrL._SX328_BO1_204_203_200__ckqt45.jpg'),
         ("The Hobbit", "JRR Tolkein", "George Allen & Unwin", "Fantasy", 
             NULL, 'https://res.cloudinary.com/hawkins/image/upload/v1567801705/hawkins/books/ofugewrumzxbilgw76m5.jpg'),
         ("The Very Hungry Caterpillar", "Eric Carle", "World Publishing Company", "Children's Literature", 
