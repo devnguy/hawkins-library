@@ -85,7 +85,7 @@ CREATE TABLE `books` (
 INSERT INTO `customers` (`firstName`, `lastName`, `email`, `phone`) 
 VALUES ('Sara', 'Smith', 'smithsara@hello.com', '19700102'), 
        ('Miguel', 'Cabrera', 'cm@hello.com', '19880202'), 
-(      'Bo', 'Chang', 'bochang@hello.com', '19850302');
+       ('Bo', 'Chang', 'bochang@hello.com', '19850302');
         
 -- Inserting event data into events table.
 INSERT INTO `events` (`name`, `date`, `guest`, `description`, `imgUrl`) 
@@ -115,11 +115,10 @@ VALUES
 INSERT INTO `checkoutOrders` (`cid`) 
 VALUES 
         ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com")),
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com")),
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
 
-INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`) 
-VALUES 
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), "2020-02-20");
+
         
 -- Inserting books into the Books table.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
