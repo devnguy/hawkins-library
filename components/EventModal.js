@@ -130,8 +130,8 @@ const EventModal = props => {
                 type="email"
                 placeholder="User Email *"
                 value={email}
-                name="title"
-                id="title"
+                name="email"
+                id="email"
                 onChange={e => {
                   setEmail(e.target.value)
                 }}
