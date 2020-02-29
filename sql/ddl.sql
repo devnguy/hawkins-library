@@ -54,16 +54,10 @@ CREATE TABLE `checkoutOrders` (
     `cid` INT(11),
         FOREIGN KEY (`cid`) REFERENCES `customers` (`customerId`)
         ON DELETE CASCADE,
-    `checkoutDate` DATE NOT NULL
-        DEFAULT CURRENT_TIMESTAMP,
-    `dueDate` DATE NOT NULL
+    `checkoutDate` DATETIME NOT NULL
         DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER test_trigger BEFORE INSERT ON `checkoutOrders` 
-FOR EACH ROW SET
-    NEW.checkoutDate = IFNULL(NEW.checkoutDate, NOW()),
-    NEW.dueDate = TIMESTAMPADD(DAY, 30, NEW.checkoutDate);
 
 -- Creating the books table, which will list information of
 -- books held at the library.
@@ -115,7 +109,7 @@ VALUES
 INSERT INTO `checkoutOrders` (`cid`) 
 VALUES 
         ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com")),
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com")),
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
         ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
 
 
