@@ -15,9 +15,6 @@ import Section from '../components/styles/Section'
 import Spinner from '../components/Spinner'
 
 const StyledReturnContent = styled.div`
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2.4rem 2.4rem;
@@ -44,10 +41,16 @@ const StyledReturnSection = styled.div`
   width: 100%;
   margin: 5.4rem 0;
   z-index: 2;
+  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4); /*xl shadow*/
+  .status--ok {
+    color: green;
+  }
+  .status--error {
+    color: ${props => props.theme.red};
+  }
   h2 {
     margin-top: 0;
   }
-  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4); /*xl shadow*/
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     padding: 4.8rem;
   }
@@ -66,7 +69,6 @@ const Return = () => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [checkedBooks, setCheckedBooks] = useState([])
-  let currentEmail = ''
 
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
@@ -117,7 +119,11 @@ const Return = () => {
                 <Spinner />
               ) : (
                 status && (
-                  <span className={status.statusNo ? 'status--error' : 'status--ok'}>
+                  <span
+                    className={
+                      status.statusNo && status.numberOfBooks === 0 ? 'status--error' : 'status--ok'
+                    }
+                  >
                     {status.message}
                   </span>
                 )
