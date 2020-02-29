@@ -119,7 +119,7 @@ VALUES
 
 INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`) 
 VALUES 
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), "2020-02-20");
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), '2020-02-20');
         
 -- Inserting books into the Books table.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
