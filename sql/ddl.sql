@@ -109,7 +109,7 @@ VALUES
 INSERT INTO `checkoutOrders` (`cid`) 
 VALUES 
         ((SELECT `customerId` FROM `customers` WHERE email = "smithsara@hello.com")),
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
+        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com")),
         ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
 
 
