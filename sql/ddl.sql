@@ -119,12 +119,6 @@ VALUES
         ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"));
 
 
-<<<<<<< HEAD
-=======
-INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`) 
-VALUES 
-        ((SELECT `customerId` FROM `customers` WHERE email = "bochang@hello.com"), '2020-02-20');
->>>>>>> 60c9c2b842f15f4d440879f8bc7abcdc54640728
         
 -- Inserting books into the Books table.
 INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `oid`, `imgUrl`) 
