@@ -4,8 +4,13 @@
 --   database as well as queries for inserting data into
 --   the tables.
 
--- Creating the customers table, which will list the information of customers who are library members.
+DROP TABLE IF EXISTS `books`;
+DROP TABLE IF EXISTS `eventRegistrations`;
+DROP TABLE IF EXISTS `events`;
+DROP TABLE IF EXISTS `checkoutOrders`;
 DROP TABLE IF EXISTS `customers`;
+
+-- Creating the customers table, which will list the information of customers who are library members.
 CREATE TABLE `customers` (
     PRIMARY KEY (`customerId`),
     `customerId` int(11) NOT NULL AUTO_INCREMENT,
@@ -13,12 +18,11 @@ CREATE TABLE `customers` (
     `lastName` varchar(255) NOT NULL,
     `email` varchar(255) UNIQUE NOT NULL,
     `phone` varchar(10) NOT NULL,
-    `dateJoined` datetime NOT NULL
+    `dateJoined` DATETIME NOT NULL
         DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the events table, which will list upcoming library events.
-DROP TABLE IF EXISTS `events`;
 CREATE TABLE `events` (
     PRIMARY KEY (`eventId`),
     `eventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -31,7 +35,6 @@ CREATE TABLE `events` (
 
 -- Creating the eventRegistrations table, which will list
 -- the customer IDs of customers who have signed up for library events.
-DROP TABLE IF EXISTS `eventRegistrations`;
 CREATE TABLE `eventRegistrations` (
     PRIMARY KEY (`registrationId`),
     `registrationId` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,7 +50,6 @@ CREATE TABLE `eventRegistrations` (
 
 -- Creating the checkoutOrders table, which will list
 -- library orders that customers have made.
-DROP TABLE IF EXISTS `checkoutOrders`;
 CREATE TABLE `checkoutOrders` (
     PRIMARY KEY (`orderId`),
     `orderId` INT(11) NOT NULL AUTO_INCREMENT,
@@ -58,10 +60,8 @@ CREATE TABLE `checkoutOrders` (
         DEFAULT CURRENT_TIMESTAMP
 );
 
-
 -- Creating the books table, which will list information of
 -- books held at the library.
-DROP TABLE IF EXISTS `books`;
 CREATE TABLE `books` (
     PRIMARY KEY (`bookId`),
     `bookId` INT(11) NOT NULL AUTO_INCREMENT,
