@@ -75,7 +75,6 @@ const Styles = styled.div`
     transform: translateZ(0) translateX(0);
     -webkit-transition: 0.4s;
     transition: 0.4s;
-    color: red;
   }
 `
 
