@@ -11,6 +11,9 @@ const StyledNavLogo = styled.div`
     font-family: 'Raleway', sans-serif;
     font-size: 3.2rem;
   }
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    align-self: flex-end;
+  }
 `
 
 const NavLogo = () => (

@@ -7,6 +7,9 @@ const StyledNavItem = styled.li`
   text-transform: uppercase;
   line-height: 8rem;
   padding: 0 0.94rem;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    line-height: 6rem;
+  }
 `
 
 const NavItem = props => (
