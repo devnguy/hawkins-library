@@ -193,7 +193,15 @@ ManageEvents.getInitialProps = async () => {
 
   return {
     keys: Object.keys(data[0]),
-    eventData: data.map(entry => ({ ...entry, id: entry.eventId }))
+    eventData: data.map(entry => (
+      {
+        id: entry.eventId,
+        name: entry.name,
+        date: entry.date,
+        guest: entry.guest,
+        description: entry.description,
+      }
+    ))
   }
 }
 

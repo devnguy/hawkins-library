@@ -199,7 +199,16 @@ ManageBooks.getInitialProps = async () => {
 
   return {
     keys: Object.keys(data[0]),
-    bookData: data.map(entry => ({ ...entry, id: entry.bookId }))
+    bookData: data.map(entry => (
+      {
+        id: entry.bookId,
+        oid: entry.oid,
+        title: entry.title,
+        author: entry.author,
+        publisher: entry.publisher,
+        genre: entry.genre,
+      }
+    ))
   }
 }
 

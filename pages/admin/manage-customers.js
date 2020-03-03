@@ -43,7 +43,16 @@ ManageCustomers.getInitialProps = async () => {
 
   return {
     keys: Object.keys(data[0]),
-    customerData: data.map(entry => entry)
+    customerData: data.map(entry => (
+      {
+        id: entry.customerId,
+        firstName: entry.firstName,
+        lastName: entry.lastName,
+        email: entry.email,
+        phone: entry.phone,
+        dateJoined: entry.dateJoined,
+      }
+    ))
   }
 }
 
