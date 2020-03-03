@@ -14,10 +14,7 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import {
-  modalStyle,
-  StyledModalContent
-} from '../../components/styles/modalStyle'
+import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -179,9 +176,7 @@ const ManageEvents = props => {
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
-          >
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
           </TableContext.Provider>
         </PageContent>
@@ -192,15 +187,13 @@ const ManageEvents = props => {
 
 ManageEvents.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/library-events/get-manage-events`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    eventData: data.map(entry => entry)
+    eventData: data.map(entry => ({ ...entry, id: entry.eventId }))
   }
 }
 

@@ -14,10 +14,7 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import {
-  modalStyle,
-  StyledModalContent
-} from '../../components/styles/modalStyle'
+import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -185,9 +182,7 @@ const ManageBooks = props => {
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
-          >
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
           </TableContext.Provider>
         </PageContent>
@@ -198,15 +193,13 @@ const ManageBooks = props => {
 
 ManageBooks.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-manage-books`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    bookData: data.map(entry => entry)
+    bookData: data.map(entry => ({ ...entry, id: entry.bookId }))
   }
 }
 
