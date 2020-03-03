@@ -72,6 +72,7 @@ const LibraryModal = props => {
     }
   }, [isOpen])
 
+  // Adds order to database
   const addOrder = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -111,9 +112,11 @@ const LibraryModal = props => {
         <StyledCheckoutModalContainer>
           <StyledCheckoutForm>
             <h2>Selected Books:</h2>
-            {props.checkedBooks.map((title, index) =>
-              numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
-            )}
+            <p>
+              {props.checkedBooks.map((title, index) =>
+                numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
+              )}
+            </p>
             {isLoading ? (
               <Spinner />
             ) : (
