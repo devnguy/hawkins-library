@@ -7,7 +7,6 @@ import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
 import Button from '../components/styles/Button'
-import Input from '../components/Input'
 import Book from '../components/Book'
 import BookContext from '../context/book-context'
 import LibraryModal from '../components/LibraryModal'
@@ -29,6 +28,25 @@ const StyledCheckoutInput = styled.div`
   width: 100%;
 `
 
+const StyledSearchBar = styled.div`
+  margin: -5rem 0rem 5rem 0rem;
+  input {
+    font-size: 3rem;
+    padding: 1rem 1rem;
+    margin: 0rem 0rem 0rem 10.5rem;
+    width: 60%;
+    background: rgba(255, 255, 255, 0.95);
+    /* border: none; */
+    color: ${props => props.theme.black};
+    /* box-shadow: 5px 10px 8px #888888; */
+    outline: none;
+    transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
+    :focus {
+      width: 83.5%;
+    }
+  }
+`
+
 /**
  * When user clicks on '+', translate/transform to check mark.
  * Use state to keep track of books added and removed from 'cart'.
@@ -40,7 +58,10 @@ const Library = props => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
 
-  // var checkedBooks = []
+  // Used for book search
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+
   const [checkedBooks, setCheckedBooks] = useState([])
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
@@ -58,17 +79,29 @@ const Library = props => {
     setIsOpen(false)
   }
 
-  // const [checkedBooksLen, setCheckedBooksLen] = useState(0)
-  // const increaseLength = () => {
-  //   setCheckedBooksLen(checkedBooksLen + 1)
-  // }
-  // const decreaseLength = () => {
-  //   setCheckedBooksLen(checkedBooksLen - 1)
-  // }
+  /* Setting search term in order to find matching book titles.
+     Source for filter: https://dev.to/asimdahall/simple-search-form-in-react-using-hooks-42pg */
+  const handleChange = e => {
+    setSearchTerm(e.target.value)
+  }
+
+  // Filtering book titles based on search term.
+  useEffect(() => {
+    const results = books.filter(book => book.title.toLowerCase().includes(searchTerm))
+    setSearchResults(results)
+  }, [searchTerm])
 
   return (
     <Page>
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
+      <StyledSearchBar>
+        <input
+          type="text"
+          placeholder="Search for a book"
+          value={searchTerm}
+          onChange={handleChange}
+        ></input>
+      </StyledSearchBar>
       <Layout>
         <PageContent pageTitle="Library">
           <StyledLibraryContent>
@@ -77,12 +110,9 @@ const Library = props => {
                 checkedBooks,
                 addCheckedBook,
                 removeCheckedBook
-                // checkedBooksLen,
-                // increaseLength,
-                // decreaseLength
               }}
             >
-              {books.map(book => (
+              {searchResults.map(book => (
                 <Book
                   key={book.bookId}
                   bookTitle={book.title}
