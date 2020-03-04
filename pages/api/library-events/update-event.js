@@ -6,8 +6,9 @@ module.exports = async (req, res) => {
     UPDATE events
     SET name = ${req.body.name},
         date = ${req.body.date},
-        guest = ${req.body.guest}
-    WHERE eventId = ${req.body.eventId}
+        guest = ${req.body.guest},
+        description = ${req.body.description}
+    WHERE eventId = ${req.body.id}
   `)
 
   const events = await db.query(escape`

@@ -43,7 +43,9 @@ const StyledAddButton = styled.div`
  */
 const ManageBooks = props => {
   const isEditable = true
+
   const [tableData, setTableData] = useState(props.bookData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
@@ -92,6 +94,25 @@ const ManageBooks = props => {
       setGenre('')
       setImgUrl('')
       closeModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleUpdateBook = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/books/update-manage-book', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+      setTableData(updatedBooks)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -182,7 +203,15 @@ const ManageBooks = props => {
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              isEditable,
+              handleUpdate: handleUpdateBook
+            }}
+          >
             <Table />
           </TableContext.Provider>
         </PageContent>
@@ -199,16 +228,14 @@ ManageBooks.getInitialProps = async () => {
 
   return {
     keys: Object.keys(data[0]),
-    bookData: data.map(entry => (
-      {
-        id: entry.bookId,
-        oid: entry.oid,
-        title: entry.title,
-        author: entry.author,
-        publisher: entry.publisher,
-        genre: entry.genre,
-      }
-    ))
+    bookData: data.map(entry => ({
+      id: entry.bookId,
+      oid: entry.oid,
+      title: entry.title,
+      author: entry.author,
+      publisher: entry.publisher,
+      genre: entry.genre
+    }))
   }
 }
 

@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
         author = ${req.body.author},
         publisher = ${req.body.publisher},
         genre = ${req.body.genre}
-    WHERE (bookId = ${req.body.bookId})
+    WHERE (bookId = ${req.body.id})
   `)
 
   const books = await db.query(escape`

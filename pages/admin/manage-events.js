@@ -43,7 +43,9 @@ const StyledAddButton = styled.div`
  */
 const ManageEvents = props => {
   const isEditable = true
+
   const [tableData, setTableData] = useState(props.eventData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
@@ -88,6 +90,25 @@ const ManageEvents = props => {
       setDescription('')
       setImgUrl('')
       closeModal()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleUpdateEvent = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/library-events/update-event', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedEvents = res.map(event => ({ id: event.eventId, ...event }))
+      setTableData(updatedEvents)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
     }
@@ -176,7 +197,15 @@ const ManageEvents = props => {
             </StyledModalContent>
           </Modal>
 
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              isEditable,
+              handleUpdate: handleUpdateEvent
+            }}
+          >
             <Table />
           </TableContext.Provider>
         </PageContent>
@@ -193,15 +222,13 @@ ManageEvents.getInitialProps = async () => {
 
   return {
     keys: Object.keys(data[0]),
-    eventData: data.map(entry => (
-      {
-        id: entry.eventId,
-        name: entry.name,
-        date: entry.date,
-        guest: entry.guest,
-        description: entry.description,
-      }
-    ))
+    eventData: data.map(entry => ({
+      id: entry.eventId,
+      name: entry.name,
+      date: entry.date,
+      guest: entry.guest,
+      description: entry.description
+    }))
   }
 }
 
