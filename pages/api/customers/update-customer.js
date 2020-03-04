@@ -7,7 +7,8 @@ module.exports = async (req, res) => {
     SET firstName = ${req.body.firstName},
         lastName = ${req.body.lastName},
         email = ${req.body.email},
-        phone = ${req.body.phone}
+        phone = ${req.body.phone},
+        dateJoined = ${req.body.dateJoined}
     WHERE customerId = ${req.body.id}
   `)
 

@@ -26,7 +26,7 @@ const TableInput = ({ value, onChange, id }) => {
 }
 
 const TdRow = props => {
-  const { tableHeaders, isEditable } = useContext(TableContext)
+  const { tableHeaders, handleUpdate, isEditable } = useContext(TableContext)
 
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [row, setRow] = useState(props.row)
@@ -64,7 +64,7 @@ const TdRow = props => {
   }
   const handleSubmitUpdate = () => {
     setIsInEditMode(false)
-    console.log(row)
+    handleUpdate(row)
   }
 
   return (

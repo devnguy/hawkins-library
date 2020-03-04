@@ -12,17 +12,40 @@ const ManageCustomers = props => {
   const isEditable = true
 
   const [tableData, setTableData] = useState(props.customerData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
+
+  const handleUpdateCustomer = async data => {
+    // e.preventDefault()
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/customers/update-customer', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+      setTableData(updatedCustomers)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Customers">
-          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
+          <TableContext.Provider
+            value={{ tableData, tableHeaders, handleUpdate: handleUpdateCustomer, isEditable }}
+          >
             <Table />
           </TableContext.Provider>
         </PageContent>
