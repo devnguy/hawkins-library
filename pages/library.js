@@ -44,7 +44,11 @@ const Library = props => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
+  // Used to track checked books added to order
   const [checkedBooks, setCheckedBooks] = useState([])
+  const [checkedBookIds, setCheckedBookIds] = useState([])
+
+  // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
@@ -52,12 +56,12 @@ const Library = props => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
   }
 
-  const [checkedBookIds, setCheckedBookIds] = useState([])
+  // Adding/removing checked book IDs to array
   const addCheckedId = newId => {
     setCheckedBookIds([...checkedBookIds, newId])
   }
   const removeCheckedId = id => {
-    setCheckedBookIds([checkedBookIds.filter(checkedId => checkedId !== id)])
+    setCheckedBookIds(checkedBookIds.filter(checkedId => checkedId !== id))
   }
 
   // Modal state and functions
