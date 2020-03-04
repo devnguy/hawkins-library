@@ -11,6 +11,7 @@ import Book from '../components/Book'
 import BookContext from '../context/book-context'
 import LibraryModal from '../components/LibraryModal'
 import ModalContext from '../context/modal-context'
+import Input from '../components/Input'
 
 const StyledLibraryContent = styled.div`
   display: grid;
@@ -26,25 +27,6 @@ const StyledLibraryContent = styled.div`
 
 const StyledCheckoutInput = styled.div`
   width: 100%;
-`
-
-const StyledSearchBar = styled.div`
-  margin: -5rem 0rem 5rem 0rem;
-  input {
-    font-size: 3rem;
-    padding: 1rem 1rem;
-    margin: 0rem 0rem 0rem 10.5rem;
-    width: 60%;
-    background: rgba(255, 255, 255, 0.95);
-    /* border: none; */
-    color: ${props => props.theme.black};
-    /* box-shadow: 5px 10px 8px #888888; */
-    outline: none;
-    transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
-    :focus {
-      width: 83.5%;
-    }
-  }
 `
 
 /**
@@ -68,6 +50,14 @@ const Library = props => {
   }
   const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
+  }
+
+  const [checkedBookIds, setCheckedBookIds] = useState([])
+  const addCheckedId = newId => {
+    setCheckedBookIds([...checkedBookIds, newId])
+  }
+  const removeCheckedId = id => {
+    setCheckedBookIds([checkedBookIds.filter(checkedId => checkedId !== id)])
   }
 
   // Modal state and functions
@@ -94,22 +84,25 @@ const Library = props => {
   return (
     <Page>
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
-      <StyledSearchBar>
-        <input
-          type="text"
-          placeholder="Search for a book"
-          value={searchTerm}
-          onChange={handleChange}
-        ></input>
-      </StyledSearchBar>
       <Layout>
         <PageContent pageTitle="Library">
+          <p>
+            <Input
+              type="text"
+              placeholder="Search for a book"
+              value={searchTerm}
+              onChange={handleChange}
+            ></Input>
+          </p>
           <StyledLibraryContent>
             <BookContext.Provider
               value={{
                 checkedBooks,
                 addCheckedBook,
-                removeCheckedBook
+                removeCheckedBook,
+                checkedBookIds,
+                addCheckedId,
+                removeCheckedId
               }}
             >
               {searchResults.map(book => (
@@ -118,6 +111,7 @@ const Library = props => {
                   bookTitle={book.title}
                   bookImgUrl={book.imgUrl}
                   bookAuthor={book.author}
+                  id={book.bookId}
                   action="add"
                 />
               ))}
@@ -129,8 +123,8 @@ const Library = props => {
               Check Out <i className="material-icons">arrow_forward_ios</i>
             </Button>
 
-            <ModalContext.Provider value={{ isOpen, closeModal }}>
-              <LibraryModal checkedBooks={checkedBooks} />
+            <ModalContext.Provider value={{ isOpen, closeModal, setSearchResults }}>
+              <LibraryModal checkedBooks={checkedBooks} checkedBookIds={checkedBookIds} />
             </ModalContext.Provider>
           </StyledCheckoutInput>
         </PageContent>

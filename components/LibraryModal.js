@@ -59,8 +59,9 @@ const StyledCheckoutModalImage = styled.div`
 `
 
 const LibraryModal = props => {
-  const { isOpen, closeModal } = useContext(ModalContext)
+  const { isOpen, closeModal, setSearchResults } = useContext(ModalContext)
   const [email, setEmail] = useState('')
+  const [bookIds, setBookIds] = useState(props.checkedBookIds)
   const [status, setStatus] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const numBooks = props.checkedBooks.length
@@ -77,7 +78,8 @@ const LibraryModal = props => {
     e.preventDefault()
     setIsLoading(true)
     const data = {
-      email
+      email,
+      bookIds
     }
     try {
       const response = await fetch('/api/checkouts/add-checkout', {
@@ -92,6 +94,10 @@ const LibraryModal = props => {
       const res = await response.json()
       setStatus(res)
       setIsLoading(false)
+
+      console.log(res.bookData)
+
+      setSearchResults(res.bookData)
 
       // Resetting email state and fields, closing modal
       setEmail('')
@@ -136,6 +142,7 @@ const LibraryModal = props => {
                 id="email"
                 onChange={e => {
                   setEmail(e.target.value)
+                  setBookIds(props.checkedBookIds)
                 }}
                 required
               />

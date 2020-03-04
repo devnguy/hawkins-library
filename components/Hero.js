@@ -46,9 +46,7 @@ const Hero = () => (
   <StyledHero>
     <Container>
       <StyledHeroContent>
-        <h1>
-          Welcome to the Hawkins Public Library Lorem Ipsum Dolor Cat Lady
-        </h1>
+        <h1>Welcome to the Hawkins Public Library Lorem Ipsum Dolor Cat Lady</h1>
         <div>
           <input placeholder="Find a book or event"></input>
           {/* <button><i className="material-icons">search</i></button> */}

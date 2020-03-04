@@ -83,7 +83,14 @@ const StyledAddIcon = styled.div`
 
 const Book = props => {
   // Checked books are those in the user's checkout order
-  const { checkedBooks, addCheckedBook, removeCheckedBook } = useContext(BookContext)
+  const {
+    checkedBooks,
+    addCheckedBook,
+    removeCheckedBook,
+    checkedBookIds,
+    addCheckedId,
+    removeCheckedId
+  } = useContext(BookContext)
 
   // Icon changes depending on if book is in order or not
   const [icon, setIcon] = useState()
@@ -94,12 +101,16 @@ const Book = props => {
     if (bookIcon() === props.action) {
       setIcon('check')
       addCheckedBook(props.bookTitle)
-      console.log(checkedBooks)
+      addCheckedId(props.id)
+      // console.log(checkedBooks)
+      // console.log(checkedBookIds)
     }
     // Book is being removed from order
     else {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
+      removeCheckedId(props.id)
+      // console.log(checkedBookIds)
     }
   }
 
