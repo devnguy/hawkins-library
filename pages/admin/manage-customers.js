@@ -22,9 +22,7 @@ const ManageCustomers = props => {
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Customers">
-          <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
-          >
+          <TableContext.Provider value={{ tableData, tableHeaders, setTableData, isEditable }}>
             <Table />
           </TableContext.Provider>
         </PageContent>
@@ -35,24 +33,20 @@ const ManageCustomers = props => {
 
 ManageCustomers.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/customers/get-customers`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    customerData: data.map(entry => (
-      {
-        id: entry.customerId,
-        firstName: entry.firstName,
-        lastName: entry.lastName,
-        email: entry.email,
-        phone: entry.phone,
-        dateJoined: entry.dateJoined,
-      }
-    ))
+    customerData: data.map(entry => ({
+      id: entry.customerId,
+      firstName: entry.firstName,
+      lastName: entry.lastName,
+      email: entry.email,
+      phone: entry.phone,
+      dateJoined: entry.dateJoined
+    }))
   }
 }
 
