@@ -114,6 +114,25 @@ const ManageEvents = props => {
     }
   }
 
+  const handleDeleteEvent = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/library-events/delete-event', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedEvents = res.map(event => ({ id: event.eventId, ...event }))
+      setTableData(updatedEvents)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -203,7 +222,8 @@ const ManageEvents = props => {
               tableHeaders,
               setTableData,
               isEditable,
-              handleUpdate: handleUpdateEvent
+              handleUpdate: handleUpdateEvent,
+              handleDelete: handleDeleteEvent
             }}
           >
             <Table />

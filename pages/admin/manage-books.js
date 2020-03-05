@@ -67,7 +67,7 @@ const ManageBooks = props => {
   }
 
   // Send data as post request to server to insert book.
-  const addBook = async e => {
+  const handleAddBook = async e => {
     e.preventDefault()
     const data = {
       title,
@@ -118,6 +118,25 @@ const ManageBooks = props => {
     }
   }
 
+  const handleDeleteBook = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/books/delete-book', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+      setTableData(updatedBooks)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -140,7 +159,7 @@ const ManageBooks = props => {
             <StyledModalContent>
               <h2>Adding Book</h2>
               <Divider />
-              <form onSubmit={addBook}>
+              <form onSubmit={handleAddBook}>
                 <FormFields>
                   <Input
                     type="text"
@@ -209,7 +228,8 @@ const ManageBooks = props => {
               tableHeaders,
               setTableData,
               isEditable,
-              handleUpdate: handleUpdateBook
+              handleUpdate: handleUpdateBook,
+              handleDelete: handleDeleteBook
             }}
           >
             <Table />

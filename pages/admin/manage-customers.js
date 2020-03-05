@@ -38,13 +38,38 @@ const ManageCustomers = props => {
     }
   }
 
+  const handleDeleteCustomer = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/customers/delete-customer', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+      setTableData(updatedCustomers)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Customers">
           <TableContext.Provider
-            value={{ tableData, tableHeaders, handleUpdate: handleUpdateCustomer, isEditable }}
+            value={{
+              tableData,
+              tableHeaders,
+              isEditable,
+              handleUpdate: handleUpdateCustomer,
+              handleDelete: handleDeleteCustomer
+            }}
           >
             <Table />
           </TableContext.Provider>

@@ -4,7 +4,7 @@ const escape = require('sql-template-strings')
 module.exports = async (req, res) => {
   await db.query(escape`
         DELETE FROM events
-        WHERE eventId = ${req.body.eventId}
+        WHERE eventId = ${req.body.id}
   `)
 
   const events = await db.query(escape`
