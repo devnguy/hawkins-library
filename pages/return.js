@@ -66,8 +66,10 @@ const ReturnSection = props => (
 const Return = () => {
   const [books, setBooks] = useState([])
   const [status, setStatus] = useState({})
+  const [returnStatus, setReturnStatus] = useState({})
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingReturn, setIsLoadingReturn] = useState(false)
   const [checkedBooks, setCheckedBooks] = useState([])
   const [checkedBookIds, setCheckedBookIds] = useState([])
 
@@ -106,7 +108,7 @@ const Return = () => {
       setBooks(res.checkedOutBooks)
       setIsLoading(false)
       currentEmail = email
-      // setEmail('')
+      setEmail('')
     } catch (error) {
       console.log(error)
     }
@@ -114,7 +116,7 @@ const Return = () => {
 
   const returnBooks = async e => {
     e.preventDefault()
-    setIsLoading(true)
+    setIsLoadingReturn(true)
 
     const data = {
       email,
@@ -131,11 +133,12 @@ const Return = () => {
       })
       const res = await response.json()
       setStatus(res)
+      setReturnStatus(res)
       setBooks(res.checkedOutBooks)
-      setIsLoading(false)
+      setIsLoadingReturn(false)
       currentEmail = email
       console.log('success')
-      // setEmail('')
+      setEmail('')
     } catch (error) {
       console.log(error)
     }
@@ -215,6 +218,21 @@ const Return = () => {
                   Return Selected Books <i className="material-icons">arrow_forward_ios</i>
                 </LargeButton>
               </form>
+              {isLoadingReturn ? (
+                <Spinner />
+              ) : (
+                returnStatus && (
+                  <span
+                    className={
+                      returnStatus.statusNo && returnStatus.numberOfBooks === 0
+                        ? 'status--error'
+                        : 'status--ok'
+                    }
+                  >
+                    {returnStatus.returnMessage}
+                  </span>
+                )
+              )}
             </ReturnSection>
           </Section>
         ) : null}
