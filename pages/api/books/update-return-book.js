@@ -10,12 +10,6 @@ module.exports = async (req, res) => {
       `)
   }
 
-  const firstName = await db.query(escape`
-    SELECT firstName
-    FROM customers
-    WHERE email = $(req.body.email)
-  `)
-
   const checkedOutBooks = await db.query(escape`
     SELECT bookId, title, author, oid, imgUrl, email
     FROM books
