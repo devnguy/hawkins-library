@@ -56,6 +56,10 @@ const StyledReturnSection = styled.div`
   }
 `
 
+const StyledSpan = styled.span`
+  padding-left: 20px;
+`
+
 const ReturnSection = props => (
   <StyledReturnSection>
     <h2>{props.title}</h2>
@@ -217,22 +221,24 @@ const Return = () => {
                 <LargeButton>
                   Return Selected Books <i className="material-icons">arrow_forward_ios</i>
                 </LargeButton>
+                <StyledSpan>
+                  {isLoadingReturn ? (
+                    <Spinner />
+                  ) : (
+                    returnStatus && (
+                      <span
+                        className={
+                          returnStatus.statusNo && returnStatus.numberOfBooks === 0
+                            ? 'status--error'
+                            : 'status--ok'
+                        }
+                      >
+                        {returnStatus.returnMessage}
+                      </span>
+                    )
+                  )}
+                </StyledSpan>
               </form>
-              {isLoadingReturn ? (
-                <Spinner />
-              ) : (
-                returnStatus && (
-                  <span
-                    className={
-                      returnStatus.statusNo && returnStatus.numberOfBooks === 0
-                        ? 'status--error'
-                        : 'status--ok'
-                    }
-                  >
-                    {returnStatus.returnMessage}
-                  </span>
-                )
-              )}
             </ReturnSection>
           </Section>
         ) : null}
