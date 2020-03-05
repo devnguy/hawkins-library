@@ -30,32 +30,32 @@ npm run dev
  - [x] create books table
  - [x] Create: User can add books via input forms
  - [x] Read: Render db books to table
- - [ ] Update
- - [ ] Delete
+ - [x] Update
+ - [x] Delete
 
 ###### manage-customers.js
  - [x] create customers table
- - [ ] Create
- - [ ] Read
- - [ ] Update
- - [ ] Delete
+ - [x] Create
+ - [x] Read
+ - [x] Update
+ - [x] Delete
 
 ###### manage-events.js
  - [x] create events table
  - [x] Create: User can add events via input forms
  - [x] Read: Render db events to table
- - [ ] Update
- - [ ] Delete
+ - [x] Update
+ - [x] Delete
 
 ###### manage-checkouts.js
  - [x] create checkouts table
- - [ ] Create
- - [ ] Read
+ - [x] Create
+ - [x] Read
 
 ###### manage-registrations.js
  - [x] create registrations table
- - [ ] Create
- - [ ] Read
+ - [x] Create
+ - [x] Read
 
 ###### Deployment
 - [ ] Setup environmental variables and app secrets
