@@ -2,7 +2,7 @@ const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
-  await db.query(escape`
+  const updateEvent = await db.query(escape`
     UPDATE events
     SET name = ${req.body.name},
         date = ${req.body.date},

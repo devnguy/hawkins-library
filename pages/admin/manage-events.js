@@ -65,7 +65,7 @@ const ManageEvents = props => {
     setIsOpen(false)
   }
 
-  const addEvent = async e => {
+  const handleAddEvent = async e => {
     e.preventDefault()
     const data = {
       name,
@@ -137,7 +137,7 @@ const ManageEvents = props => {
               <h2>Adding Event</h2>
               <Divider />
 
-              <form onSubmit={addEvent}>
+              <form onSubmit={handleAddEvent}>
                 <FormFields>
                   <Input
                     type="text"
