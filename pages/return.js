@@ -69,13 +69,22 @@ const Return = () => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [checkedBooks, setCheckedBooks] = useState([])
+  const [checkedBookIds, setCheckedBookIds] = useState([])
 
+  // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
-
   const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
+  }
+
+  // Adding/removing checked book IDs to array
+  const addCheckedId = newId => {
+    setCheckedBookIds([...checkedBookIds, newId])
+  }
+  const removeCheckedId = id => {
+    setCheckedBookIds(checkedBookIds.filter(checkedId => checkedId !== id))
   }
 
   const getCheckedOutBooks = async e => {
@@ -97,7 +106,36 @@ const Return = () => {
       setBooks(res.checkedOutBooks)
       setIsLoading(false)
       currentEmail = email
-      setEmail('')
+      // setEmail('')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const returnBooks = async e => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    const data = {
+      email,
+      checkedBookIds
+    }
+
+    try {
+      const response = await fetch('/api/books/update-return-book', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      setStatus(res)
+      setBooks(res.checkedOutBooks)
+      setIsLoading(false)
+      currentEmail = email
+      console.log('success')
+      // setEmail('')
     } catch (error) {
       console.log(error)
     }
@@ -151,21 +189,32 @@ const Return = () => {
           <Section>
             <ReturnSection title={`Books Checked Out By ${status.userEmail}`}>
               <StyledReturnContent>
-                <BookContext.Provider value={{ checkedBooks, addCheckedBook, removeCheckedBook }}>
+                <BookContext.Provider
+                  value={{
+                    checkedBooks,
+                    addCheckedBook,
+                    removeCheckedBook,
+                    addCheckedId,
+                    removeCheckedId
+                  }}
+                >
                   {books.map(book => (
                     <Book
                       key={book.bookId}
                       bookTitle={book.title}
                       bookImgUrl={book.imgUrl}
                       bookAuthor={book.author}
+                      id={book.bookId}
                       action="keyboard_return"
                     />
                   ))}
                 </BookContext.Provider>
               </StyledReturnContent>
-              <LargeButton>
-                Return Selected Books <i className="material-icons">arrow_forward_ios</i>
-              </LargeButton>
+              <form onSubmit={returnBooks}>
+                <LargeButton>
+                  Return Selected Books <i className="material-icons">arrow_forward_ios</i>
+                </LargeButton>
+              </form>
             </ReturnSection>
           </Section>
         ) : null}
