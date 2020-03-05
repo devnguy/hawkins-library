@@ -26,7 +26,7 @@ const TableInput = ({ value, onChange, id }) => {
 }
 
 const TdRow = props => {
-  const { tableHeaders, handleUpdate, isEditable } = useContext(TableContext)
+  const { tableHeaders, handleUpdate, handleDelete, isEditable } = useContext(TableContext)
 
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [row, setRow] = useState(props.row)
@@ -56,8 +56,8 @@ const TdRow = props => {
 
   // Have access to bookId, delete where bookId = props.bookId
   // Place holder
-  const handleDelete = () => {
-    console.log(props.row.id)
+  const handleDeleteRow = () => {
+    handleDelete(row)
   }
   const handleToggleUpdate = () => {
     setIsInEditMode(!isInEditMode)
@@ -79,7 +79,7 @@ const TdRow = props => {
               <a onClick={handleToggleUpdate}>
                 <i className="material-icons">edit</i>
               </a>
-              <a onClick={handleDelete}>
+              <a onClick={handleDeleteRow}>
                 <i className="material-icons">delete</i>
               </a>
             </span>
