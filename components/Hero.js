@@ -30,6 +30,9 @@ const StyledHero = styled.div`
       width: 100%;
     }
   }
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    padding: 3.2rem;
+  }
 `
 
 const StyledHeroContent = styled.div`
@@ -40,13 +43,18 @@ const StyledHeroContent = styled.div`
     font-size: 4.2rem;
     line-height: 5rem;
   }
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    h1 {
+      font-size: 3.6rem;
+    }
+  }
 `
 
 const Hero = () => (
   <StyledHero>
     <Container>
       <StyledHeroContent>
-        <h1>Welcome to the Hawkins Public Library Lorem Ipsum Dolor Cat Lady</h1>
+        <h1>Welcome to the Hawkins Public Library. Explore the world's knowledge.</h1>
         <div>
           <input placeholder="Find a book or event"></input>
           {/* <button><i className="material-icons">search</i></button> */}
