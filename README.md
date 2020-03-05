@@ -18,14 +18,28 @@ npm run dev
 
 - [ ] Navbar
 - [ ] Footer
-
-###### Deployment
-
-- [ ] Setup environmental variables and app secrets
+- [ ] Book on mobile
 
 ###### Other
 
 - [ ] Proper date input when editing manage pages
+- [ ] Change selected book icon color to theme.red
+- [ ] manageCheckouts: Select customer email to display
+- [ ] library: Display "Order is empty" in modal when user has not selected any books
+
+###### Nice to haves
+
+- [ ] Pagination for admin tables
+- [ ] Magnifying glass icon on search bars
+- library:
+  - [ ] Pagination
+  - [ ] Sticky checkout button so user doesn't have to scroll to the bottom of page to checkout
+  - [ ] Animate selected book icon on change
+  - [ ] Alt attribute: "Add/remove {book title} to your order"
+
+###### Deployment
+
+- [ ] Setup environmental variables and app secrets
 
 ## Migration to Serverless Functions and Google MySql
 
