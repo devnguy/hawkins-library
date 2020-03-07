@@ -31,6 +31,7 @@ npm run dev
 - [ ] On admin pages that allow rows to be deleted: "Are you sure you want to delete?" modal so that rows will not be deleted by accident (I deleted Sara Smith by accident last night, whoops. I decided to just import our ddl into the database again)
 - [ ] Noticed this requirement on step 7: "You should allow the user to select things to relate to each other via drop-down menus or some other UI element where the user picks from existing items to add them to a relationship. When picking items you should display the name that makes the most sense to the user." It sounds like we need to have some sort of option to join different tables? I was thinking we could have the option to join customers and books or customers and events.
 - [ ] Manage customers: Maybe we shouldn't allow join date to be edited
+- [ ] Limit to how many books can be checked out (5 books per customer? Or perhaps 5 books per checkout order?)
 
 ###### Nice to haves
 
