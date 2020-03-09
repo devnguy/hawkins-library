@@ -8,7 +8,14 @@ const StyledNavItem = styled.li`
   line-height: 8rem;
   padding: 0 0.94rem;
   @media (max-width: ${props => props.theme.screenSizeMed}) {
-    line-height: 6rem;
+    line-height: 3.4rem;
+    margin: 0;
+    padding: 0 4rem;
+  }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    line-height: 3.4rem;
+    margin: 0;
+    padding: 0 2.4rem;
   }
 `
 
@@ -26,6 +33,14 @@ export const StyledAdminNavItem = styled.li`
   text-transform: uppercase;
   line-height: 4rem;
   padding: 0 0.94rem;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    line-height: 3.4rem;
+    margin: 0;
+    padding: 0 4rem 0 0;
+  }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    padding: 0 2.4rem;
+  }
 `
 
 export const AdminNavItem = props => (

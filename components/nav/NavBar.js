@@ -2,83 +2,8 @@ import styled from 'styled-components'
 import { useState } from 'react'
 import NavItem, { AdminNavItem } from './NavItem'
 import useScrollFromTop from '../hooks/useScrollFromTop'
-import NavLogo from './NavLogo'
-
-const Styles = styled.div`
-  /* Transparent nav, active when at the top of page. */
-  .default-nav {
-    background: transparent;
-    box-shadow: inset 0 4rem 40px rgba(0, 0, 0, 0.22);
-    a {
-      color: ${props => props.theme.white};
-      :hover {
-        color: ${props => props.theme.red};
-      }
-    }
-  }
-
-  /* Drop down menu on hover over admin nav item. */
-  .admin-dropdown {
-    position: relative;
-    display: inline-block;
-    @media (max-width: ${props => props.theme.screenSizeMed}) {
-      display: block;
-      position: static;
-    }
-  }
-  .admin-dropdown-menu {
-    padding: 1rem 0;
-    background: ${props => props.theme.white};
-    width: 200px;
-    display: none;
-    position: absolute;
-    transition: 200ms;
-    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.3); /*md shadow*/
-    margin: 0;
-    li a {
-      color: ${props => props.theme.black};
-      line-height: 1rem;
-      margin: 0;
-      :hover {
-        color: ${props => props.theme.red};
-      }
-    }
-    @media (max-width: ${props => props.theme.screenSizeMed}) {
-      display: block;
-      position: static;
-      padding: 0;
-    }
-  }
-  .admin-dropdown:hover .admin-dropdown-menu {
-    display: block;
-  }
-
-  .expandable-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: ${props => props.theme.white};
-    width: 250px;
-    box-sizing: border-box;
-    transition: all 250ms;
-    -webkit-transform: translateZ(0) translateX(100%);
-    transform: translateZ(0) translateX(100%);
-    li a {
-      color: ${props => props.theme.black};
-    }
-  }
-  .active {
-    transform: translateZ(0) translateX(0);
-    transform: translateZ(0) translateX(0);
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-    color: red;
-    background: blue;
-  }
-`
+import NavLogo, { ExpandableMenuLogo } from './NavLogo'
+import Styles from './Styles'
 
 const StyledNavBar = styled.nav`
   display: flex;
@@ -87,6 +12,7 @@ const StyledNavBar = styled.nav`
   max-width: ${props => props.theme.maxWidthNav};
   padding: 0 0.5rem;
   ul {
+    z-index: 3;
     text-decoration: none;
     list-style: none;
     margin: 0;
@@ -110,6 +36,50 @@ const StyledNavContainer = styled.div`
   z-index: 1;
 `
 
+const DimPage = styled.div`
+  top: 0;
+  left: 0;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+`
+
+// Responsive expandable nav
+const ExpandableMenuHeader = styled.div`
+  display: none;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    padding-right: 4rem;
+    color: ${props => props.theme.black};
+    display: flex;
+    justify-content: space-between;
+  }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    padding-right: 2.4rem;
+  }
+`
+
+// Responsive expandable nav
+const StyledMenuIcon = styled.div`
+  display: none;
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 700;
+    i {
+      padding: 2.4rem;
+      font-size: 3rem;
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+`
+
 const NavBar = () => {
   const isTop = useScrollFromTop()
   const [isActive, setIsActive] = useState(false)
@@ -120,15 +90,32 @@ const NavBar = () => {
 
   return (
     <Styles>
-      <StyledNavContainer className={isTop ? 'default-nav' : ''} id="nav">
+      <StyledNavContainer className={isTop ? 'default-nav' : ''}>
         <StyledNavBar>
+          {isActive && <DimPage onClick={toggleIsActive} />}
           <NavLogo />
 
-          <button onClick={toggleIsActive}></button>
+          <StyledMenuIcon>
+            <a onClick={toggleIsActive}>
+              <i className="material-icons">menu</i>
+            </a>
+          </StyledMenuIcon>
 
           <ul className={isActive ? 'expandable-menu active' : 'expandable-menu'}>
+            {isActive && (
+              <li>
+                <ExpandableMenuHeader>
+                  <StyledMenuIcon>
+                    <a onClick={toggleIsActive}>
+                      <i className="material-icons">close</i>
+                    </a>
+                  </StyledMenuIcon>
+                  <ExpandableMenuLogo />
+                </ExpandableMenuHeader>
+              </li>
+            )}
             <div className="admin-dropdown">
-              <NavItem route="/" pageName="Admin" />
+              <NavItem route="#" pageName="Admin" />
               <div className="admin-dropdown-menu">
                 <AdminNavItem route="/admin/manage-books" pageName="Manage Books" />
                 <AdminNavItem route="/admin/manage-events" pageName="Manage Events" />
