@@ -6,7 +6,15 @@ const StyledNavLogo = styled.div`
   text-transform: uppercase;
   line-height: 8rem;
   padding: 0 0.94rem;
-  height: 7rem;
+  a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 3.2rem;
+  }
+`
+
+const StyledExpandableMenuLogo = styled.div`
+  text-transform: uppercase;
+  line-height: 8rem;
   a {
     font-family: 'Raleway', sans-serif;
     font-size: 3.2rem;
@@ -19,6 +27,14 @@ const NavLogo = () => (
       <a>HAWKINS</a>
     </Link>
   </StyledNavLogo>
+)
+
+export const ExpandableMenuLogo = () => (
+  <StyledExpandableMenuLogo>
+    <Link href="/">
+      <a>HAWKINS</a>
+    </Link>
+  </StyledExpandableMenuLogo>
 )
 
 export default NavLogo

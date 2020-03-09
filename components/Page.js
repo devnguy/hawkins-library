@@ -17,6 +17,7 @@ const theme = {
   fontFamily: `'Open Sans', sans-serif`,
   // fontFamily: `'Roboto', sans-serif`,
   screenSizeMed: '768px',
+  screenSizeSm: '550px',
   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)' /* unedited */
 }
 
