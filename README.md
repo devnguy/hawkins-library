@@ -31,10 +31,11 @@ npm run dev
 
 - [ ] Pagination for admin tables
 - [ ] Magnifying glass icon on search bars
-- library:
+- [ ] library:
   - [ ] Pagination
   - [ ] Sticky checkout button so user doesn't have to scroll to the bottom of page to checkout
   - [ ] Animate selected book icon on change
+  - [ ] Remove books from order within modal
   - [ ] Alt attribute: "Add/remove {book title} to your order"
 
 ###### Deployment
