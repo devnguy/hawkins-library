@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import NavItem from './nav/NavItem'
 import styled from 'styled-components'
+import IconLinks from './nav/IconLinks'
 
 const StyledFooterLogo = styled.div`
   margin: 0 1em;
@@ -56,6 +57,8 @@ const StyledFooterContainer = styled.div`
 const StyledFooterTopRow = styled.div`
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 1.6rem;
+  list-style: none;
   li {
     line-height: 4.8rem;
     font-size: 1.4rem;
@@ -65,18 +68,17 @@ const StyledFooterTopRow = styled.div`
   li i {
     font-size: 2.4rem;
   }
-  padding-bottom: 1.6rem;
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    flex-direction: column;
+    text-align: right;
+    align-self: flex-end;
+  }
 `
 
 const StyledFooterBottomRow = styled.div`
   display: flex;
   justify-content: flex-end;
   font-size: 1.2rem;
-`
-
-const StyledFooterRowContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   h4,
   p {
     margin: 0 1.6rem;
@@ -84,6 +86,18 @@ const StyledFooterRowContainer = styled.div`
   p {
     color: ${props => props.theme.grey};
   }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    flex-direction: column;
+    text-align: right;
+    h4 {
+      margin-bottom: 0.8rem;
+    }
+  }
+`
+
+const StyledFooterRowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const Footer = () => (
@@ -92,46 +106,14 @@ const Footer = () => (
       <FooterLogo />
       <StyledFooterRowContainer>
         <StyledFooterTopRow>
-          <ul>
-            <li>FOLLOW US</li>
-            <li>
-              <a
-                href="https://github.com/hdn301"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-github-alt"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/RebekahKoon"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fab fa-github"></i>
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/hdn301/hawkins-library"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fas fa-file-code"></i>
-              </a>
-            </li>
-          </ul>
+          <li>FOLLOW US</li>
+          <IconLinks />
         </StyledFooterTopRow>
         <StyledFooterBottomRow>
           <h4>Hawkins Public Library</h4>
           <p>
             Images from{' '}
-            <a
-              href="https://unsplash.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">
               Unsplash
             </a>
           </p>
