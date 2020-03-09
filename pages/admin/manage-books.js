@@ -14,10 +14,7 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import {
-  modalStyle,
-  StyledModalContent
-} from '../../components/styles/modalStyle'
+import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -46,7 +43,9 @@ const StyledAddButton = styled.div`
  */
 const ManageBooks = props => {
   const isEditable = true
+
   const [tableData, setTableData] = useState(props.bookData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
@@ -68,7 +67,7 @@ const ManageBooks = props => {
   }
 
   // Send data as post request to server to insert book.
-  const addBook = async e => {
+  const handleAddBook = async e => {
     e.preventDefault()
     const data = {
       title,
@@ -100,6 +99,44 @@ const ManageBooks = props => {
     }
   }
 
+  const handleUpdateBook = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/books/update-manage-book', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+      setTableData(updatedBooks)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDeleteBook = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/books/delete-book', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+      setTableData(updatedBooks)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -122,7 +159,7 @@ const ManageBooks = props => {
             <StyledModalContent>
               <h2>Adding Book</h2>
               <Divider />
-              <form onSubmit={addBook}>
+              <form onSubmit={handleAddBook}>
                 <FormFields>
                   <Input
                     type="text"
@@ -186,7 +223,14 @@ const ManageBooks = props => {
           </Modal>
 
           <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              isEditable,
+              handleUpdate: handleUpdateBook,
+              handleDelete: handleDeleteBook
+            }}
           >
             <Table />
           </TableContext.Provider>
@@ -198,15 +242,20 @@ const ManageBooks = props => {
 
 ManageBooks.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/books/get-manage-books`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    bookData: data.map(entry => entry)
+    bookData: data.map(entry => ({
+      id: entry.bookId,
+      oid: entry.oid,
+      title: entry.title,
+      author: entry.author,
+      publisher: entry.publisher,
+      genre: entry.genre
+    }))
   }
 }
 

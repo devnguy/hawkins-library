@@ -7,11 +7,11 @@ import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import PageContent from '../components/styles/PageContent'
 import Button from '../components/styles/Button'
-import Input from '../components/Input'
 import Book from '../components/Book'
 import BookContext from '../context/book-context'
 import LibraryModal from '../components/LibraryModal'
 import ModalContext from '../context/modal-context'
+import Input from '../components/Input'
 
 const StyledLibraryContent = styled.div`
   display: grid;
@@ -40,13 +40,28 @@ const Library = props => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
 
-  // var checkedBooks = []
+  // Used for book search
+  const [searchTerm, setSearchTerm] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+
+  // Used to track checked books added to order
   const [checkedBooks, setCheckedBooks] = useState([])
+  const [checkedBookIds, setCheckedBookIds] = useState([])
+
+  // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
   }
   const removeCheckedBook = book => {
     setCheckedBooks(checkedBooks.filter(checkedBook => checkedBook !== book))
+  }
+
+  // Adding/removing checked book IDs to array
+  const addCheckedId = newId => {
+    setCheckedBookIds([...checkedBookIds, newId])
+  }
+  const removeCheckedId = id => {
+    setCheckedBookIds(checkedBookIds.filter(checkedId => checkedId !== id))
   }
 
   // Modal state and functions
@@ -58,36 +73,49 @@ const Library = props => {
     setIsOpen(false)
   }
 
-  // const [checkedBooksLen, setCheckedBooksLen] = useState(0)
-  // const increaseLength = () => {
-  //   setCheckedBooksLen(checkedBooksLen + 1)
-  // }
-  // const decreaseLength = () => {
-  //   setCheckedBooksLen(checkedBooksLen - 1)
-  // }
+  /* Setting search term in order to find matching book titles.
+     Source for filter: https://dev.to/asimdahall/simple-search-form-in-react-using-hooks-42pg */
+  const handleChange = e => {
+    setSearchTerm(e.target.value)
+  }
+
+  // Filtering book titles based on search term.
+  useEffect(() => {
+    const results = books.filter(book => book.title.toLowerCase().includes(searchTerm))
+    setSearchResults(results)
+  }, [searchTerm])
 
   return (
     <Page>
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Library">
+          <p>
+            <Input
+              type="text"
+              placeholder="Search for a book"
+              value={searchTerm}
+              onChange={handleChange}
+            ></Input>
+          </p>
           <StyledLibraryContent>
             <BookContext.Provider
               value={{
                 checkedBooks,
                 addCheckedBook,
-                removeCheckedBook
-                // checkedBooksLen,
-                // increaseLength,
-                // decreaseLength
+                removeCheckedBook,
+                checkedBookIds,
+                addCheckedId,
+                removeCheckedId
               }}
             >
-              {books.map(book => (
+              {searchResults.map(book => (
                 <Book
                   key={book.bookId}
                   bookTitle={book.title}
                   bookImgUrl={book.imgUrl}
                   bookAuthor={book.author}
+                  id={book.bookId}
                   action="add"
                 />
               ))}
@@ -99,8 +127,8 @@ const Library = props => {
               Check Out <i className="material-icons">arrow_forward_ios</i>
             </Button>
 
-            <ModalContext.Provider value={{ isOpen, closeModal }}>
-              <LibraryModal checkedBooks={checkedBooks} />
+            <ModalContext.Provider value={{ isOpen, closeModal, setSearchResults }}>
+              <LibraryModal checkedBooks={checkedBooks} checkedBookIds={checkedBookIds} />
             </ModalContext.Provider>
           </StyledCheckoutInput>
         </PageContent>

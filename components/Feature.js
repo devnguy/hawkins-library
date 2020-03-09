@@ -3,6 +3,7 @@ import Button from '../components/styles/Button'
 import { useState } from 'react'
 import EventModal from '../components/EventModal'
 import ModalContext from '../context/modal-context'
+import Link from 'next/link'
 
 const StyledFeature = styled.div`
   display: flex;
@@ -66,10 +67,20 @@ export const LeftFeature = props => {
         <p>{props.content.description}</p>
         {/* <p>{props.content.date}</p> */}
 
-        <Button onClick={props.eventId && openModal}>
-          {props.button}
-          <i className="material-icons">arrow_forward_ios</i>
-        </Button>
+        {props.eventId ? (
+          <Button onClick={openModal}>
+            {props.button}
+            <i className="material-icons">arrow_forward_ios</i>
+          </Button>
+        ) : (
+          <Link href={props.route}>
+            <a>
+              <Button>
+                {props.button} <i className="material-icons">arrow_forward_ios</i>
+              </Button>
+            </a>
+          </Link>
+        )}
 
         <ModalContext.Provider value={{ isOpen, closeModal }}>
           <EventModal
@@ -111,10 +122,20 @@ export const RightFeature = props => {
         <h2>{props.content.name}</h2>
         <p>{props.content.description}</p>
 
-        <Button onClick={props.eventId && openModal}>
-          {props.button}
-          <i className="material-icons">arrow_forward_ios</i>
-        </Button>
+        {props.eventId ? (
+          <Button onClick={openModal}>
+            {props.button}
+            <i className="material-icons">arrow_forward_ios</i>
+          </Button>
+        ) : (
+          <Link href={props.route}>
+            <a>
+              <Button>
+                {props.button} <i className="material-icons">arrow_forward_ios</i>
+              </Button>
+            </a>
+          </Link>
+        )}
 
         <ModalContext.Provider value={{ isOpen, closeModal }}>
           <EventModal

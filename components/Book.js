@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import Link from 'next/link'
 import styled from 'styled-components'
 import BookContext from '../context/book-context'
 
@@ -83,36 +82,48 @@ const StyledAddIcon = styled.div`
 `
 
 const Book = props => {
+  // Checked books are those in the user's checkout order
   const {
     checkedBooks,
     addCheckedBook,
     removeCheckedBook,
-    checkedBooksLen,
-    increaseLength,
-    decreaseLength
+    checkedBookIds,
+    addCheckedId,
+    removeCheckedId
   } = useContext(BookContext)
 
-  const [icon, setIcon] = useState(props.action)
+  // Icon changes depending on if book is in order or not
+  const [icon, setIcon] = useState()
 
+  // Changes the book's icon to checked/unchecked depending on if in order
   const clickBook = () => {
-    if (icon == props.action) {
+    // Book is being added to order
+    if (bookIcon() === props.action) {
       setIcon('check')
       addCheckedBook(props.bookTitle)
-      console.log(checkedBooks)
-      // increaseLength()
-      // checkedBook = props.bookTitle
-      // alert(checkedBook)
-      // props.checkedBooks = [...props.checkedBooks, props.bookTitle]
-      // alert(props.checkedBooks)
-    } else {
+      addCheckedId(props.id)
+      // console.log(checkedBooks)
+      // console.log(checkedBookIds)
+    }
+    // Book is being removed from order
+    else {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
-      // decreaseLength()
-      // checkedBook = ''
-      // alert(checkedBook)
+      removeCheckedId(props.id)
+      // console.log(checkedBookIds)
     }
   }
 
+  // Determines whether book should be checked or not.
+  const bookIcon = () => {
+    if (checkedBooks.includes(props.bookTitle)) {
+      return 'check'
+    } else {
+      return props.action
+    }
+  }
+
+  // Returning book display on library page
   return (
     <HoverStyles>
       <StyledBook className="hvr-underline-reveal" onClick={clickBook}>
@@ -125,11 +136,9 @@ const Book = props => {
             <p>{props.bookAuthor}</p>
           </div>
           <StyledAddIcon>
-            <Link href="/">
-              <a>
-                <i className="material-icons">{icon}</i>
-              </a>
-            </Link>
+            <a>
+              <i className="material-icons">{bookIcon()}</i>
+            </a>
           </StyledAddIcon>
         </StyledBookInfo>
       </StyledBook>

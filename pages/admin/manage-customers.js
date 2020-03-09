@@ -12,10 +12,50 @@ const ManageCustomers = props => {
   const isEditable = true
 
   const [tableData, setTableData] = useState(props.customerData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
+
+  const handleUpdateCustomer = async data => {
+    // e.preventDefault()
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/customers/update-customer', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+      setTableData(updatedCustomers)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDeleteCustomer = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/customers/delete-customer', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+      setTableData(updatedCustomers)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Page>
@@ -23,7 +63,13 @@ const ManageCustomers = props => {
       <Layout>
         <PageContent pageTitle="Admin: Manage Customers">
           <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
+            value={{
+              tableData,
+              tableHeaders,
+              isEditable,
+              handleUpdate: handleUpdateCustomer,
+              handleDelete: handleDeleteCustomer
+            }}
           >
             <Table />
           </TableContext.Provider>
@@ -35,15 +81,20 @@ const ManageCustomers = props => {
 
 ManageCustomers.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/customers/get-customers`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    customerData: data.map(entry => entry)
+    customerData: data.map(entry => ({
+      id: entry.customerId,
+      firstName: entry.firstName,
+      lastName: entry.lastName,
+      email: entry.email,
+      phone: entry.phone,
+      dateJoined: entry.dateJoined
+    }))
   }
 }
 

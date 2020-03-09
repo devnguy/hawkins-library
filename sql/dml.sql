@@ -79,7 +79,7 @@ VALUES  ((SELECT customerId FROM customers WHERE email = :emailInput),
 --      books that have not been checked out.
 SELECT * 
 FROM books 
-WHERE oid = NULL;
+WHERE oid IS NULL;
 
 -- Get all book information to display on library page.
 SELECT * 

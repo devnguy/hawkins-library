@@ -14,10 +14,7 @@ import Divider from '../../components/styles/Divider'
 import { FormFields } from '../../components/Form'
 import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import {
-  modalStyle,
-  StyledModalContent
-} from '../../components/styles/modalStyle'
+import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -46,7 +43,9 @@ const StyledAddButton = styled.div`
  */
 const ManageEvents = props => {
   const isEditable = true
+
   const [tableData, setTableData] = useState(props.eventData)
+  const [isLoading, setIsLoading] = useState(false)
   // tableHeaders probably doesn't need to useState
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
@@ -66,7 +65,7 @@ const ManageEvents = props => {
     setIsOpen(false)
   }
 
-  const addEvent = async e => {
+  const handleAddEvent = async e => {
     e.preventDefault()
     const data = {
       name,
@@ -96,6 +95,44 @@ const ManageEvents = props => {
     }
   }
 
+  const handleUpdateEvent = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/library-events/update-event', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedEvents = res.map(event => ({ id: event.eventId, ...event }))
+      setTableData(updatedEvents)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleDeleteEvent = async data => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('/api/library-events/delete-event', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const res = await response.json()
+      const updatedEvents = res.map(event => ({ id: event.eventId, ...event }))
+      setTableData(updatedEvents)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -119,7 +156,7 @@ const ManageEvents = props => {
               <h2>Adding Event</h2>
               <Divider />
 
-              <form onSubmit={addEvent}>
+              <form onSubmit={handleAddEvent}>
                 <FormFields>
                   <Input
                     type="text"
@@ -180,7 +217,14 @@ const ManageEvents = props => {
           </Modal>
 
           <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              isEditable,
+              handleUpdate: handleUpdateEvent,
+              handleDelete: handleDeleteEvent
+            }}
           >
             <Table />
           </TableContext.Provider>
@@ -192,15 +236,19 @@ const ManageEvents = props => {
 
 ManageEvents.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/library-events/get-manage-events`)
   const data = await response.json()
 
   return {
     keys: Object.keys(data[0]),
-    eventData: data.map(entry => entry)
+    eventData: data.map(entry => ({
+      id: entry.eventId,
+      name: entry.name,
+      date: entry.date,
+      guest: entry.guest,
+      description: entry.description
+    }))
   }
 }
 
