@@ -68,7 +68,7 @@ CREATE TABLE `books` (
     `oid` INT(11),
         FOREIGN KEY (`oid`) REFERENCES `checkoutOrders` (`orderId`)
         ON DELETE SET NULL,
-    `title` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(255) UNIQUE NOT NULL,
     `author` VARCHAR(255) NOT NULL,
     `publisher` VARCHAR(255) NOT NULL,
     `genre` VARCHAR(255) NOT NULL,
