@@ -16,8 +16,8 @@ npm run dev
 
 ###### Responsiveness
 
-- [ ] Navbar
-- [ ] Footer
+- [x] Navbar
+- [x] Footer
 - [ ] Book on mobile
 
 ###### Other
@@ -25,7 +25,7 @@ npm run dev
 - [x] Proper date input when editing manage pages
 - [ ] Change selected book icon color to theme.red
 - [ ] Also for selected books on library/return pages: Possibly make the red underline stay at the bottom of the book's div when book is checked
-- [ ] manageCheckouts: Select customer email to display
+- [x] manageCheckouts: Select customer email to display
 - [ ] library: Display "Order is empty" in modal when user has not selected any books
 - [ ] return: User cannot return books if none are selected
 - [ ] On admin pages that allow rows to be deleted: "Are you sure you want to delete?" modal so that rows will not be deleted by accident (I deleted Sara Smith by accident last night, whoops. I decided to just import our ddl into the database again)
