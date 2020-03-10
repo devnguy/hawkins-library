@@ -48,6 +48,8 @@ const Library = props => {
   const [checkedBooks, setCheckedBooks] = useState([])
   const [checkedBookIds, setCheckedBookIds] = useState([])
 
+  const [checkoutMade, setCheckoutMade] = useState(false)
+
   // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
     setCheckedBooks([...checkedBooks, newBook])
@@ -67,6 +69,7 @@ const Library = props => {
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
   const openModal = () => {
+    setCheckoutMade(false)
     setIsOpen(true)
   }
   const closeModal = () => {
@@ -127,7 +130,17 @@ const Library = props => {
               Check Out <i className="material-icons">arrow_forward_ios</i>
             </Button>
 
-            <ModalContext.Provider value={{ isOpen, closeModal, setSearchResults }}>
+            <ModalContext.Provider
+              value={{
+                isOpen,
+                closeModal,
+                setSearchResults,
+                setCheckedBooks,
+                setCheckedBookIds,
+                checkoutMade,
+                setCheckoutMade
+              }}
+            >
               <LibraryModal checkedBooks={checkedBooks} checkedBookIds={checkedBookIds} />
             </ModalContext.Provider>
           </StyledCheckoutInput>

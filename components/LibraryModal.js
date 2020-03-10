@@ -59,7 +59,15 @@ const StyledCheckoutModalImage = styled.div`
 `
 
 const LibraryModal = props => {
-  const { isOpen, closeModal, setSearchResults } = useContext(ModalContext)
+  const {
+    isOpen,
+    closeModal,
+    setSearchResults,
+    setCheckedBooks,
+    checkoutMade,
+    setCheckoutMade
+  } = useContext(ModalContext)
+
   const [email, setEmail] = useState('')
   const [bookIds, setBookIds] = useState(props.checkedBookIds)
   const [status, setStatus] = useState({})
@@ -101,8 +109,60 @@ const LibraryModal = props => {
 
       // Resetting email state and fields, closing modal
       setEmail('')
+      setCheckedBooks([])
+      setCheckedBookIds([])
+      setCheckoutMade(true)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const validOrder = () => {
+    if (numBooks === 0 && checkoutMade === false) {
+      return (
+        <div>
+          <Divider />
+          <p>No books selected. Please select at least one book.</p>
+          <Button onClick={closeModal}>Return</Button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          {props.checkedBooks.map((title, index) =>
+            numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
+          )}
+          <p>
+            {' '}
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              status && (
+                <span className={status.statusNo ? 'status--error' : 'status--ok'}>
+                  {status.message}
+                </span>
+              )
+            )}
+          </p>
+          <Divider />
+          <form onSubmit={addOrder}>
+            <Input
+              type="email"
+              placeholder="User Email *"
+              value={email}
+              name="email"
+              id="email"
+              onChange={e => {
+                setEmail(e.target.value)
+                setBookIds(props.checkedBookIds)
+              }}
+              required
+            />
+            <Button onClick={setCheckoutMade(true)}>Checkout</Button>
+            <a onClick={closeModal}>CANCEL</a>
+          </form>
+        </div>
+      )
     }
   }
 
@@ -118,9 +178,10 @@ const LibraryModal = props => {
         <StyledCheckoutModalContainer>
           <StyledCheckoutForm>
             <h2>Selected Books:</h2>
-            <p>
+            {validOrder()}
+            {/* <p>
               {numBooks === 0 ? (
-                <p>No books selected</p>
+                <p>No books selected for checkout. Please select at least one book.</p>
               ) : (
                 props.checkedBooks.map((title, index) =>
                   numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
@@ -137,7 +198,7 @@ const LibraryModal = props => {
               )
             )}
             <Divider />
-            <form onSubmit={numBooks === 0 ? closeModal : addOrder}>
+            <form onSubmit={addOrder}>
               {numBooks === 0 ? (
                 <p></p>
               ) : (
@@ -154,9 +215,15 @@ const LibraryModal = props => {
                   required
                 />
               )}
-              {numBooks === 0 ? <Button>Return</Button> : <Button>Checkout</Button>}
-              <a onClick={closeModal}>CANCEL</a>
-            </form>
+              {numBooks === 0 ? (
+                <a onClick={closeModal}>
+                  <i className="material-icons">{'keyboard_return'}</i>
+                </a>
+              ) : (
+                <Button>Checkout</Button>
+              )}
+              {numBooks === 0 ? <span></span> : <a onClick={closeModal}>CANCEL</a>}
+            </form> */}
           </StyledCheckoutForm>
           <StyledCheckoutModalImage>
             <img src="/checkout.jpeg" />
