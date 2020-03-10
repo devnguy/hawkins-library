@@ -16,14 +16,8 @@ import Spinner from '../components/Spinner'
 
 const StyledReturnContent = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2.4rem 2.4rem;
-  @media (max-width: 1100px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: ${props => props.theme.screenSizeMed}) {
-    grid-template-columns: 1fr;
-  }
 `
 
 const StyledForm = styled.form`
