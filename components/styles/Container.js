@@ -12,4 +12,8 @@ export const BannerContainer = styled.div`
   padding-bottom: 2rem;
 `
 
+export const FlexContainer = styled.div`
+  display: flex;
+`
+
 export default Container

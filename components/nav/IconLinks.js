@@ -1,3 +1,7 @@
+import styled from 'styled-components'
+
+const StyledIconLinks = styled.div``
+
 const IconLinks = () => (
   <ul>
     <li>

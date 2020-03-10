@@ -4,6 +4,8 @@ import NavItem, { AdminNavItem } from './NavItem'
 import useScrollFromTop from '../hooks/useScrollFromTop'
 import NavLogo, { ExpandableMenuLogo } from './NavLogo'
 import Styles from './Styles'
+import IconLinks from './IconLinks'
+import { FlexContainer } from '../styles/Container'
 
 const StyledNavBar = styled.nav`
   display: flex;
@@ -37,9 +39,11 @@ const StyledNavContainer = styled.div`
 `
 
 const DimPage = styled.div`
+  display: none;
   top: 0;
   left: 0;
   @media (max-width: ${props => props.theme.screenSizeMed}) {
+    display: block;
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -80,6 +84,29 @@ const StyledMenuIcon = styled.div`
   }
 `
 
+const StyledIconLinks = styled.div`
+  display: none;
+  /* align-self: flex-end; */
+  /* width: 100%; */
+  @media (max-width: ${props => props.theme.screenSizeMed}) {
+    display: flex;
+    ul {
+      margin-right: 2.8rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      i {
+        padding: 1.2rem;
+        font-size: 2.4rem;
+      }
+      @media (max-width: ${props => props.theme.screenSizeSm}) {
+        margin-right: 1.2rem;
+      }
+    }
+  }
+`
+
 const NavBar = () => {
   const isTop = useScrollFromTop()
   const [isActive, setIsActive] = useState(false)
@@ -102,6 +129,7 @@ const NavBar = () => {
           </StyledMenuIcon>
 
           <ul className={isActive ? 'expandable-menu active' : 'expandable-menu'}>
+            {/* <div> */}
             {isActive && (
               <li>
                 <ExpandableMenuHeader>
@@ -128,6 +156,15 @@ const NavBar = () => {
             <NavItem route="/events" pageName="Events" />
             <NavItem route="/return" pageName="Return Books" />
             <NavItem route="/signup" pageName="Sign Up" />
+            {/* </div> */}
+
+            {isActive && (
+              <div>
+                <StyledIconLinks>
+                  <IconLinks />
+                </StyledIconLinks>
+              </div>
+            )}
           </ul>
         </StyledNavBar>
       </StyledNavContainer>
