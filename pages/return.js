@@ -27,23 +27,19 @@ const StyledForm = styled.form`
   input {
     width: 60%;
   }
-`
-
-const StyledReturnSection = styled.div`
-  background-color: ${props => props.theme.white};
-  padding: 6.4rem;
-  width: 100%;
-  margin: 5.4rem 0;
-  z-index: 2;
-  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4); /*xl shadow*/
   .status--ok {
     color: green;
   }
   .status--error {
     color: ${props => props.theme.red};
   }
+`
+
+const StyledReturnSection = styled.div`
+  background-color: ${props => props.theme.white};
+  width: 100%;
   h2 {
-    margin-top: 0;
+    margin: 3.6rem 0;
   }
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     padding: 4.8rem;
@@ -146,48 +142,44 @@ const Return = () => {
     <Page>
       <PageBanner bannerUrl="/banners/return-banner.jpeg" />
       <Layout>
-        <Section>
-          <ReturnSection title="Return Books">
-            <StyledForm onSubmit={getCheckedOutBooks}>
-              <p>
-                Enter your email to see which books are currently checked out under your account.
-                Once the status message appears, scroll down to view results. Click on each book you
-                want to return, then click 'Return Selected Books'
-              </p>
-              {isLoading ? (
-                <Spinner />
-              ) : (
-                status && (
-                  <span
-                    className={
-                      status.statusNo && status.numberOfBooks === 0 ? 'status--error' : 'status--ok'
-                    }
-                  >
-                    {status.message}
-                  </span>
-                )
-              )}
-              <Divider />
-              <Input
-                type="email"
-                placeholder="User Email *"
-                value={email}
-                name="email"
-                id="email"
-                onChange={e => {
-                  setEmail(e.target.value)
-                }}
-                required
-              />
-              <Button>
-                Submit <i className="material-icons">arrow_forward_ios</i>
-              </Button>
-            </StyledForm>
-          </ReturnSection>
-        </Section>
+        <PageContent pageTitle="Return Books">
+          <StyledForm onSubmit={getCheckedOutBooks}>
+            <p>
+              Enter your email to see which books are currently checked out under your account. Once
+              the status message appears, scroll down to view results. Click on each book you want
+              to return, then click 'Return Selected Books'
+            </p>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              status && (
+                <span
+                  className={
+                    status.statusNo && status.numberOfBooks === 0 ? 'status--error' : 'status--ok'
+                  }
+                >
+                  {status.message}
+                </span>
+              )
+            )}
+            <Divider />
+            <Input
+              type="email"
+              placeholder="User Email *"
+              value={email}
+              name="email"
+              id="email"
+              onChange={e => {
+                setEmail(e.target.value)
+              }}
+              required
+            />
+            <Button>
+              Submit <i className="material-icons">arrow_forward_ios</i>
+            </Button>
+          </StyledForm>
 
-        {status.statusNo === 0 && status.numberOfBooks ? (
-          <Section>
+          {status.statusNo === 0 && status.numberOfBooks ? (
             <ReturnSection title={`Books Checked Out By ${status.userEmail}`}>
               <StyledReturnContent>
                 <BookContext.Provider
@@ -234,8 +226,8 @@ const Return = () => {
                 </StyledSpan>
               </form>
             </ReturnSection>
-          </Section>
-        ) : null}
+          ) : null}
+        </PageContent>
       </Layout>
     </Page>
   )
