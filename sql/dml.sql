@@ -119,6 +119,15 @@ WHERE (bookId = :bookIdFromTitleInput)
 --      page.
 SELECT cid, checkoutDate, dueDate FROM checkoutOrders;
 
+-- Select books checked out by customers.
+SELECT oid, 
+CONCAT(firstName, ' ', lastName) AS fullName, email, title, 
+DATE_FORMAT(checkoutDate, '%m/%d/%Y') AS checkoutDate
+FROM books
+INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
+INNER JOIN customers ON checkoutOrders.cid = customers.customerId
+ORDER BY oid, email
+
 -- Query to add a new checkout order.
 INSERT INTO `checkoutOrders` (`cid`, `checkoutDate`, `dueDate`) VALUES 
     ((SELECT `customerId` FROM `customers` WHERE email = :emailInput), 
