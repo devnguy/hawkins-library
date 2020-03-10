@@ -41,13 +41,13 @@ const TdRow = props => {
   }
 
   const fieldsArray = Object.values(row)
+  // Don't render input for id or dateJoined.
+  // Render date/text input depending on data being edited.
   const inputFields = fieldsArray.map((field, index) =>
-    // Don't render input for id or dateJoined.
     tableHeaders[index].toLowerCase().includes('id') ||
     tableHeaders[index].toLowerCase().includes('datejoined') ? (
       <td key={index}>{field}</td>
     ) : (
-      // Render date/text input depending on data being edited.
       <TableInput
         type={tableHeaders[index].toLowerCase().includes('date') ? 'date' : 'text'}
         key={index}
