@@ -31,12 +31,6 @@ const StyledEventForm = styled.div`
       font-weight: 700;
     }
   }
-  .status--ok {
-    color: green;
-  }
-  .status--error {
-    color: ${props => props.theme.red};
-  }
   @media (max-width: ${props => props.theme.screenSizeMed}) {
   }
 `
