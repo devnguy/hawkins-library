@@ -173,10 +173,7 @@ const LibraryModal = props => {
     >
       <StyledModalContent>
         <StyledCheckoutModalContainer>
-          <StyledCheckoutForm>
-            <h2>Selected Books:</h2>
-            {validOrder()}
-          </StyledCheckoutForm>
+          <StyledCheckoutForm>{validOrder()}</StyledCheckoutForm>
           <StyledCheckoutModalImage>
             <img src="/checkout.jpeg" />
           </StyledCheckoutModalImage>
