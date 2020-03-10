@@ -66,6 +66,9 @@ const ManageBooks = props => {
     setIsOpen(false)
   }
 
+  // Getting book titles for delete functionality
+  const [bookTitles, setBookTitles] = useState(props.bookData.map(book => book.title))
+
   // Send data as post request to server to insert book.
   const handleAddBook = async e => {
     e.preventDefault()
@@ -229,12 +232,15 @@ const ManageBooks = props => {
               setTableData,
               isEditable,
               handleUpdate: handleUpdateBook,
-              handleDelete: handleDeleteBook
+              handleDelete: handleDeleteBook,
+              deleteItems: bookTitles,
+              item: 'book'
             }}
           >
             <Table />
           </TableContext.Provider>
         </PageContent>
+        {/* <span>{console.log(bookTitles)}</span> */}
       </Layout>
     </Page>
   )

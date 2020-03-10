@@ -18,6 +18,11 @@ const ManageCustomers = props => {
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
 
+  // Getting full names of customers for delete functionality
+  const [customerNames, setCustomerNames] = useState(
+    props.customerData.map(customer => customer.firstName + ' ' + customer.lastName)
+  )
+
   const handleUpdateCustomer = async data => {
     // e.preventDefault()
     setIsLoading(true)
@@ -68,7 +73,9 @@ const ManageCustomers = props => {
               tableHeaders,
               isEditable,
               handleUpdate: handleUpdateCustomer,
-              handleDelete: handleDeleteCustomer
+              handleDelete: handleDeleteCustomer,
+              deleteItems: customerNames,
+              item: 'customer'
             }}
           >
             <Table />

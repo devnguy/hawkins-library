@@ -5,6 +5,10 @@ import Td from './Td'
 import Button from '../styles/Button'
 import Input from '../Input'
 
+import Modal from 'react-modal'
+import { modalStyleDelete, StyledModalContent } from '../../components/styles/modalStyle'
+import Divider from '../../components/styles/Divider'
+
 const StyledTdRow = styled.tr`
   a {
     :hover {
@@ -30,6 +34,7 @@ const TdRow = props => {
 
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [row, setRow] = useState(props.row)
+  const [deleteItem, setDeleteItem] = useState(props.deleteItem)
 
   const handleInputChange = (inputId, value) => {
     setRow({ ...row, [tableHeaders[inputId]]: value })
@@ -58,6 +63,7 @@ const TdRow = props => {
   // Place holder
   const handleDeleteRow = () => {
     handleDelete(row)
+    closeModal()
   }
   const handleToggleUpdate = () => {
     setIsInEditMode(!isInEditMode)
@@ -65,6 +71,15 @@ const TdRow = props => {
   const handleSubmitUpdate = () => {
     setIsInEditMode(false)
     handleUpdate(row)
+  }
+
+  // Modal state and functions
+  const [isOpen, setIsOpen] = useState(false)
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
   }
 
   return (
@@ -79,13 +94,28 @@ const TdRow = props => {
               <a onClick={handleToggleUpdate}>
                 <i className="material-icons">edit</i>
               </a>
-              <a onClick={handleDeleteRow}>
+              <a onClick={openModal}>
                 <i className="material-icons">delete</i>
               </a>
             </span>
           )}
         </td>
       )}
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+        style={modalStyleDelete}
+        ariaHideApp={false}
+        closeTimeoutMS={100}
+      >
+        <StyledModalContent>
+          <h2>Delete {deleteItem}</h2>
+          <Divider />
+          <p>Are you sure you want to delete this {props.item}?</p>
+          <Button onClick={handleDeleteRow}>Delete</Button>
+          <a onClick={closeModal}>CANCEL</a>
+        </StyledModalContent>
+      </Modal>
     </StyledTdRow>
   )
 }

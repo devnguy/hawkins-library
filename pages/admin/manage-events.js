@@ -65,6 +65,9 @@ const ManageEvents = props => {
     setIsOpen(false)
   }
 
+  // Getting event names for delete functionality
+  const [eventNames, setEventNames] = useState(props.eventData.map(event => event.name))
+
   const handleAddEvent = async e => {
     e.preventDefault()
     const data = {
@@ -223,7 +226,9 @@ const ManageEvents = props => {
               setTableData,
               isEditable,
               handleUpdate: handleUpdateEvent,
-              handleDelete: handleDeleteEvent
+              handleDelete: handleDeleteEvent,
+              deleteItems: eventNames,
+              item: 'event'
             }}
           >
             <Table />
