@@ -15,12 +15,6 @@ import Divider from '../components/styles/Divider'
 const StyledStatus = styled.span`
   font-weight: 700;
   margin-left: 2.4rem;
-  .status--ok {
-    color: green;
-  }
-  .status--error {
-    color: ${props => props.theme.red};
-  }
 `
 
 const Signup = () => {
@@ -70,12 +64,11 @@ const Signup = () => {
       <Layout>
         <PageContent pageTitle="Become a Hawkins Library Patron">
           <p>
-            We would love for you to join our library! As a patron, you get
-            exclusive crazy once in a life time never before seen vip limited
-            time offer curated privileged access to our vast 8 book collection.
-            Did I look up synonnyms for 'exclusive' after running out? Yes but
-            it wasn't helpful. Could I have used Lorem Ipsum instead? Yes. Is
-            writing all of this a waste of time? Nobody answer that.
+            We would love for you to join our library! As a patron, you get exclusive crazy once in
+            a life time never before seen vip limited time offer curated privileged access to our
+            vast 8 book collection. Did I look up synonnyms for 'exclusive' after running out? Yes
+            but it wasn't helpful. Could I have used Lorem Ipsum instead? Yes. Is writing all of
+            this a waste of time? Nobody answer that.
           </p>
           <Divider />
 
@@ -143,17 +136,14 @@ const Signup = () => {
               </FormField>
             </FormFields>
             <LargeButton>
-              Become a Member{' '}
-              <i className="material-icons">arrow_forward_ios</i>
+              Become a Member <i className="material-icons">arrow_forward_ios</i>
             </LargeButton>
             <StyledStatus>
               {isLoading ? (
                 <Spinner />
               ) : (
                 status && (
-                  <span
-                    className={status.statusNo ? 'status--error' : 'status--ok'}
-                  >
+                  <span className={status.statusNo ? 'status--error' : 'status--ok'}>
                     {status.message}
                   </span>
                 )
