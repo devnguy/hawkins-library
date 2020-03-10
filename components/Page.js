@@ -50,6 +50,12 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.red};
   }
   button {  font-family: ${props => props.theme.fontFamily} }
+  .status--ok {
+    color: green;
+  }
+  .status--error {
+    color: ${props => props.theme.red};
+  }
 `
 
 class Page extends Component {

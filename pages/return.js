@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
 
@@ -27,12 +27,6 @@ const StyledForm = styled.form`
   input {
     width: 60%;
   }
-  .status--ok {
-    color: green;
-  }
-  .status--error {
-    color: ${props => props.theme.red};
-  }
 `
 
 const StyledReturnSection = styled.div`
@@ -59,6 +53,7 @@ const Return = () => {
   const [status, setStatus] = useState({})
   const [returnStatus, setReturnStatus] = useState({})
   const [email, setEmail] = useState('')
+  const [submittedEmail, setSubmittedEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingReturn, setIsLoadingReturn] = useState(false)
   const [checkedBooks, setCheckedBooks] = useState([])
@@ -98,11 +93,26 @@ const Return = () => {
       setStatus(res)
       setBooks(res.checkedOutBooks)
       setIsLoading(false)
-      currentEmail = email
+      setSubmittedEmail(data.email)
+      setCheckedBookIds([])
+      setCheckedBooks([])
       setEmail('')
     } catch (error) {
       console.log(error)
     }
+  }
+
+  useEffect(() => {
+    console.log(submittedEmail)
+  }, [submittedEmail])
+
+  const handleNoSelectedBooks = e => {
+    e.preventDefault()
+    setReturnStatus({
+      statusNo: 2,
+      numberOfBooks: 0,
+      returnMessage: 'No books selected'
+    })
   }
 
   const returnBooks = async e => {
@@ -110,7 +120,7 @@ const Return = () => {
     setIsLoadingReturn(true)
 
     const data = {
-      email,
+      email: submittedEmail,
       checkedBookIds
     }
 
@@ -126,9 +136,9 @@ const Return = () => {
       setStatus(res)
       setReturnStatus(res)
       setBooks(res.checkedOutBooks)
+      setCheckedBookIds([])
+      setCheckedBooks([])
       setIsLoadingReturn(false)
-      currentEmail = email
-      console.log('success')
       setEmail('')
     } catch (error) {
       console.log(error)
@@ -200,7 +210,7 @@ const Return = () => {
                   ))}
                 </BookContext.Provider>
               </StyledReturnContent>
-              <form onSubmit={returnBooks}>
+              <form onSubmit={checkedBookIds.length ? returnBooks : handleNoSelectedBooks}>
                 <LargeButton>
                   Return Selected Books <i className="material-icons">arrow_forward_ios</i>
                 </LargeButton>
