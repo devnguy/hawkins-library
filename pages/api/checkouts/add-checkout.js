@@ -8,16 +8,14 @@ module.exports = async (req, res) => {
     WHERE email = ${req.body.email}
   `)
 
-  if (queryForEmail.length === 0) {
-    const books = await db.query(escape`
-      SELECT * FROM books WHERE oid is NULL;
-    `)
+  let statusMessage, statusNumber
 
-    res.status(200).json({
-      message: 'Email not found.',
-      statusNo: 3,
-      bookData: books
-    })
+  if (queryForEmail.length === 0) {
+    statusMessage = 'Email not found.'
+    statusNumber = 2
+  } else if (req.body.bookIds.length === 0) {
+    statusMessage = 'Please select at least one book to checkout.'
+    statusNumber = 1
   } else {
     const addOrder = await db.query(escape`
       INSERT INTO checkoutOrders (cid) 
@@ -32,10 +30,13 @@ module.exports = async (req, res) => {
     `)
     }
 
-    const books = await db.query(escape`
+    statusMessage = 'Checkout successful!'
+    statusNumber = 0
+  }
+
+  const books = await db.query(escape`
     SELECT * FROM books WHERE oid is NULL;
   `)
 
-    res.status(200).json({ message: 'Checkout successful!', statusNo: 0, bookData: books })
-  }
+  res.status(200).json({ message: statusMessage, statusNo: statusNumber, bookData: books })
 }

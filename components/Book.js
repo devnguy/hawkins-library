@@ -93,7 +93,6 @@ const Book = props => {
     checkedBooks,
     addCheckedBook,
     removeCheckedBook,
-    checkedBookIds,
     addCheckedId,
     removeCheckedId
   } = useContext(BookContext)
@@ -108,15 +107,12 @@ const Book = props => {
       setIcon('check')
       addCheckedBook(props.bookTitle)
       addCheckedId(props.id)
-      // console.log(checkedBooks)
-      // console.log(checkedBookIds)
     }
     // Book is being removed from order
     else {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
       removeCheckedId(props.id)
-      // console.log(checkedBookIds)
     }
   }
 
@@ -126,6 +122,14 @@ const Book = props => {
       return 'check'
     } else {
       return props.action
+    }
+  }
+
+  const iconColor = () => {
+    if (checkedBooks.includes(props.bookTitle)) {
+      return { color: '#e50812' }
+    } else {
+      return { color: 'black' }
     }
   }
 
@@ -143,7 +147,9 @@ const Book = props => {
           </div>
           <StyledAddIcon>
             <a>
-              <i className="material-icons">{bookIcon()}</i>
+              <i className="material-icons" style={iconColor()}>
+                {bookIcon()}
+              </i>
             </a>
           </StyledAddIcon>
         </StyledBookInfo>

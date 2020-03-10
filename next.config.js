@@ -5,6 +5,6 @@ module.exports = {
     MYSQL_DATABASE: 'hawkins',
     MYSQL_PASSWORD: 'eleven11',
     DEV_ENDPOINT: 'http://localhost:3000',
-    PROD_ENDPOINT: 'https://hawkins-library.now.sh',
+    PROD_ENDPOINT: 'https://hawkins-library.now.sh'
   }
 }
