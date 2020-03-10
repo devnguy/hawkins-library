@@ -17,14 +17,14 @@ const StyledTdRow = styled.tr`
   }
 `
 
-const TableInput = ({ value, onChange, id }) => {
+const TableInput = ({ value, onChange, id, type }) => {
   const handleChange = event => {
     const text = event.target.value
     onChange(id, text)
   }
   return (
     <td>
-      <Input onChange={handleChange} value={value} />
+      <Input onChange={handleChange} value={value} type={type} />
     </td>
   )
 }
@@ -42,11 +42,14 @@ const TdRow = props => {
 
   const fieldsArray = Object.values(row)
   const inputFields = fieldsArray.map((field, index) =>
-    // Don't render input for id
-    tableHeaders[index].toLowerCase().includes('id') ? (
+    // Don't render input for id or dateJoined.
+    tableHeaders[index].toLowerCase().includes('id') ||
+    tableHeaders[index].toLowerCase().includes('datejoined') ? (
       <td key={index}>{field}</td>
     ) : (
+      // Render date/text input depending on data being edited.
       <TableInput
+        type={tableHeaders[index].toLowerCase().includes('date') ? 'date' : 'text'}
         key={index}
         id={index}
         onChange={handleInputChange}
@@ -59,8 +62,6 @@ const TdRow = props => {
     <Td key={index} content={field} isInEditMode={isInEditMode} />
   ))
 
-  // Have access to bookId, delete where bookId = props.bookId
-  // Place holder
   const handleDeleteRow = () => {
     handleDelete(row)
     closeModal()
