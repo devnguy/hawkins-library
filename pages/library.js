@@ -124,7 +124,7 @@ const Library = props => {
               onChange={handleChange}
             ></Input>
             <button disabled>
-              <i class="fa fa-search"></i>
+              <i className="fa fa-search"></i>
             </button>
           </StyledSearchBar>
           <StyledLibraryContent>
