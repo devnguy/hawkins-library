@@ -47,6 +47,9 @@ const StyledBook = styled.div`
   :hover {
     cursor: pointer;
   }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    width: 100%;
+  }
 `
 
 const StyledBookImage = styled.div`
@@ -72,6 +75,9 @@ const StyledBookInfo = styled.div`
     font-size: 2rem;
     line-height: 3.2rem;
     font-weight: 400;
+  }
+  @media (max-width: ${props => props.theme.screenSizeSm}) {
+    height: 150px;
   }
 `
 
