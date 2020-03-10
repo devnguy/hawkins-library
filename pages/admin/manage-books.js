@@ -89,7 +89,16 @@ const ManageBooks = props => {
       })
       // Convert returned promise to json and set state.
       const bookData = await response.json()
-      setTableData(bookData)
+      setTableData(
+        bookData.map(book => ({
+          id: book.bookId,
+          oid: book.oid,
+          title: book.title,
+          author: book.author,
+          publisher: book.publisher,
+          genre: book.genre
+        }))
+      )
       // Reset input state and fields, close modal.
       setTitle('')
       setAuthor('')

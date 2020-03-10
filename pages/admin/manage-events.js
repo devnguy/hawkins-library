@@ -86,7 +86,15 @@ const ManageEvents = props => {
         }
       })
       const eventData = await response.json()
-      setTableData(eventData)
+      setTableData(
+        eventData.map(event => ({
+          id: event.eventId,
+          name: event.name,
+          date: event.date,
+          guest: event.guest,
+          description: event.description
+        }))
+      )
       setName('')
       setDate('')
       setGuest('')
