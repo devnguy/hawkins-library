@@ -24,6 +24,32 @@ const StyledCheckoutInput = styled.div`
   width: 100%;
 `
 
+const StyledSearchBar = styled.div`
+  padding-bottom: 25px;
+
+  input {
+    width: 53%;
+    /* box-shadow: 2px 6px 7px rgb(210, 210, 210); */
+    transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
+    :focus {
+      width: 93%;
+    }
+    border-right: none;
+  }
+  button {
+    width: 7%;
+    margin: auto;
+    font-size: 1.6rem;
+    color: #757575;
+    background-color: ${props => props.theme.white};
+    border: solid 1px ${props => props.theme.lightgray};
+    border-left: none;
+    line-height: 4rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+`
+
 /**
  * When user clicks on '+', translate/transform to check mark.
  * Use state to keep track of books added and removed from 'cart'.
@@ -79,7 +105,9 @@ const Library = props => {
 
   // Filtering book titles based on search term.
   useEffect(() => {
-    const results = books.filter(book => book.title.toLowerCase().includes(searchTerm))
+    const results = books.filter(book =>
+      book.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     setSearchResults(results)
   }, [searchTerm])
 
@@ -88,14 +116,17 @@ const Library = props => {
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Library">
-          <p>
+          <StyledSearchBar>
             <Input
               type="text"
               placeholder="Search for a book"
               value={searchTerm}
               onChange={handleChange}
             ></Input>
-          </p>
+            <button disabled>
+              <i class="fa fa-search"></i>
+            </button>
+          </StyledSearchBar>
           <StyledLibraryContent>
             <BookContext.Provider
               value={{
