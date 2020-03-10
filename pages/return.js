@@ -41,9 +41,6 @@ const StyledReturnSection = styled.div`
   h2 {
     margin: 3.6rem 0;
   }
-  @media (max-width: ${props => props.theme.screenSizeMed}) {
-    padding: 4.8rem;
-  }
 `
 
 const StyledSpan = styled.span`
