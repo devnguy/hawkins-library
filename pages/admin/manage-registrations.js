@@ -17,13 +17,21 @@ const ManageRegistrations = props => {
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
 
+  const [registrations, setRegistrations] = useState(props.registrationData)
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Registrations">
           <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData }}
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              deleteItems: registrations,
+              item: 'registration'
+            }}
           >
             <Table />
           </TableContext.Provider>
@@ -35,9 +43,7 @@ const ManageRegistrations = props => {
 
 ManageRegistrations.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/registrations/get-registrations`)
   const data = await response.json()
 
