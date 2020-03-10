@@ -124,30 +124,29 @@ const LibraryModal = props => {
   const validOrder = () => {
     if (numBooks === 0 && checkoutMade === false) {
       return (
-        <div>
+        <StyledCheckoutForm>
+          <h2>Selected Books:</h2>
           <Divider />
           <p>No books selected. Please select at least one book.</p>
           <Button onClick={closeModal}>Return</Button>
-        </div>
+        </StyledCheckoutForm>
       )
     } else {
       return (
-        <div>
+        <StyledCheckoutForm>
+          <h2>Selected Books:</h2>
           {props.checkedBooks.map((title, index) =>
             numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
+          )}{' '}
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            status && (
+              <span className={status.statusNo ? 'status--error' : 'status--ok'}>
+                {status.message}
+              </span>
+            )
           )}
-          <p>
-            {' '}
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              status && (
-                <span className={status.statusNo ? 'status--error' : 'status--ok'}>
-                  {status.message}
-                </span>
-              )
-            )}
-          </p>
           <Divider />
           <form onSubmit={addOrder}>
             <Input
@@ -165,7 +164,7 @@ const LibraryModal = props => {
             <Button onClick={setCheckoutMade(true)}>Checkout</Button>
             <a onClick={closeModal}>CANCEL</a>
           </form>
-        </div>
+        </StyledCheckoutForm>
       )
     }
   }
