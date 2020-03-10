@@ -133,7 +133,6 @@ const ManageBooks = props => {
             <Table />
           </TableContext.Provider>
         </PageContent>
-        {/* <span>{console.log(bookTitles)}</span> */}
       </Layout>
     </Page>
   )
