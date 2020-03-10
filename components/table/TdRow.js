@@ -4,6 +4,7 @@ import TableContext from '../../context/table-context'
 import Td from './Td'
 import Button from '../styles/Button'
 import Input from '../Input'
+import Spinner from '../Spinner'
 
 import Modal from 'react-modal'
 import { modalStyleDelete, StyledModalContent } from '../../components/styles/modalStyle'
@@ -35,6 +36,7 @@ const TdRow = props => {
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [row, setRow] = useState(props.row)
   const [deleteItem, setDeleteItem] = useState(props.deleteItem)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (inputId, value) => {
     setRow({ ...row, [tableHeaders[inputId]]: value })
@@ -62,16 +64,19 @@ const TdRow = props => {
     <Td key={index} content={field} isInEditMode={isInEditMode} />
   ))
 
-  const handleDeleteRow = () => {
-    handleDelete(row)
+  const handleDeleteRow = async () => {
+    setIsLoading(true)
     closeModal()
+    await handleDelete(row)
   }
   const handleToggleUpdate = () => {
     setIsInEditMode(!isInEditMode)
   }
-  const handleSubmitUpdate = () => {
+  const handleSubmitUpdate = async () => {
+    setIsLoading(true)
     setIsInEditMode(false)
-    handleUpdate(row)
+    await handleUpdate(row)
+    setIsLoading(false)
   }
 
   // Modal state and functions
@@ -86,10 +91,13 @@ const TdRow = props => {
   return (
     <StyledTdRow>
       {!isInEditMode ? tdFields : inputFields}
+      {/* Submit/edit + delete/spinner logic */}
       {isEditable && (
         <td>
           {isInEditMode ? (
             <Button onClick={handleSubmitUpdate}>Submit</Button>
+          ) : isLoading ? (
+            <Spinner />
           ) : (
             <span>
               <a onClick={handleToggleUpdate}>
