@@ -18,13 +18,22 @@ const ManageCheckouts = props => {
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
 
+  const [checkouts, setCheckouts] = useState(props.checkoutData)
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Admin: Manage Checkouts">
           <TableContext.Provider
-            value={{ tableData, tableHeaders, setTableData, isEditable }}
+            value={{
+              tableData,
+              tableHeaders,
+              setTableData,
+              isEditable,
+              deleteItems: checkouts,
+              item: 'checkout'
+            }}
           >
             <Table />
           </TableContext.Provider>
@@ -36,9 +45,7 @@ const ManageCheckouts = props => {
 
 ManageCheckouts.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/checkouts/get-checkouts`)
   const data = await response.json()
 

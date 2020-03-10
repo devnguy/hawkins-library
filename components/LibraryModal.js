@@ -119,8 +119,12 @@ const LibraryModal = props => {
           <StyledCheckoutForm>
             <h2>Selected Books:</h2>
             <p>
-              {props.checkedBooks.map((title, index) =>
-                numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
+              {numBooks === 0 ? (
+                <p>No books selected</p>
+              ) : (
+                props.checkedBooks.map((title, index) =>
+                  numBooks - 1 === index ? <span>{title}</span> : <span>{title}, </span>
+                )
               )}
             </p>
             {isLoading ? (
@@ -133,20 +137,24 @@ const LibraryModal = props => {
               )
             )}
             <Divider />
-            <form onSubmit={addOrder}>
-              <Input
-                type="email"
-                placeholder="User Email *"
-                value={email}
-                name="email"
-                id="email"
-                onChange={e => {
-                  setEmail(e.target.value)
-                  setBookIds(props.checkedBookIds)
-                }}
-                required
-              />
-              <Button>Checkout</Button>
+            <form onSubmit={numBooks === 0 ? closeModal : addOrder}>
+              {numBooks === 0 ? (
+                <p></p>
+              ) : (
+                <Input
+                  type="email"
+                  placeholder="User Email *"
+                  value={email}
+                  name="email"
+                  id="email"
+                  onChange={e => {
+                    setEmail(e.target.value)
+                    setBookIds(props.checkedBookIds)
+                  }}
+                  required
+                />
+              )}
+              {numBooks === 0 ? <Button>Return</Button> : <Button>Checkout</Button>}
               <a onClick={closeModal}>CANCEL</a>
             </form>
           </StyledCheckoutForm>
