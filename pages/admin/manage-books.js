@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
-import Modal from 'react-modal'
 
 import Layout from '../../components/Layout'
 import Page from '../../components/Page'
@@ -9,12 +8,10 @@ import PageBanner from '../../components/PageBanner'
 import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
-import Divider from '../../components/styles/Divider'
+import ModalContext from '../../context/modal-context'
+import AddBookModal from '../../components/modals/AddBookModal'
 
-import { FormFields } from '../../components/Form'
-import Input from '../../components/Input'
 import Button from '../../components/styles/Button'
-import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
 
 /**
  * STYLES
@@ -50,12 +47,7 @@ const ManageBooks = props => {
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
-  // Form state
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [publisher, setPublisher] = useState('')
-  const [genre, setGenre] = useState('')
-  const [imgUrl, setImgUrl] = useState('')
+  const [bookTitles, setBookTitles] = useState(props.bookData.map(book => book.title))
 
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
@@ -64,51 +56,6 @@ const ManageBooks = props => {
   }
   const closeModal = () => {
     setIsOpen(false)
-  }
-
-  // Getting book titles for delete functionality
-  const [bookTitles, setBookTitles] = useState(props.bookData.map(book => book.title))
-
-  // Send data as post request to server to insert book.
-  const handleAddBook = async e => {
-    e.preventDefault()
-    const data = {
-      title,
-      author,
-      publisher,
-      genre,
-      imgUrl
-    }
-    try {
-      const response = await fetch('/api/books/add-book', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      // Convert returned promise to json and set state.
-      const bookData = await response.json()
-      setTableData(
-        bookData.map(book => ({
-          id: book.bookId,
-          oid: book.oid,
-          title: book.title,
-          author: book.author,
-          publisher: book.publisher,
-          genre: book.genre
-        }))
-      )
-      // Reset input state and fields, close modal.
-      setTitle('')
-      setAuthor('')
-      setPublisher('')
-      setGenre('')
-      setImgUrl('')
-      closeModal()
-    } catch (error) {
-      console.log(error)
-    }
   }
 
   const handleUpdateBook = async data => {
@@ -161,78 +108,15 @@ const ManageBooks = props => {
             </StyledAddButton>
           </FlexContainer>
 
-          <Modal
-            isOpen={isOpen}
-            onRequestClose={closeModal}
-            style={modalStyle}
-            ariaHideApp={false}
-            closeTimeoutMS={100}
+          <ModalContext.Provider
+            value={{
+              isOpen,
+              closeModal,
+              setTableData
+            }}
           >
-            <StyledModalContent>
-              <h2>Adding Book</h2>
-              <Divider />
-              <form onSubmit={handleAddBook}>
-                <FormFields>
-                  <Input
-                    type="text"
-                    placeholder="Title *"
-                    value={title}
-                    name="title"
-                    id="title"
-                    onChange={e => {
-                      setTitle(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Author *"
-                    value={author}
-                    name="author"
-                    id="author"
-                    onChange={e => {
-                      setAuthor(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Publisher *"
-                    value={publisher}
-                    name="publisher"
-                    id="publisher"
-                    onChange={e => {
-                      setPublisher(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Genre *"
-                    value={genre}
-                    name="genre"
-                    id="genre"
-                    onChange={e => {
-                      setGenre(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Book Image URL"
-                    value={imgUrl}
-                    name="imgUrl"
-                    id="imgUrl"
-                    onChange={e => {
-                      setImgUrl(e.target.value)
-                    }}
-                  />
-                </FormFields>
-                <Button>Add Book</Button>
-                <a onClick={closeModal}>CANCEL</a>
-              </form>
-            </StyledModalContent>
-          </Modal>
+            <AddBookModal />
+          </ModalContext.Provider>
 
           <TableContext.Provider
             value={{
