@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 import Button from '../components/styles/Button'
 import { useState } from 'react'
-import EventModal from '../components/EventModal'
+import EventModal from '../components/modals/EventModal'
 import ModalContext from '../context/modal-context'
 import Link from 'next/link'
 
 const StyledFeature = styled.div`
   display: flex;
-  /* max-width: ${props => props.theme.maxWidth}; */
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); /*tailwindcss large shadow*/
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); /*tailwindcss large shadow*/
   margin: auto;
   @media (max-width: ${props => props.theme.screenSizeMed}) {
     flex-direction: column;
@@ -16,7 +15,6 @@ const StyledFeature = styled.div`
 `
 
 const StyledFeatureBody = styled.div`
-  /* background-color: ${props => props.theme.black}; */
   background-color: ${props => props.bgColor};
   flex: ${props => props.size};
   color: ${props => props.fontColor};

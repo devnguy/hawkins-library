@@ -2,12 +2,12 @@ import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
 
-import Input from '../components/Input'
-import Button from '../components/styles/Button'
-import Divider from '../components/styles/Divider'
-import ModalContext from '../context/modal-context'
-import { modalStyleEvent, StyledModalContent } from '../components/styles/modalStyle'
-import Spinner from '../components/Spinner'
+import Input from '../Input'
+import Button from '../styles/Button'
+import Divider from '../styles/Divider'
+import ModalContext from '../../context/modal-context'
+import { modalStyleEvent, StyledModalContent } from '../styles/modalStyle'
+import Spinner from '../Spinner'
 
 const StyledCheckoutModalContainer = styled.div`
   display: flex;

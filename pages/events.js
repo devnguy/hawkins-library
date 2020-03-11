@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
-import { LeftEvent, RightEvent } from '../components/Event'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 
@@ -22,17 +21,9 @@ const Events = props => {
         {events.map((event, index) => (
           <Section key={index}>
             {index % 2 ? (
-              <RightFeature
-                content={event}
-                button="Register"
-                eventId={event.eventId}
-              />
+              <RightFeature content={event} button="Register" eventId={event.eventId} />
             ) : (
-              <LeftFeature
-                content={event}
-                button="Register"
-                eventId={event.eventId}
-              />
+              <LeftFeature content={event} button="Register" eventId={event.eventId} />
             )}
           </Section>
         ))}
@@ -43,9 +34,7 @@ const Events = props => {
 
 Events.getInitialProps = async () => {
   const url =
-    process.env.NODE_ENV !== 'production'
-      ? process.env.DEV_ENDPOINT
-      : process.env.PROD_ENDPOINT
+    process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/library-events/get-library-events`)
   const data = await response.json()
 

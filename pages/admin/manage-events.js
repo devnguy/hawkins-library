@@ -1,24 +1,17 @@
 import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
-import Modal from 'react-modal'
 
+import Button from '../../components/styles/Button'
 import Layout from '../../components/Layout'
 import Page from '../../components/Page'
 import PageBanner from '../../components/PageBanner'
 import PageContent from '../../components/styles/PageContent'
 import Table from '../../components/table/Table'
 import TableContext from '../../context/table-context'
-import Divider from '../../components/styles/Divider'
+import ModalContext from '../../context/modal-context'
+import AddEventModal from '../../components/modals/AddEventModal'
 
-import { FormFields } from '../../components/Form'
-import Input from '../../components/Input'
-import Button from '../../components/styles/Button'
-import { modalStyle, StyledModalContent } from '../../components/styles/modalStyle'
-
-/**
- * STYLES
- */
 const FlexContainer = styled.div`
   top: -2.4rem;
   display: flex;
@@ -38,9 +31,6 @@ const StyledAddButton = styled.div`
   }
 `
 
-/**
- * COMPONENT
- */
 const ManageEvents = props => {
   const isEditable = true
 
@@ -50,11 +40,6 @@ const ManageEvents = props => {
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
-  const [name, setName] = useState('')
-  const [date, setDate] = useState('')
-  const [guest, setGuest] = useState('')
-  const [description, setDescription] = useState('')
-  const [imgUrl, setImgUrl] = useState('')
 
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
@@ -67,44 +52,6 @@ const ManageEvents = props => {
 
   // Getting event names for delete functionality
   const [eventNames, setEventNames] = useState(props.eventData.map(event => event.name))
-
-  const handleAddEvent = async e => {
-    e.preventDefault()
-    const data = {
-      name,
-      date,
-      guest,
-      description,
-      imgUrl
-    }
-    try {
-      const response = await fetch('/api/library-events/add-event', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      const eventData = await response.json()
-      setTableData(
-        eventData.map(event => ({
-          id: event.eventId,
-          name: event.name,
-          date: event.date,
-          guest: event.guest,
-          description: event.description
-        }))
-      )
-      setName('')
-      setDate('')
-      setGuest('')
-      setDescription('')
-      setImgUrl('')
-      closeModal()
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const handleUpdateEvent = async data => {
     setIsLoading(true)
@@ -156,76 +103,15 @@ const ManageEvents = props => {
             </StyledAddButton>
           </FlexContainer>
 
-          <Modal
-            isOpen={isOpen}
-            onRequestClose={closeModal}
-            style={modalStyle}
-            ariaHideApp={false}
-            closeTimeoutMS={100}
+          <ModalContext.Provider
+            value={{
+              isOpen,
+              closeModal,
+              setTableData
+            }}
           >
-            <StyledModalContent>
-              <h2>Adding Event</h2>
-              <Divider />
-
-              <form onSubmit={handleAddEvent}>
-                <FormFields>
-                  <Input
-                    type="text"
-                    placeholder="Name *"
-                    value={name}
-                    name="name"
-                    id="name"
-                    onChange={e => {
-                      setName(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="date"
-                    value={date}
-                    name="date"
-                    id="date"
-                    onChange={e => {
-                      setDate(e.target.value)
-                    }}
-                    required
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Guest"
-                    value={guest}
-                    name="guest"
-                    id="guest"
-                    onChange={e => {
-                      setGuest(e.target.value)
-                    }}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Event Description"
-                    value={description}
-                    name="description"
-                    id="description"
-                    onChange={e => {
-                      setDescription(e.target.value)
-                    }}
-                  />
-                  <Input
-                    type="text"
-                    placeholder="Event Image URL"
-                    value={imgUrl}
-                    name="imgUrl"
-                    id="imgUrl"
-                    onChange={e => {
-                      setImgUrl(e.target.value)
-                    }}
-                  />
-                </FormFields>
-                <Button>Add Event</Button>
-                <a onClick={closeModal}>CANCEL</a>
-              </form>
-            </StyledModalContent>
-          </Modal>
+            <AddEventModal />
+          </ModalContext.Provider>
 
           <TableContext.Provider
             value={{

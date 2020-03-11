@@ -9,7 +9,7 @@ import PageContent from '../components/styles/PageContent'
 import Button from '../components/styles/Button'
 import Book from '../components/Book'
 import BookContext from '../context/book-context'
-import LibraryModal from '../components/LibraryModal'
+import LibraryModal from '../components/modals/LibraryModal'
 import ModalContext from '../context/modal-context'
 import Input from '../components/Input'
 
