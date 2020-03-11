@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
 import Divider from '../styles/Divider'
@@ -8,6 +9,17 @@ import ModalContext from '../../context/modal-context'
 import { modalStyle, StyledModalContent } from '../styles/modalStyle'
 import Spinner from '../Spinner'
 import { FormFields } from '../Form'
+
+const StyledModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  h2 {
+    margin: 0;
+  }
+  i:hover {
+    cursor: pointer;
+  }
+`
 
 const AddBookModal = props => {
   const { isOpen, closeModal, setTableData } = useContext(ModalContext)
@@ -78,7 +90,12 @@ const AddBookModal = props => {
       closeTimeoutMS={100}
     >
       <StyledModalContent>
-        <h2>Adding Book {isLoading ? <Spinner /> : null}</h2>
+        <StyledModalHeader>
+          <h2>Adding Book {isLoading ? <Spinner /> : null}</h2>
+          <i className="material-icons" onClick={closeModal}>
+            close
+          </i>
+        </StyledModalHeader>
 
         <Divider />
         <form onSubmit={handleAddBook}>
