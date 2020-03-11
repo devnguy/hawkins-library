@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import TableContext from '../../context/table-context'
 import Td from './Td'
 import Button from '../styles/Button'
@@ -35,14 +35,17 @@ const TdRow = props => {
 
   const [isInEditMode, setIsInEditMode] = useState(false)
   const [row, setRow] = useState(props.row)
-  const [deleteItem, setDeleteItem] = useState(props.deleteItem)
   const [isLoading, setIsLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false) // modal
 
   const handleInputChange = (inputId, value) => {
     setRow({ ...row, [tableHeaders[inputId]]: value })
   }
 
   const fieldsArray = Object.values(row)
+  const tdFields = fieldsArray.map((field, index) => (
+    <Td key={index} content={field} isInEditMode={isInEditMode} />
+  ))
   // Don't render input for id or dateJoined.
   // Render date/text input depending on data being edited.
   const inputFields = fieldsArray.map((field, index) =>
@@ -60,10 +63,6 @@ const TdRow = props => {
     )
   )
 
-  const tdFields = fieldsArray.map((field, index) => (
-    <Td key={index} content={field} isInEditMode={isInEditMode} />
-  ))
-
   const handleDeleteRow = async () => {
     setIsLoading(true)
     closeModal()
@@ -78,9 +77,6 @@ const TdRow = props => {
     await handleUpdate(row)
     setIsLoading(false)
   }
-
-  // Modal state and functions
-  const [isOpen, setIsOpen] = useState(false)
   const openModal = () => {
     setIsOpen(true)
   }
@@ -118,7 +114,10 @@ const TdRow = props => {
         closeTimeoutMS={100}
       >
         <StyledModalContent>
-          <h2>Delete {deleteItem}</h2>
+          <h2>
+            Delete{' '}
+            {props.row.title || props.row.name || `${props.row.firstName} ${props.row.lastName}`}
+          </h2>
           <Divider />
           <p>Are you sure you want to delete this {props.item}?</p>
           <Button onClick={handleDeleteRow}>Delete</Button>

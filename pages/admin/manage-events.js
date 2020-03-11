@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
 
@@ -49,9 +49,6 @@ const ManageEvents = props => {
   const closeModal = () => {
     setIsOpen(false)
   }
-
-  // Getting event names for delete functionality
-  const [eventNames, setEventNames] = useState(props.eventData.map(event => event.name))
 
   const handleUpdateEvent = async data => {
     setIsLoading(true)
@@ -121,7 +118,6 @@ const ManageEvents = props => {
               isEditable,
               handleUpdate: handleUpdateEvent,
               handleDelete: handleDeleteEvent,
-              deleteItems: eventNames,
               item: 'event'
             }}
           >

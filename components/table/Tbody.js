@@ -7,10 +7,10 @@ const StyledTbody = styled.tbody`
   }
 `
 
-const Tbody = ({ data, deleteItems, item }) => (
+const Tbody = ({ data, item }) => (
   <StyledTbody>
-    {data.map((row, index) => (
-      <TdRow key={row.id} row={row} deleteItem={deleteItems[index]} item={item} />
+    {data.map(row => (
+      <TdRow key={row.id} row={row} item={item} />
     ))}
   </StyledTbody>
 )

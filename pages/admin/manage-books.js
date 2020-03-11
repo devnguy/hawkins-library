@@ -47,7 +47,6 @@ const ManageBooks = props => {
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
-  const [bookTitles, setBookTitles] = useState(props.bookData.map(book => book.title))
 
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
@@ -126,7 +125,6 @@ const ManageBooks = props => {
               isEditable,
               handleUpdate: handleUpdateBook,
               handleDelete: handleDeleteBook,
-              deleteItems: bookTitles,
               item: 'book'
             }}
           >
