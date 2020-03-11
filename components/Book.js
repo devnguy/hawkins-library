@@ -36,6 +36,30 @@ const HoverStyles = styled.div`
     -webkit-transform: translateY(0);
     transform: translateY(0);
   }
+
+  .hvr-underline-clicked {
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    overflow: hidden;
+  }
+  .hvr-underline-clicked:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: ${props => props.theme.red};
+    height: 0.8rem;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+  }
+  .hvr-underline-clicked:after {
+    -webkit-transform: translateY(0.8rem);
+    transform: translateY(0.8rem);
+  }
 `
 
 const StyledBook = styled.div`
@@ -136,7 +160,10 @@ const Book = props => {
   // Returning book display on library page
   return (
     <HoverStyles>
-      <StyledBook className="hvr-underline-reveal" onClick={clickBook}>
+      <StyledBook
+        className={bookIcon() == props.action ? 'hvr-underline-reveal' : 'hvr-underline-clicked'}
+        onClick={clickBook}
+      >
         <StyledBookImage>
           <img src={props.bookImgUrl}></img>
         </StyledBookImage>
