@@ -106,7 +106,6 @@ const ManageBooks = props => {
               <Button onClick={openModal}>Add Book +</Button>
             </StyledAddButton>
           </FlexContainer>
-          <p>Status:</p>
 
           <ModalContext.Provider
             value={{

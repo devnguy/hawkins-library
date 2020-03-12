@@ -12,6 +12,9 @@ import BookContext from '../context/book-context'
 import LibraryModal from '../components/modals/LibraryModal'
 import ModalContext from '../context/modal-context'
 import Input from '../components/Input'
+import StyledDropdown from '../components/styles/react-super-select'
+
+// const ReactSuperSelect = require('react-super-select')
 
 const StyledLibraryContent = styled.div`
   margin: auto;
@@ -30,10 +33,10 @@ const StyledSearchBar = styled.div`
   input {
     width: 53%;
     /* box-shadow: 2px 6px 7px rgb(210, 210, 210); */
-    transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
+    /* transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
     :focus {
       width: 93%;
-    }
+    } */
     border-right: none;
   }
   button {
@@ -70,6 +73,20 @@ const Library = props => {
   const [checkedBookIds, setCheckedBookIds] = useState([])
 
   const [checkoutMade, setCheckoutMade] = useState(false)
+
+  const [genres, setGenres] = useState()
+
+  // const findGenres = () => {
+  //   var result = searchResults.reduce((unique, newBook) => {
+  //     if (!unique.some(book => book.genre === newBook.genre)) {
+  //       unique.push(newBook)
+  //     }
+  //     return unique
+  //   }, [])
+
+  //   console.log(result)
+  //   setGenres(result)
+  // }
 
   // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
@@ -111,6 +128,46 @@ const Library = props => {
     setSearchResults(results)
   }, [searchTerm])
 
+  // const handlerExample = function(option) {
+  //   const output = [
+  //     'Option Item Chosen = {\n',
+  //     '\tid: ',
+  //     option.id,
+  //     '\n',
+  //     '\tname: ',
+  //     option.name,
+  //     '\n',
+  //     '\tsize: ',
+  //     option.size,
+  //     '\n\t};'
+  //   ]
+  //   console.log(output.join(''))
+  // }
+
+  // const testData = [
+  //   {
+  //     id: '5507c0528152e61f3c348d56',
+  //     name: 'elit laborum et',
+  //     size: 'Large'
+  //   },
+  //   {
+  //     id: '5507c0526305bceb0c0e2c7a',
+  //     name: 'dolor nulla velit',
+  //     size: 'Medium'
+  //   }
+  // ]
+
+  const dropDownOptions = () => {
+    var result = searchResults.reduce((unique, newBook) => {
+      if (!unique.some(book => book.genre === newBook.genre)) {
+        unique.push(newBook)
+      }
+      return unique
+    }, [])
+
+    return result.map(book => <option value={book.genre}>{book.genre}</option>)
+  }
+
   return (
     <Page>
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
@@ -127,6 +184,17 @@ const Library = props => {
               <i className="fa fa-search"></i>
             </button>
           </StyledSearchBar>
+
+          {/* still working on this */}
+          {/* <select id="cars">{dropDownOptions()}</select> */}
+
+          {/* <StyledDropdown>
+            <ReactSuperSelect
+              placeholder="Make a Selection"
+              dataSource={testData}
+              onChange={handlerExample}
+            />
+          </StyledDropdown> */}
           <StyledLibraryContent>
             <BookContext.Provider
               value={{
