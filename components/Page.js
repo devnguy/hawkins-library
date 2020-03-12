@@ -57,6 +57,9 @@ const GlobalStyle = createGlobalStyle`
   .status--error {
     color: ${props => props.theme.red};
   }
+  .active-link {
+    color: ${props => props.theme.red} !important;
+  }
 `
 
 class Page extends Component {
