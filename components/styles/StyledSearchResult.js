@@ -9,6 +9,7 @@ const StyledSearchResult = styled.section`
     font-weight: 400;
   }
   ul {
+    margin: 1rem 0;
     display: flex;
     list-style: none;
     padding: 0;
