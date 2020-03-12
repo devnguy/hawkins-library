@@ -11,7 +11,7 @@ const Meta = () => (
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Sharp"
       rel="stylesheet"
     />
     <link href="/styles/font-awesome/css/all.css" rel="stylesheet" />

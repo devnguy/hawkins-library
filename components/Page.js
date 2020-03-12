@@ -48,6 +48,7 @@ const GlobalStyle = createGlobalStyle`
   }
   a:hover {
     color: ${props => props.theme.red};
+    cursor: pointer;
   }
   button {  font-family: ${props => props.theme.fontFamily} }
   .status--ok {
