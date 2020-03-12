@@ -11,8 +11,8 @@ npm run dev
 
 ###### Features
 
-- [ ] Index search bar
-- [ ] Index search results page
+- [x] Index search bar
+- [x] Index search results page
 
 ###### Responsiveness
 
