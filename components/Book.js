@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import BookContext from '../context/book-context'
-// import LibraryBookModal from '../components/modals/LibraryBookModal'
-// import ModalContext from '../context/modal-context'
+import LibraryBookModal from '../components/modals/LibraryBookModal'
+import ModalContext from '../context/modal-context'
 
 const HoverStyles = styled.div`
   .hvr-underline-reveal {
@@ -125,19 +125,23 @@ const Book = props => {
 
   // Icon changes depending on if book is in order or not
   const [icon, setIcon] = useState()
+  // const [checkoutLength, setCheckoutLength] = useState(checkedBooks.length)
+  const [isMaxOrder, setIsMaxOrder] = useState(false)
 
   // Changes the book's icon to checked/unchecked depending on if in order
   const clickBook = () => {
-    // if (bookIcon() === props.action && checkedBooks > 5) {
-    // }
-    // Book is being added to order
-    if (bookIcon() === props.action) {
+    // setCheckoutLength(checkedBooks.length)
+    if (checkedBooks.length === 5 && bookIcon() === props.action && isMaxOrder === false) {
+      setIsMaxOrder(true)
+      openModal()
+      console.log('Too many!!')
+    } else if (bookIcon() === props.action && isMaxOrder === false) {
       setIcon('check')
       addCheckedBook(props.bookTitle)
       addCheckedId(props.id)
     }
     // Book is being removed from order
-    else {
+    else if (bookIcon() === 'check' && isMaxOrder === false) {
       setIcon(props.action)
       removeCheckedBook(props.bookTitle)
       removeCheckedId(props.id)
@@ -164,11 +168,11 @@ const Book = props => {
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
   const openModal = () => {
-    setCheckoutMade(false)
     setIsOpen(true)
   }
   const closeModal = () => {
     setIsOpen(false)
+    setIsMaxOrder(false)
   }
 
   // Returning book display on library page
@@ -194,14 +198,16 @@ const Book = props => {
             </a>
           </StyledAddIcon>
         </StyledBookInfo>
-        {/* <ModalContext.Provider
+        <ModalContext.Provider
           value={{
             isOpen,
-            closeModal
+            closeModal,
+            isMaxOrder,
+            setIsMaxOrder
           }}
         >
-          <LibraryBookModal checkedBooks={checkedBooks} />
-        </ModalContext.Provider> */}
+          <LibraryBookModal />
+        </ModalContext.Provider>
       </StyledBook>
     </HoverStyles>
   )
