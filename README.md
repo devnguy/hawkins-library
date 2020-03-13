@@ -31,7 +31,7 @@ npm run dev
 - [x] On admin pages that allow rows to be deleted: "Are you sure you want to delete?" modal so that rows will not be deleted by accident (I deleted Sara Smith by accident last night, whoops. I decided to just import our ddl into the database again)
 - [ ] ~~Noticed this requirement on step 7: "You should allow the user to select things to relate to each other via drop-down menus or some other UI element where the user picks from existing items to add them to a relationship. When picking items you should display the name that makes the most sense to the user." It sounds like we need to have some sort of option to join different tables? I was thinking we could have the option to join customers and books or customers and events.~~
 - [x] Manage customers: Maybe we shouldn't allow join date to be edited
-- [ ] Limit to how many books can be checked out (5 books per customer? Or perhaps 5 books per checkout order?)
+- [x] Limit to how many books can be checked out (5 books per customer? Or perhaps 5 books per checkout order?)
 
 ###### Nice to haves
 
@@ -43,7 +43,7 @@ npm run dev
   - [ ] Animate selected book icon on change
   - [ ] Remove books from order within modal
   - [ ] Alt attribute: "Add/remove {book title} to your order"
-- [ ] Search for books by genre/author. Either on manage books page or library page (or both). It may be nice to do something with genre since we don't really use it. Maybe a drop-down menu or something where the user can select a genre and then books of that genre will be displayed.
+- [x] Search for books by genre/author. Either on manage books page or library page (or both). It may be nice to do something with genre since we don't really use it. Maybe a drop-down menu or something where the user can select a genre and then books of that genre will be displayed.
 - [ ] Manage events: Search by date/event?
 - [ ] ~~Adding a password attribute to customers. The customer can then choose a password when signing up and also type in their password along with their email when checking out/returning~~
 - [ ] ~~On admin page: Perhaps have an admin account, where this account is the only account that can access this page. One of the websites I reviewed had this and I thought it was a good idea.~~

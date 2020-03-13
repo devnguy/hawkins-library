@@ -14,9 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/lodash": "^4.14.149",
-    "classnames": "^2.2.6",
     "isomorphic-unfetch": "^3.0.0",
-    "lodash": "^4.17.15",
     "next": "^9.2.1",
     "nprogress": "^0.2.0",
     "react": "^16.12.0",
@@ -24,8 +22,6 @@
     "react-dropdown": "^1.6.4",
     "react-modal": "^3.11.1",
     "react-native-elements": "^1.2.7",
-    "react-select": "^3.0.8",
-    "react-super-select": "^1.0.23",
     "react-utils": "^1.0.0",
     "serverless-mysql": "^1.5.3",
     "sql-template-strings": "^2.2.2",

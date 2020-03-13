@@ -8,13 +8,27 @@ module.exports = async (req, res) => {
     WHERE email = ${req.body.email}
   `)
 
+  const countCustomerBooks = await db.query(escape`
+    SELECT COUNT(title)
+    FROM books
+    INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
+    INNER JOIN customers ON checkoutOrders.cid = customers.customerId
+    WHERE cid = (SELECT customerId FROM customers WHERE email = ${req.body.email})
+  `)
+
   let statusMessage, statusNumber
 
   if (queryForEmail.length === 0) {
     statusMessage = 'Email not found.'
-    statusNumber = 2
+    statusNumber = 3
   } else if (req.body.bookIds.length === 0) {
     statusMessage = 'Please select at least one book to checkout.'
+    statusNumber = 2
+  } else if (
+    countCustomerBooks[0]['COUNT(title)'] == 5 ||
+    countCustomerBooks[0]['COUNT(title)'] + req.body.bookIds.length > 5
+  ) {
+    statusMessage = 'You have already checked out the maximum number of books.'
     statusNumber = 1
   } else {
     const addOrder = await db.query(escape`
