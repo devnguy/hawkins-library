@@ -1,6 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import BookContext from '../context/book-context'
+// import LibraryBookModal from '../components/modals/LibraryBookModal'
+// import ModalContext from '../context/modal-context'
 
 const HoverStyles = styled.div`
   .hvr-underline-reveal {
@@ -126,8 +128,10 @@ const Book = props => {
 
   // Changes the book's icon to checked/unchecked depending on if in order
   const clickBook = () => {
+    // if (bookIcon() === props.action && checkedBooks > 5) {
+    // }
     // Book is being added to order
-    if (bookIcon() === props.action) {
+    if (bookIcon() === props.action && checkedBooks <= 5) {
       setIcon('check')
       addCheckedBook(props.bookTitle)
       addCheckedId(props.id)
@@ -157,6 +161,16 @@ const Book = props => {
     }
   }
 
+  // Modal state and functions
+  const [isOpen, setIsOpen] = useState(false)
+  const openModal = () => {
+    setCheckoutMade(false)
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
   // Returning book display on library page
   return (
     <HoverStyles>
@@ -180,6 +194,14 @@ const Book = props => {
             </a>
           </StyledAddIcon>
         </StyledBookInfo>
+        {/* <ModalContext.Provider
+          value={{
+            isOpen,
+            closeModal
+          }}
+        >
+          <LibraryBookModal checkedBooks={checkedBooks} />
+        </ModalContext.Provider> */}
       </StyledBook>
     </HoverStyles>
   )

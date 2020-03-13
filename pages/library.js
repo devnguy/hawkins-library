@@ -12,9 +12,7 @@ import BookContext from '../context/book-context'
 import LibraryModal from '../components/modals/LibraryModal'
 import ModalContext from '../context/modal-context'
 import Input from '../components/Input'
-import StyledDropdown from '../components/styles/react-super-select'
-
-// const ReactSuperSelect = require('react-super-select')
+import Dropdown from '../components/Dropdown'
 
 const StyledLibraryContent = styled.div`
   margin: auto;
@@ -29,9 +27,10 @@ const StyledCheckoutInput = styled.div`
 
 const StyledSearchBar = styled.div`
   padding-bottom: 25px;
+  display: flex;
 
   input {
-    width: 53%;
+    width: 55%;
     /* box-shadow: 2px 6px 7px rgb(210, 210, 210); */
     /* transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
     :focus {
@@ -40,7 +39,7 @@ const StyledSearchBar = styled.div`
     border-right: none;
   }
   button {
-    width: 7%;
+    width: 5%;
     margin: auto;
     font-size: 1.6rem;
     color: #757575;
@@ -49,7 +48,11 @@ const StyledSearchBar = styled.div`
     border-left: none;
     line-height: 4rem;
     padding: 0 1rem;
+    padding-left: 0;
     box-sizing: border-box;
+  }
+  select {
+    width: 100%;
   }
 `
 
@@ -63,6 +66,7 @@ const StyledSearchBar = styled.div`
 const Library = props => {
   // Books state
   const [books, setBooks] = useState(props.bookData)
+  const [allBooks, setAllBooks] = useState(props.bookData)
 
   // Used for book search
   const [searchTerm, setSearchTerm] = useState('')
@@ -74,19 +78,14 @@ const Library = props => {
 
   const [checkoutMade, setCheckoutMade] = useState(false)
 
-  const [genres, setGenres] = useState()
+  const [genre, setGenre] = useState('All Books')
+  const handleGenreChange = e => {
+    setGenre(e.target.value)
 
-  // const findGenres = () => {
-  //   var result = searchResults.reduce((unique, newBook) => {
-  //     if (!unique.some(book => book.genre === newBook.genre)) {
-  //       unique.push(newBook)
-  //     }
-  //     return unique
-  //   }, [])
-
-  //   console.log(result)
-  //   setGenres(result)
-  // }
+    e.target.value === 'All Books'
+      ? setSearchResults(allBooks)
+      : setSearchResults(allBooks.filter(book => book.genre === e.target.value))
+  }
 
   // Adding/removing checked book titles to array
   const addCheckedBook = newBook => {
@@ -128,44 +127,26 @@ const Library = props => {
     setSearchResults(results)
   }, [searchTerm])
 
-  // const handlerExample = function(option) {
-  //   const output = [
-  //     'Option Item Chosen = {\n',
-  //     '\tid: ',
-  //     option.id,
-  //     '\n',
-  //     '\tname: ',
-  //     option.name,
-  //     '\n',
-  //     '\tsize: ',
-  //     option.size,
-  //     '\n\t};'
-  //   ]
-  //   console.log(output.join(''))
-  // }
-
-  // const testData = [
-  //   {
-  //     id: '5507c0528152e61f3c348d56',
-  //     name: 'elit laborum et',
-  //     size: 'Large'
-  //   },
-  //   {
-  //     id: '5507c0526305bceb0c0e2c7a',
-  //     name: 'dolor nulla velit',
-  //     size: 'Medium'
-  //   }
-  // ]
-
   const dropDownOptions = () => {
-    var result = searchResults.reduce((unique, newBook) => {
+    var result = allBooks.reduce((unique, newBook) => {
       if (!unique.some(book => book.genre === newBook.genre)) {
         unique.push(newBook)
       }
       return unique
     }, [])
 
-    return result.map(book => <option value={book.genre}>{book.genre}</option>)
+    return (
+      <Dropdown>
+        <select value={genre} onChange={handleGenreChange} className="genreSelect">
+          <option value="All Books" label="All Books"></option>
+          {result.map(book => (
+            <option value={book.genre} label={book.genre}>
+              {book.genre}
+            </option>
+          ))}
+        </select>
+      </Dropdown>
+    )
   }
 
   return (
@@ -183,18 +164,9 @@ const Library = props => {
             <button disabled>
               <i className="fa fa-search"></i>
             </button>
+            <span> </span>
+            {dropDownOptions()}
           </StyledSearchBar>
-
-          {/* still working on this */}
-          {/* <select id="cars">{dropDownOptions()}</select> */}
-
-          {/* <StyledDropdown>
-            <ReactSuperSelect
-              placeholder="Make a Selection"
-              dataSource={testData}
-              onChange={handlerExample}
-            />
-          </StyledDropdown> */}
           <StyledLibraryContent>
             <BookContext.Provider
               value={{

@@ -1,0 +1,93 @@
+// import styled from 'styled-components'
+// import Modal from 'react-modal'
+// import { useState, useEffect, useContext } from 'react'
+
+// import Input from '../Input'
+// import Button from '../styles/Button'
+// import Divider from '../styles/Divider'
+// import ModalContext from '../../context/modal-context'
+// import { modalStyleEvent, StyledModalContent } from '../styles/modalStyle'
+// import Spinner from '../Spinner'
+
+// const StyledCheckoutModalContainer = styled.div`
+//   display: flex;
+//   @media (max-width: ${props => props.theme.screenSizeMed}) {
+//     flex-direction: column-reverse;
+//   }
+// `
+
+// const StyledCheckoutForm = styled.div`
+//   flex: 2;
+//   padding: 3.6rem;
+//   h2 {
+//     margin-bottom: 1.2rem;
+//   }
+//   h4 {
+//     margin: 0;
+//   }
+//   p {
+//     margin-top: 0;
+//     span {
+//       font-weight: 700;
+//     }
+//   }
+//   @media (max-width: ${props => props.theme.screenSizeMed}) {
+//   }
+// `
+
+// const StyledCheckoutModalImage = styled.div`
+//   flex: 1;
+//   background-color: ${props => props.theme.red};
+//   overflow: hidden;
+//   padding-left: 1.6rem;
+//   @media (max-width: ${props => props.theme.screenSizeMed}) {
+//     max-height: 100px;
+//   }
+//   img {
+//     height: 100%;
+//     width: 100%;
+//     object-fit: cover;
+//     /* position: center; */
+//     box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
+//   }
+// `
+
+// const LibraryBookModal = props => {
+//   const { isOpen, closeModal } = useContext(ModalContext)
+
+//   const numBooks = props.checkedBooks.length
+
+//   const maxBooks = () => {
+//     if (numBooks > 5) {
+//       return (
+//         <StyledCheckoutForm>
+//           <h2>Maximum book amount reached</h2>
+//           <Divider />
+//           <p>Please select at most five books.</p>
+//           <Button onClick={closeModal}>Return</Button>
+//         </StyledCheckoutForm>
+//       )
+//     }
+//   }
+
+//   return (
+//     <Modal
+//       isOpen={isOpen}
+//       onRequestClose={closeModal}
+//       style={modalStyleEvent}
+//       ariaHideApp={false}
+//       closeTimeoutMS={100}
+//     >
+//       <StyledModalContent>
+//         <StyledCheckoutModalContainer>
+//           {validOrder()}
+//           <StyledCheckoutModalImage>
+//             <img src="/checkout.jpeg" />
+//           </StyledCheckoutModalImage>
+//         </StyledCheckoutModalContainer>
+//       </StyledModalContent>
+//     </Modal>
+//   )
+// }
+
+// export default LibraryBookModal
