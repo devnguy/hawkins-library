@@ -131,7 +131,7 @@ const Book = props => {
     // if (bookIcon() === props.action && checkedBooks > 5) {
     // }
     // Book is being added to order
-    if (bookIcon() === props.action && checkedBooks <= 5) {
+    if (bookIcon() === props.action) {
       setIcon('check')
       addCheckedBook(props.bookTitle)
       addCheckedId(props.id)
