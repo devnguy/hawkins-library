@@ -1,4 +1,9 @@
-/* Query for adding a book into the books table. */
+/* Query for adding a book into the books table.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings. */
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

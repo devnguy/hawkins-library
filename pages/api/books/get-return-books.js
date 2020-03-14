@@ -1,7 +1,12 @@
 /* Query for reading the books to be displayed on the return page.
  * When a user types in their email address, books associated with
  * the user through the cid in the checkoutOrders table will be
- * displayed. */
+ * displayed.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

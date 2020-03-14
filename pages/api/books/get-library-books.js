@@ -1,5 +1,10 @@
 /* Query for reading any books that have not been checked out.
- * These books will be displayed on the library page. */
+ * These books will be displayed on the library page.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

@@ -1,5 +1,10 @@
 /* Query for updating a book on the return page. This query will
- * update the oid of each book with a matching ID to null. */
+ * update the oid of each book with a matching ID to null.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

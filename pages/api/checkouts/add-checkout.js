@@ -1,5 +1,10 @@
 /* Creating a checkout for the checkoutOrders table. This also
- * updates the oid of any checked out books to null. */
+ * updates the oid of any checked out books to null.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

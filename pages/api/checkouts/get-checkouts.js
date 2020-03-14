@@ -1,3 +1,12 @@
+/* Joins the books, checkoutOrders, and customers tables in order to
+ * display the books contained within each order as well as the
+ * customers who checked out each book.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 

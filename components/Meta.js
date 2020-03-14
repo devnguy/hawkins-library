@@ -1,3 +1,5 @@
+/* Head element for each page. */
+
 import Head from 'next/head'
 
 const Meta = () => (
@@ -17,7 +19,6 @@ const Meta = () => (
     <link href="/styles/font-awesome/css/all.css" rel="stylesheet" />
     <link href="/styles/nprogress.css" rel="stylesheet" />
     <link href="/styles/modal.css" rel="stylesheet" />
-    {/* <link href="/styles/font-awesome/brands.css" rel="stylesheet" /> */}
     <title>Hawkins Public Library</title>
   </Head>
 )

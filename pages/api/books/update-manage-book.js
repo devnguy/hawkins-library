@@ -1,5 +1,10 @@
 /* Query for updating a book within the books table on the manage books page.
- * This query can update the title, author, publisher, and genre of a book. */
+ * This query can update the title, author, publisher, and genre of a book.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.*/
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

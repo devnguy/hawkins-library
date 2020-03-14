@@ -1,4 +1,9 @@
-/* Query for reading and displaying books on the manage books admin page. */
+/* Query for reading and displaying books on the manage books admin page.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings. */
 
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')

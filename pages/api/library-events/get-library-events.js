@@ -1,3 +1,10 @@
+/* Reading data from the events table to be displayed on the events page.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings. */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
