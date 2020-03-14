@@ -1,3 +1,8 @@
+/**
+ * Table component that gets table data through the context of the page
+ * it's contained in. Renders Thead and Tbody using context data.
+ */
+
 import styled from 'styled-components'
 import Thead from './Thead'
 import Tbody from './Tbody'
@@ -21,7 +26,6 @@ const Table = () => {
     <StyledTable>
       <Thead columns={tableHeaders} />
       <Tbody data={tableData} deleteItems={deleteItems} item={item} />
-      {/* {console.log(deleteItems)} */}
     </StyledTable>
   )
 }

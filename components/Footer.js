@@ -1,3 +1,8 @@
+/**
+ * Implementation and styling of site footer. Footer contains external
+ * links and misc. site information.
+ */
+
 import { useState } from 'react'
 import Link from 'next/link'
 import NavItem from './nav/NavItem'

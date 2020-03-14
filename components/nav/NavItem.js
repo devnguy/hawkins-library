@@ -1,3 +1,8 @@
+/**
+ * Implementation of an item in a NavBar. NavItem is the default item,
+ * AdminNavItem is part of the admin submenu.
+ */
+
 import Link from '../../components/Link'
 import styled from 'styled-components'
 

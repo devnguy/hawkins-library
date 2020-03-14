@@ -1,3 +1,7 @@
+/**
+ * Styled section tag for SearchResults on pages/search.
+ */
+
 import styled from 'styled-components'
 
 const StyledSearchResult = styled.section`

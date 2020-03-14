@@ -1,3 +1,9 @@
+/**
+ * Implements horizontal navbar at the top of the page. Includes
+ * responsive functionality at smaller screen widths and dropdown
+ * menu on hover over 'admin'
+ */
+
 import styled from 'styled-components'
 import { useState } from 'react'
 import NavItem, { AdminNavItem } from './NavItem'
@@ -5,7 +11,6 @@ import useScrollFromTop from '../hooks/useScrollFromTop'
 import NavLogo, { ExpandableMenuLogo } from './NavLogo'
 import Styles from './Styles'
 import IconLinks from './IconLinks'
-import { FlexContainer } from '../styles/Container'
 
 const StyledNavBar = styled.nav`
   display: flex;

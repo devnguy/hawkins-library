@@ -1,3 +1,7 @@
+/**
+ * Styling of Input component.
+ */
+
 import styled from 'styled-components'
 
 const Input = styled.input`

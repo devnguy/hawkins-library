@@ -1,3 +1,8 @@
+/**
+ * Spinner component that indicates when an element on the page is
+ * loading.
+ */
+
 import styled from 'styled-components'
 
 const StyledSpinner = styled.div`

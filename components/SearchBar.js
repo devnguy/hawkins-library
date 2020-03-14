@@ -1,6 +1,15 @@
+/**
+ * Implementation and styling of a search bar. Maintains state of its
+ * value. On submit, reroutes the user to pages/search with their
+ * query.
+ *
+ * Takes a bool as a prop to indicate whether the search bar should
+ * expand when focused.
+ */
+
 import styled from 'styled-components'
 import Router from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Styles = styled.div`
   form {

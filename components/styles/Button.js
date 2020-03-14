@@ -1,3 +1,8 @@
+/**
+ * Implementation and styling of button components used throughout the
+ * site.
+ */
+
 import styled from 'styled-components'
 
 const Button = styled.button`

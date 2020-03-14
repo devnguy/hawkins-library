@@ -1,3 +1,10 @@
+/**
+ * Implementation and styling of book search results. When a book is
+ * clicked, renders a modal so that the user can checkout the book, or
+ * inform the user that the book is unavailable. Maintains state of
+ * whether the book is checked out and modal opened/closed.
+ */
+
 import { useState } from 'react'
 import StyledSearchResult from './styles/StyledSearchResult'
 import BookModal, { BookUnavailableModal } from '../components/modals/BookModal'

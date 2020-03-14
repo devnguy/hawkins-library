@@ -1,3 +1,12 @@
+/**
+ * Table row component that uses context to call the appropriate UPDATE
+ * or DELETE function. Context is used because rows may contain data
+ * from any table in the schema.
+ *
+ * - Handles confirmation modals for deleting rows.
+ * - Conditionally renders inputs when 'isInEditMode'
+ */
+
 import styled from 'styled-components'
 import { useState, useContext, useEffect } from 'react'
 import TableContext from '../../context/table-context'
@@ -63,6 +72,12 @@ const TdRow = props => {
     )
   )
 
+  /**
+   * Call the appropriate UPDATE/DELETE function using context. The
+   * UPDATE/DELETE function may need to be called on a row of any table
+   * in the schema, so the correct function is accessed using context.
+   * Asynchronous functions will also set isLoading state.
+   */
   const handleDeleteRow = async () => {
     setIsLoading(true)
     closeModal()

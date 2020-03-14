@@ -1,3 +1,7 @@
+/**
+ * Table body component renders each row of the table.
+ */
+
 import styled from 'styled-components'
 import TdRow from './TdRow'
 

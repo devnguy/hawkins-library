@@ -1,3 +1,10 @@
+/**
+ * Modal used in pages/library. Allows user to check out selected
+ * books. Implements CREATE and UPDATE functionality on 'books' table.
+ *
+ * See pages/api/books/add-book.js for query.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
@@ -40,6 +47,11 @@ const AddBookModal = props => {
     }
   }, [isOpen])
 
+  /**
+   * Implements CREATE functionality on 'books' table, and UPDATE
+   * functionality on 'books' table. Makes request to server to execute
+   * database operations. Updates the state with updated data.
+   */
   const handleAddBook = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -81,6 +93,8 @@ const AddBookModal = props => {
     }
     setIsLoading(false)
   }
+
+  // Render the modal.
   return (
     <Modal
       isOpen={isOpen}
