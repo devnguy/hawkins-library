@@ -15,6 +15,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+  :invalid {
+    box-shadow: none;
+  }
 `
 
 export default Input
