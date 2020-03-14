@@ -1,3 +1,9 @@
+/**
+ * Implementation and styling of event search results. When an event is
+ * clicked, renders a modal so that the user can register for the
+ * event. Maintains state of modal opened/closed.
+ */
+
 import { useState } from 'react'
 import StyledSearchResult from './styles/StyledSearchResult'
 import EventModal from '../components/modals/EventModal'

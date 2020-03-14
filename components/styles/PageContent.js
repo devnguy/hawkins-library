@@ -1,3 +1,8 @@
+/**
+ * Container for each page to display its content. Allows page title
+ * to be passed in as a prop.
+ */
+
 import styled from 'styled-components'
 
 const StyledPageContent = styled.div`
@@ -9,7 +14,7 @@ const StyledPageContent = styled.div`
   h1 {
     margin-top: 0;
   }
-  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4); /*xl shadow*/
+  box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.4);
 `
 
 const PageContent = props => (

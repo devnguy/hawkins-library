@@ -1,3 +1,7 @@
+/**
+ * Reusable styling for modals. See documentation for react-modal.
+ */
+
 import styled from 'styled-components'
 
 export const modalStyle = {

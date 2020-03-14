@@ -1,6 +1,9 @@
+/**
+ * Table data component merely sets the styling of its child input
+ * components.
+ */
+
 import styled from 'styled-components'
-import { useState } from 'react'
-import Input from '../Input'
 
 const StyledTd = styled.td`
   input {

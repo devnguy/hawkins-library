@@ -1,3 +1,12 @@
+/**
+ * Modal used in pages/search. Modal rendered depends on whether or not
+ * the book is available (not checked out).
+ * If the book is available, allows the user to checkout the book,
+ * making a request to the server to CREATE a checkout.
+ *
+ * See pages/api/checkouts/add-checkout for query.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
@@ -48,8 +57,7 @@ const StyledBookModalImage = styled.div`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    /* position: center; */
-    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
+    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
 `
 
@@ -66,6 +74,11 @@ const BookModal = props => {
     }
   }, [isOpen])
 
+  /**
+   * Implements CREATE functionality on 'checkoutOrder' table, UPDATE
+   * functionality on 'books' table. Makes request to server to execute
+   * database operation. Updates the state with updated data.
+   */
   const addRegistration = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -92,6 +105,7 @@ const BookModal = props => {
     }
     setIsLoading(false)
   }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -140,6 +154,9 @@ const BookModal = props => {
   )
 }
 
+/**
+ * Modal to inform user that the book is unavailable.
+ */
 export const BookUnavailableModal = props => {
   const { isOpenUnavailable, closeUnavailable } = useContext(ModalContext)
   return (

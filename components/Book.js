@@ -1,68 +1,17 @@
+/**
+ * Book component resembles a card, with an image on top and book
+ * information below. This component maintains the state of whether
+ * or not its been selected (clicked). If the maximum number of
+ * Books have been selected, the component will render a modal
+ * informing the user.
+ */
+
 import { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import BookContext from '../context/book-context'
 import LibraryBookModal from '../components/modals/LibraryBookModal'
 import ModalContext from '../context/modal-context'
-
-const HoverStyles = styled.div`
-  .hvr-underline-reveal {
-    /* display: inline-block; */
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    /* box-shadow: 0 0 1px rgba(0, 0, 0, 0); */
-    position: relative;
-    overflow: hidden;
-  }
-  .hvr-underline-reveal:before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${props => props.theme.red};
-    height: 0.8rem;
-    -webkit-transform: translateY(0.8rem);
-    transform: translateY(0.8rem);
-    -webkit-transition-property: transform;
-    transition-property: transform;
-    -webkit-transition-duration: 250ms;
-    transition-duration: 250ms;
-    -webkit-transition-timing-function: ease-out;
-    transition-timing-function: ease-out;
-  }
-  .hvr-underline-reveal:hover:before,
-  .hvr-underline-reveal:focus:before,
-  .hvr-underline-reveal:active:before {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-
-  .hvr-underline-clicked {
-    vertical-align: middle;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-    position: relative;
-    overflow: hidden;
-  }
-  .hvr-underline-clicked:before {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${props => props.theme.red};
-    height: 0.8rem;
-    -webkit-transform: perspective(1px) translateZ(0);
-    transform: perspective(1px) translateZ(0);
-  }
-  .hvr-underline-clicked:after {
-    -webkit-transform: translateY(0.8rem);
-    transform: translateY(0.8rem);
-  }
-`
+import HoverStyles from '../components/styles/HoverStyles'
 
 const StyledBook = styled.div`
   display: flex;

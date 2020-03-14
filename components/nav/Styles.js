@@ -1,3 +1,7 @@
+/**
+ * Contains the css classes to style the NavBar.
+ */
+
 import styled from 'styled-components'
 
 const Styles = styled.div`
@@ -19,7 +23,6 @@ const Styles = styled.div`
     display: inline-block;
     @media (max-width: ${props => props.theme.screenSizeMed}) {
       display: block;
-      /* position: static; */
     }
   }
   .admin-dropdown-menu {
@@ -28,8 +31,7 @@ const Styles = styled.div`
     width: 200px;
     display: none;
     position: absolute;
-    /* transition: 200ms; */
-    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.3); /*md shadow*/
+    box-shadow: 0px 10px 15px -10px rgba(0, 0, 0, 0.3);
     margin: 0;
     li a {
       color: ${props => props.theme.black};

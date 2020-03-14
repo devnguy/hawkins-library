@@ -1,8 +1,12 @@
+/**
+ * Modal to inform user of the maximum number of books per
+ * checkoutOrder.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 
-import Input from '../Input'
 import Button from '../styles/Button'
 import Divider from '../styles/Divider'
 import ModalContext from '../../context/modal-context'
@@ -47,8 +51,7 @@ const StyledCheckoutModalImage = styled.div`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    /* position: center; */
-    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
+    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
 `
 

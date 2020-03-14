@@ -1,3 +1,11 @@
+/**
+ * Modal used in pages/events. Allows user to enter their email to
+ * register for the selected event. Implements CREATE functionality
+ * on 'eventRegistrations' table.
+ *
+ * See pages/api/registrations/add-registration for query.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
@@ -47,8 +55,7 @@ const StyledEventModalImage = styled.div`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    /* position: center; */
-    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
+    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
 `
 
@@ -65,6 +72,11 @@ const EventModal = props => {
     }
   }, [isOpen])
 
+  /**
+   * Implements CREATE functionality on 'eventRegistrations' table,
+   * Makes request to server to execute database operation. Sets the
+   * component state with the updated data.
+   */
   const addRegistration = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -90,6 +102,7 @@ const EventModal = props => {
       console.log(error)
     }
   }
+
   return (
     <Modal
       isOpen={isOpen}

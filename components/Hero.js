@@ -1,3 +1,8 @@
+/**
+ * Renders banner image, search bar, and site welcome message displayed
+ * on the index page.
+ */
+
 import styled from 'styled-components'
 import Container from '../components/styles/Container'
 import SearchBar from '../components/SearchBar'

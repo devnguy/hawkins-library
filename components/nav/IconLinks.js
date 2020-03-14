@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-
-const StyledIconLinks = styled.div``
+/**
+ * Icon links to external sites.
+ */
 
 const IconLinks = () => (
   <ul>

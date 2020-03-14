@@ -1,6 +1,7 @@
 /**
- * Load styled-components server side.
+ * Required by next.js to load styled-components server side.
  */
+
 import Document from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 

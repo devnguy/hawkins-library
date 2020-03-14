@@ -1,3 +1,8 @@
+/**
+ * Link clones the Link component provided by next/link so that styling
+ * can be added to the active link.
+ */
+
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

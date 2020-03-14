@@ -1,3 +1,10 @@
+/**
+ * Modal used in pages/admin/manage-events. Allows admin to add events.
+ * Implements CREATE functionality on 'events' table.
+ *
+ * See pages/api/library-events/add-event for query.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
@@ -40,6 +47,11 @@ const AddBookModal = props => {
     }
   }, [isOpen])
 
+  /**
+   * Implements CREATE functionality on 'events' table. Makes request
+   * to server to execute database operation. Updates the state with
+   * updated data.
+   */
   const handleAddEvent = async e => {
     e.preventDefault()
     setIsLoading(true)

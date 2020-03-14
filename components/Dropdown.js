@@ -1,3 +1,7 @@
+/**
+ * Implementation and styling of dropdown menu component.
+ */
+
 import styled from 'styled-components'
 
 /* Source: https://codepen.io/vkjgr/pen/VYMeXp*/

@@ -1,5 +1,10 @@
+/**
+ * Implementation and styling of the banner image of each page. The url
+ * of the image must be passed in as a prop.
+ */
+
 import styled from 'styled-components'
-import Container, { BannerContainer } from '../components/styles/Container'
+import { BannerContainer } from '../components/styles/Container'
 
 const StyledBanner = styled.div`
   background-color: ${props => props.theme.black};

@@ -1,3 +1,9 @@
+/**
+ * Top level component of each page. This component renders the Meta
+ * component, Header, and provides global styles and themes to its
+ * children.
+ */
+
 import React, { Component } from 'react'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import Header from './Header'
@@ -15,7 +21,6 @@ const theme = {
   maxWidthBanner: '1320px',
   maxWidthNav: '1440px',
   fontFamily: `'Open Sans', sans-serif`,
-  // fontFamily: `'Roboto', sans-serif`,
   screenSizeMed: '768px',
   screenSizeSm: '550px',
   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)' /* unedited */

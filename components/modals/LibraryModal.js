@@ -1,3 +1,11 @@
+/**
+ * Modal used in pages/library. Allows user to enter their email to
+ * checkout books. Implements CREATE functionality on 'checkoutOrders'
+ * table, and UPDATE functionality on 'books' table.
+ *
+ * See pages/api/checkouts/add-checkout for query.
+ */
+
 import styled from 'styled-components'
 import Modal from 'react-modal'
 import { useState, useEffect, useContext } from 'react'
@@ -47,8 +55,7 @@ const StyledCheckoutModalImage = styled.div`
     height: 100%;
     width: 100%;
     object-fit: cover;
-    /* position: center; */
-    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5); /*tailwindcss large shadow*/
+    box-shadow: -3px 10px 15px -3px rgba(0, 0, 0, 0.5);
   }
 `
 
@@ -64,7 +71,6 @@ const LibraryModal = props => {
   } = useContext(ModalContext)
 
   const [email, setEmail] = useState('')
-  // const [bookIds, setBookIds] = useState(props.checkedBookIds)
   const [status, setStatus] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const numBooks = props.checkedBooks.length
@@ -76,7 +82,11 @@ const LibraryModal = props => {
     }
   }, [isOpen])
 
-  // Adds order to database
+  /**
+   * Implements CREATE functionality on 'checkoutOrders' table. Makes
+   * request to server to execute database operation. Sets the
+   * component state to the updated data.
+   */
   const addOrder = async e => {
     e.preventDefault()
     setIsLoading(true)

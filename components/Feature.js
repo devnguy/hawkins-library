@@ -1,3 +1,11 @@
+/**
+ * Generic Feature component mostly used to display events at the
+ * library. Contains Left/RightFeature with the direction indicating
+ * the position of the text body. If the Feature is rendered to display
+ * event data, the button click will render a modal for the user to
+ * register for the event.
+ */
+
 import styled from 'styled-components'
 import Button from '../components/styles/Button'
 import { useState } from 'react'

@@ -1,3 +1,7 @@
+/**
+ * Styling and implementation of website logo.
+ */
+
 import styled from 'styled-components'
 import Link from 'next/link'
 

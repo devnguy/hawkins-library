@@ -1,4 +1,8 @@
-import Link from 'next/link'
+/**
+ * Handles rendering of NProgress bar when pages load and rendering of
+ * NavBar.
+ */
+
 import NavBar from './nav/NavBar'
 import Router from 'next/router'
 import NProgress from 'nprogress'

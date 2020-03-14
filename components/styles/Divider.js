@@ -1,3 +1,7 @@
+/**
+ * Implementation and styling of <hr /> tag.
+ */
+
 import styled from 'styled-components'
 
 const Divider = styled.hr`
