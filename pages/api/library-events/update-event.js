@@ -1,3 +1,14 @@
+/**
+ * UPDATE query to update a row in the events table. Request body
+ * requires id, name, date, guest, and description. Returns the
+ * updated event rows to reflect the changes.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.
+ */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
