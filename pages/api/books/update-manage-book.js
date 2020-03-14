@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
     SELECT bookId, oid, title, author, publisher, genre
     FROM books
   `)
+  console.log(updateBooks)
 
   if (updateBooks.error && updateBooks.error.code === 'ER_DUP_ENTRY') {
     res

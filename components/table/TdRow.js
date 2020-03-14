@@ -46,6 +46,7 @@ const TdRow = props => {
   const [row, setRow] = useState(props.row)
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false) // modal
+  const [prevRowData, setPrevRowData] = useState(row)
 
   const handleInputChange = (inputId, value) => {
     setRow({ ...row, [tableHeaders[inputId]]: value })
@@ -84,12 +85,18 @@ const TdRow = props => {
     await handleDelete(row)
   }
   const handleToggleUpdate = () => {
+    // Remember old row before changes are made
+    setPrevRowData(row)
     setIsInEditMode(!isInEditMode)
   }
   const handleSubmitUpdate = async () => {
     setIsLoading(true)
     setIsInEditMode(false)
-    await handleUpdate(row)
+    const updateIsSuccessful = await handleUpdate(row)
+    // Revert row back to prevRowData if update was unsuccessful
+    if (!updateIsSuccessful) {
+      setRow({ ...prevRowData })
+    }
     setIsLoading(false)
   }
   const openModal = () => {

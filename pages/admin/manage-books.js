@@ -65,18 +65,13 @@ const ManageBooks = props => {
     setIsOpen(false)
   }
 
-  // For debugging updating tableData. DELETEME
-  useEffect(() => {
-    console.log(tableData)
-  }, [tableData])
-
   // Functionality: updating a row from the books table
-  const handleUpdateBook = async data => {
+  const handleUpdateBook = async body => {
     setIsLoading(true)
     try {
       const response = await fetch('/api/books/update-manage-book', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -87,6 +82,8 @@ const ManageBooks = props => {
       // Setting table with updated information
       setTableData(updatedBooks)
       setIsLoading(false)
+      // Return true/false depending on whether row was successfully updated.
+      return data.statusNo === 0 ? true : false
     } catch (error) {
       console.log(error)
     }
