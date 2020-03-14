@@ -11,7 +11,7 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
   // Updating a book
-  await db.query(escape`
+  const updateBooks = await db.query(escape`
     UPDATE books
     SET title = ${req.body.title},
         author = ${req.body.author},
@@ -26,5 +26,11 @@ module.exports = async (req, res) => {
     FROM books
   `)
 
-  res.status(200).json(books)
+  if (updateBooks.error && updateBooks.error.code === 'ER_DUP_ENTRY') {
+    res
+      .status(200)
+      .json({ statusNo: 1, statusMessage: 'Error: A book with that title already exists', books })
+  } else {
+    res.status(200).json({ statusNo: 0, statusMessage: 'Update successful', books })
+  }
 }

@@ -4,7 +4,7 @@
  * and checkoutOrders will be displayed in the table by showing the order
  * number associated with each book. */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
 
@@ -65,6 +65,11 @@ const ManageBooks = props => {
     setIsOpen(false)
   }
 
+  // For debugging updating tableData. DELETEME
+  useEffect(() => {
+    console.log(tableData)
+  }, [tableData])
+
   // Functionality: updating a row from the books table
   const handleUpdateBook = async data => {
     setIsLoading(true)
@@ -76,8 +81,8 @@ const ManageBooks = props => {
           'Content-Type': 'application/json'
         }
       })
-      const res = await response.json()
-      const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+      const data = await response.json()
+      const updatedBooks = data.books.map(book => ({ id: book.bookId, ...book }))
 
       // Setting table with updated information
       setTableData(updatedBooks)
