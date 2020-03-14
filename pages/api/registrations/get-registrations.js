@@ -1,7 +1,6 @@
 /**
- * SELECTs the events
- *
  * Query to show the M:M relationship between customers and events.
+ * Rows selected represent events each customer is registered for.
  * Utilized by pages/manage-registrations.
  *
  * Queries use sql-template-strings library, which handles
