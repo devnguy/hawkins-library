@@ -1,7 +1,11 @@
+/* Query for updating a book on the return page. This query will
+ * update the oid of each book with a matching ID to null. */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
+  // Updating oid of books to null for matching books
   for (let i = 0; i < req.body.checkedBookIds.length; i++) {
     updateBook = await db.query(escape`
         UPDATE books
@@ -10,6 +14,7 @@ module.exports = async (req, res) => {
       `)
   }
 
+  // Reading the updated information about books checked out by user
   const checkedOutBooks = await db.query(escape`
     SELECT bookId, title, author, oid, imgUrl, email
     FROM books

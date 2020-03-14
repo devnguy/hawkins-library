@@ -1,3 +1,8 @@
+/* Query for reading the books to be displayed on the return page.
+ * When a user types in their email address, books associated with
+ * the user through the cid in the checkoutOrders table will be
+ * displayed. */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
@@ -7,6 +12,7 @@ module.exports = async (req, res) => {
     FROM customers
     WHERE email = ${req.body.email}
   `)
+  // User not found with the associated username
   if (queryForEmail.length === 0) {
     res.status(200).json({
       message: 'Email not found.',
@@ -15,7 +21,9 @@ module.exports = async (req, res) => {
       numberOfBooks: 0,
       userEmail: req.body.email
     })
-  } else {
+  }
+  // If user found with associated username
+  else {
     const checkedOutBooks = await db.query(escape`
       SELECT bookId, title, author, oid, imgUrl, email
       FROM books

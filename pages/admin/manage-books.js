@@ -1,3 +1,9 @@
+/* The manage-books page will read and display information from the books table.
+ * Additionally, it will have functionality to update and delete rows from the
+ * books table. Information about the one-to-many relationship between books
+ * and checkoutOrders will be displayed in the table by showing the order
+ * number associated with each book. */
+
 import { useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
@@ -41,9 +47,11 @@ const StyledAddButton = styled.div`
 const ManageBooks = props => {
   const isEditable = true
 
+  // Used to fill table with data from database
   const [tableData, setTableData] = useState(props.bookData)
+  // Whether or not a query is being processed
   const [isLoading, setIsLoading] = useState(false)
-  // tableHeaders probably doesn't need to useState
+  // Table headers for headers
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
@@ -57,6 +65,7 @@ const ManageBooks = props => {
     setIsOpen(false)
   }
 
+  // Functionality: updating a row from the books table
   const handleUpdateBook = async data => {
     setIsLoading(true)
     try {
@@ -69,6 +78,8 @@ const ManageBooks = props => {
       })
       const res = await response.json()
       const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+
+      // Setting table with updated information
       setTableData(updatedBooks)
       setIsLoading(false)
     } catch (error) {
@@ -76,6 +87,7 @@ const ManageBooks = props => {
     }
   }
 
+  // Functionality: deleting a row from the books table
   const handleDeleteBook = async data => {
     setIsLoading(true)
     try {
@@ -88,6 +100,8 @@ const ManageBooks = props => {
       })
       const res = await response.json()
       const updatedBooks = res.map(book => ({ id: book.bookId, ...book }))
+
+      // Updating table data
       setTableData(updatedBooks)
       setIsLoading(false)
     } catch (error) {
@@ -95,6 +109,7 @@ const ManageBooks = props => {
     }
   }
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -136,6 +151,7 @@ const ManageBooks = props => {
   )
 }
 
+// Functionality: Reading the initial book data from database
 ManageBooks.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

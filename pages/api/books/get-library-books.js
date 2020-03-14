@@ -1,3 +1,6 @@
+/* Query for reading any books that have not been checked out.
+ * These books will be displayed on the library page. */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 

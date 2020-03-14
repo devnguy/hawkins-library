@@ -1,3 +1,6 @@
+/* The signup page will create a new customer that will be added
+ * to the customers table. */
+
 import styled from 'styled-components'
 import { useState } from 'react'
 
@@ -25,6 +28,7 @@ const Signup = () => {
   const [status, setStatus] = useState({})
   const [isLoading, setIsLoading] = useState(false)
 
+  // Inserting a customer into the customers table
   const addCustomer = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -58,6 +62,7 @@ const Signup = () => {
     }
   }
 
+  // Returning the page to be displayed
   return (
     <Page>
       <PageBanner bannerUrl="/banners/signup-banner.jpeg" />

@@ -1,3 +1,10 @@
+/* The library page will read and display information about books
+ * in the database. It will also create a new checkout order in the
+ * checkoutOrders table. A one-to-many relationship between books
+ * and checkoutOrders will also be created when a customer makes
+ * a checkout order by updating a book with the order number it
+ * is associated with. */
+
 import { useState, useEffect, useContext } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
@@ -31,11 +38,6 @@ const StyledSearchBar = styled.div`
 
   input {
     width: 55%;
-    /* box-shadow: 2px 6px 7px rgb(210, 210, 210); */
-    /* transition: all 700ms cubic-bezier(0.23, 1, 0.32, 1);
-    :focus {
-      width: 93%;
-    } */
     border-right: none;
   }
   button {
@@ -76,9 +78,12 @@ const Library = props => {
   const [checkedBooks, setCheckedBooks] = useState([])
   const [checkedBookIds, setCheckedBookIds] = useState([])
 
+  // Whether or not a customer has made a checkout
   const [checkoutMade, setCheckoutMade] = useState(false)
 
+  // Used to filter genre
   const [genre, setGenre] = useState('All Books')
+  // Changing what books will be displayed based on selected genre
   const handleGenreChange = e => {
     setGenre(e.target.value)
 
@@ -127,6 +132,7 @@ const Library = props => {
     setSearchResults(results)
   }, [searchTerm])
 
+  // Creating genre dropdown options
   const dropDownOptions = () => {
     var result = allBooks.reduce((unique, newBook) => {
       if (!unique.some(book => book.genre === newBook.genre)) {
@@ -135,20 +141,20 @@ const Library = props => {
       return unique
     }, [])
 
+    // Creating the dropdown menu
     return (
       <Dropdown>
         <select value={genre} onChange={handleGenreChange} className="genreSelect">
           <option value="All Books" label="All Books"></option>
           {result.map(book => (
-            <option value={book.genre} label={book.genre}>
-              {book.genre}
-            </option>
+            <option value={book.genre} label={book.genre}></option>
           ))}
         </select>
       </Dropdown>
     )
   }
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
@@ -216,6 +222,7 @@ const Library = props => {
   )
 }
 
+// Reading the initial book data from the books table
 Library.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

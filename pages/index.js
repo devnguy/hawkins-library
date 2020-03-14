@@ -1,3 +1,8 @@
+/* The index page of the website will display information about
+ * the library's website, contain search functionality for
+ * events and books, and provide links to the library and
+ * event pages. */
+
 import Layout from '../components/Layout'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'

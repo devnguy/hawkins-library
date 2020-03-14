@@ -1,3 +1,7 @@
+/* The manage-customers page will read and display information from the customers table.
+ * Additionally, it will have functionality to update and delete rows from
+ * the customers table. */
+
 import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 
@@ -11,9 +15,11 @@ import TableContext from '../../context/table-context'
 const ManageCustomers = props => {
   const isEditable = true
 
+  // Used to fill table with data from database
   const [tableData, setTableData] = useState(props.customerData)
+  // Whether or not a query is being processed
   const [isLoading, setIsLoading] = useState(false)
-  // tableHeaders probably doesn't need to useState
+  // Table headers for table
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
@@ -23,6 +29,7 @@ const ManageCustomers = props => {
     props.customerData.map(customer => customer.firstName + ' ' + customer.lastName)
   )
 
+  // Functionality: updating a row from the customers table
   const handleUpdateCustomer = async data => {
     // e.preventDefault()
     setIsLoading(true)
@@ -36,6 +43,8 @@ const ManageCustomers = props => {
       })
       const res = await response.json()
       const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+
+      // Setting table with updated information
       setTableData(updatedCustomers)
       setIsLoading(false)
     } catch (error) {
@@ -43,6 +52,7 @@ const ManageCustomers = props => {
     }
   }
 
+  // Functionality: deleting a row from the customers table
   const handleDeleteCustomer = async data => {
     setIsLoading(true)
     try {
@@ -55,6 +65,8 @@ const ManageCustomers = props => {
       })
       const res = await response.json()
       const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+
+      // Setting table with updated information
       setTableData(updatedCustomers)
       setIsLoading(false)
     } catch (error) {
@@ -62,6 +74,7 @@ const ManageCustomers = props => {
     }
   }
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -86,6 +99,7 @@ const ManageCustomers = props => {
   )
 }
 
+// Reading the initial customer data from the customers table
 ManageCustomers.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

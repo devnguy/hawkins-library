@@ -1,3 +1,7 @@
+/* The manage-events page will read and display information from the events table.
+ * Additionally, it will have functionality to update and delete rows
+ * from the events table. */
+
 import { useState } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
@@ -34,9 +38,11 @@ const StyledAddButton = styled.div`
 const ManageEvents = props => {
   const isEditable = true
 
+  // Used to fill table with data from database
   const [tableData, setTableData] = useState(props.eventData)
+  // Whether or not a query is being processed
   const [isLoading, setIsLoading] = useState(false)
-  // tableHeaders probably doesn't need to useState
+  // Table headers for table
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
@@ -50,6 +56,7 @@ const ManageEvents = props => {
     setIsOpen(false)
   }
 
+  // Functionality: updating a row from the events table
   const handleUpdateEvent = async data => {
     setIsLoading(true)
     try {
@@ -62,6 +69,8 @@ const ManageEvents = props => {
       })
       const res = await response.json()
       const updatedEvents = res.map(event => ({ id: event.eventId, ...event }))
+
+      // Setting table with updated information
       setTableData(updatedEvents)
       setIsLoading(false)
     } catch (error) {
@@ -69,6 +78,7 @@ const ManageEvents = props => {
     }
   }
 
+  // Functionality: deleting a row from the events table
   const handleDeleteEvent = async data => {
     setIsLoading(true)
     try {
@@ -88,6 +98,7 @@ const ManageEvents = props => {
     }
   }
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -129,6 +140,7 @@ const ManageEvents = props => {
   )
 }
 
+// Reading the initial event data from the events table
 ManageEvents.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

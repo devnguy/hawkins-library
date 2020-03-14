@@ -1,3 +1,10 @@
+/* The return page will enable a customer to return books they have
+ * checked out. This page will use the one-to-many relationship
+ * between checkoutOrders and customers as well as the one-to-many
+ * relationship between books and checkoutOrders in order to display
+ * what books each customer has checked out. When books are returned,
+ * it will set oid in the books table for the selected books to null. */
+
 import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 import styled from 'styled-components'
@@ -11,7 +18,6 @@ import Book from '../components/Book'
 import Input from '../components/Input'
 import Divider from '../components/styles/Divider'
 import BookContext from '../context/book-context'
-import Section from '../components/styles/Section'
 import Spinner from '../components/Spinner'
 
 const StyledReturnContent = styled.div`
@@ -75,6 +81,7 @@ const Return = () => {
     setCheckedBookIds(checkedBookIds.filter(checkedId => checkedId !== id))
   }
 
+  // Reading the books that have been checked out by a customer to be displayed
   const getCheckedOutBooks = async e => {
     e.preventDefault()
     setIsLoading(true)
@@ -106,6 +113,7 @@ const Return = () => {
     console.log(submittedEmail)
   }, [submittedEmail])
 
+  // If no books have been selected
   const handleNoSelectedBooks = e => {
     e.preventDefault()
     setReturnStatus({
@@ -115,6 +123,7 @@ const Return = () => {
     })
   }
 
+  // Returning any books selected. Updates the oid for the selected books to null.
   const returnBooks = async e => {
     e.preventDefault()
     setIsLoadingReturn(true)
@@ -145,6 +154,7 @@ const Return = () => {
     }
   }
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/return-banner.jpeg" />
@@ -239,16 +249,5 @@ const Return = () => {
     </Page>
   )
 }
-
-// Return.getInitialProps = async () => {
-//   const url =
-//     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
-//   const response = await fetch(`${url}/api/books/get-library-books`)
-//   const data = await response.json()
-
-//   return {
-//     bookData: data.map(entry => entry)
-//   }
-// }
 
 export default Return

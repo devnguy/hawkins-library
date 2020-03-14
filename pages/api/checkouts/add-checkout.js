@@ -1,13 +1,18 @@
+/* Creating a checkout for the checkoutOrders table. This also
+ * updates the oid of any checked out books to null. */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
+  // Determining whether email is associated with a customer
   const queryForEmail = await db.query(escape`
     SELECT email
     FROM customers
     WHERE email = ${req.body.email}
   `)
 
+  // Counting the number of books a customer has checked out
   const countCustomerBooks = await db.query(escape`
     SELECT COUNT(title)
     FROM books
@@ -18,6 +23,7 @@ module.exports = async (req, res) => {
 
   let statusMessage, statusNumber
 
+  // Email not associated with any users
   if (queryForEmail.length === 0) {
     statusMessage = 'Email not found.'
     statusNumber = 3

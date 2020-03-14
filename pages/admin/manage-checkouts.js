@@ -1,3 +1,8 @@
+/* The manage-checkouts page will read and display information from the
+ * checkoutOrders table. Information about the one-to-many relationship
+ * between checkoutOrders and customers will be displayed in the table
+ * by showing each checkout a customer has made. */
+
 import { useState, useEffect } from 'react'
 import fetch from 'isomorphic-unfetch'
 
@@ -12,14 +17,17 @@ import TableContext from '../../context/table-context'
 const ManageCheckouts = props => {
   const isEditable = false
 
+  // Used to fill table with data from database
   const [tableData, setTableData] = useState(props.checkoutData)
-  // tableHeaders probably doesn't need to useState
+  // Table headers for table
   const [tableHeaders, setTableHeaders] = useState(
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
 
+  // Checkout data that will be displayed within the table
   const [checkouts, setCheckouts] = useState(props.checkoutData)
 
+  // Returning the content that will be displayed on the page
   return (
     <Page>
       <PageBanner bannerUrl="/banners/admin-banner.jpeg" />
@@ -43,6 +51,7 @@ const ManageCheckouts = props => {
   )
 }
 
+// Reading initial checkout data from the checkoutOrders table
 ManageCheckouts.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

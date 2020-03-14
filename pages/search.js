@@ -1,3 +1,12 @@
+/* The search page reads information from the books table and the
+ * events table. It displays what events are taking place as well
+ * as what books are available for checkout and what books have
+ * already been checked out. The customer will then be able to
+ * either register for an event or check out any available books.
+ * Therefore, a checkout can be added and a one-to-many relationship
+ * can be made between books and checkoutOrders. It is also possible
+ * to create a many-to-many relationship between customers and events. */
+
 import { withRouter } from 'next/router'
 import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
@@ -8,6 +17,7 @@ import SearchResultEvent from '../components/SearchResultEvent'
 import SearchBar from '../components/SearchBar'
 import StyledSearchResult from '../components/styles/StyledSearchResult'
 
+// Displaying all books/events that match the input in the search bar
 const Search = ({ searchTerm, searchResults }) => {
   return (
     <Page>
@@ -33,6 +43,7 @@ const Search = ({ searchTerm, searchResults }) => {
   )
 }
 
+// Reading the data from the books and events tables
 Search.getInitialProps = async ({ query }) => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
