@@ -1,3 +1,13 @@
+/**
+ * Query that implements INSERTing into the eventRegistrations table.
+ * Requires request body to contain customer's email and eventId.
+ *
+ * Queries use sql-template-strings library, which handles
+ * implementation of parameterized queries.
+ *
+ * See https://www.npmjs.com/package/sql-template-strings.
+ */
+
 const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
