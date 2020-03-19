@@ -146,9 +146,13 @@ const Library = props => {
     return (
       <Dropdown>
         <select value={genre} onChange={handleGenreChange} className="genreSelect">
-          <option value="All Books" label="All Books"></option>
+          <option value="All Books" label="All Books">
+            All Books
+          </option>
           {result.map(book => (
-            <option value={book.genre} label={book.genre}></option>
+            <option value={book.genre} label={book.genre}>
+              {book.genre}
+            </option>
           ))}
         </select>
       </Dropdown>
