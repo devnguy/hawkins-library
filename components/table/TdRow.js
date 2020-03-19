@@ -43,6 +43,7 @@ const TdRow = props => {
   const { tableHeaders, handleUpdate, handleDelete, isEditable } = useContext(TableContext)
 
   const [isInEditMode, setIsInEditMode] = useState(false)
+  const [isUniqueInput, setIsUniqueInput] = useState(true)
   const [row, setRow] = useState(props.row)
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false) // modal
@@ -96,6 +97,8 @@ const TdRow = props => {
     // Revert row back to prevRowData if update was unsuccessful
     if (!updateIsSuccessful) {
       setRow({ ...prevRowData })
+      setIsUniqueInput(false)
+      openModal(true)
     }
     setIsLoading(false)
   }
@@ -104,6 +107,35 @@ const TdRow = props => {
   }
   const closeModal = () => {
     setIsOpen(false)
+  }
+
+  const modalMessage = () => {
+    if (!isUniqueInput) {
+      return (
+        <StyledModalContent>
+          <h2>Invalid {props.item.charAt(0).toUpperCase() + props.item.slice(1)} Edit</h2>
+          <Divider />
+          <p>
+            This {props.row.title ? 'title' : 'email'} already exits. Please use a unique{' '}
+            {props.row.title ? 'title' : 'email'}.
+          </p>
+          <Button onClick={closeModal}>Return</Button>
+        </StyledModalContent>
+      )
+    } else {
+      return (
+        <StyledModalContent>
+          <h2>
+            Delete{' '}
+            {props.row.title || props.row.name || `${props.row.firstName} ${props.row.lastName}`}
+          </h2>
+          <Divider />
+          <p>Are you sure you want to delete this {props.item}?</p>
+          <Button onClick={handleDeleteRow}>Delete</Button>
+          <a onClick={closeModal}>CANCEL</a>
+        </StyledModalContent>
+      )
+    }
   }
 
   return (
@@ -135,16 +167,7 @@ const TdRow = props => {
         ariaHideApp={false}
         closeTimeoutMS={100}
       >
-        <StyledModalContent>
-          <h2>
-            Delete{' '}
-            {props.row.title || props.row.name || `${props.row.firstName} ${props.row.lastName}`}
-          </h2>
-          <Divider />
-          <p>Are you sure you want to delete this {props.item}?</p>
-          <Button onClick={handleDeleteRow}>Delete</Button>
-          <a onClick={closeModal}>CANCEL</a>
-        </StyledModalContent>
+        {modalMessage()}
       </Modal>
     </StyledTdRow>
   )
