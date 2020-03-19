@@ -57,7 +57,7 @@ ManageRegistrations.getInitialProps = async () => {
   const data = await response.json()
 
   return {
-    keys: Object.keys(data[0]),
+    keys: data[0] ? Object.keys(data[0]) : ['eid', 'cid', 'eventName', 'fullName'],
     registrationData: data.map(entry => entry)
   }
 }

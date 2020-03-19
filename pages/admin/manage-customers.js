@@ -111,15 +111,19 @@ ManageCustomers.getInitialProps = async () => {
   const data = await response.json()
 
   return {
-    keys: Object.keys(data[0]),
-    customerData: data.map(entry => ({
-      id: entry.customerId,
-      firstName: entry.firstName,
-      lastName: entry.lastName,
-      email: entry.email,
-      phone: entry.phone,
-      dateJoined: entry.dateJoined
-    }))
+    keys: data[0]
+      ? Object.keys(data[0])
+      : ['customerId', 'firstName', 'lastName', 'email', 'phone'],
+    customerData: data
+      ? data.map(entry => ({
+          id: entry.customerId,
+          firstName: entry.firstName,
+          lastName: entry.lastName,
+          email: entry.email,
+          phone: entry.phone,
+          dateJoined: entry.dateJoined
+        }))
+      : []
   }
 }
 

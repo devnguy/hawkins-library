@@ -150,14 +150,16 @@ ManageEvents.getInitialProps = async () => {
   const data = await response.json()
 
   return {
-    keys: Object.keys(data[0]),
-    eventData: data.map(entry => ({
-      id: entry.eventId,
-      name: entry.name,
-      date: entry.date,
-      guest: entry.guest,
-      description: entry.description
-    }))
+    keys: data[0] ? Object.keys(data[0]) : ['eventId', 'name', 'date', 'guest', 'description'],
+    eventData: data
+      ? data.map(entry => ({
+          id: entry.eventId,
+          name: entry.name,
+          date: entry.date,
+          guest: entry.guest,
+          description: entry.description
+        }))
+      : []
   }
 }
 

@@ -57,9 +57,10 @@ ManageCheckouts.getInitialProps = async () => {
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
   const response = await fetch(`${url}/api/checkouts/get-checkouts`)
   const data = await response.json()
+  console.log(data)
 
   return {
-    keys: Object.keys(data[0]),
+    keys: data[0] ? Object.keys(data[0]) : ['orderId', 'fullName', 'email', 'title'],
     checkoutData: data.map(entry => entry)
   }
 }
