@@ -73,8 +73,10 @@ const ManageEvents = props => {
       // Setting table with updated information
       setTableData(updatedEvents)
       setIsLoading(false)
+      return true
     } catch (error) {
       console.log(error)
+      return false
     }
   }
 
