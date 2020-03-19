@@ -18,6 +18,7 @@ module.exports = async (req, res) => {
             ((SELECT customerId FROM customers WHERE email = ${req.body.email}), 
             (SELECT eventId FROM events WHERE eventId = ${req.body.eventId}))
   `)
+  // Handles errors that may be encountered
   if (addRegistration.error) {
     if (addRegistration.error.sqlMessage.includes('Duplicate entry')) {
       res.json({
@@ -32,6 +33,7 @@ module.exports = async (req, res) => {
       res.json(addRegistration.error)
     }
   } else {
+    // Restration is successful
     res.status(200).json({ message: 'Registered Successfully!', statusNo: 0 })
   }
 }

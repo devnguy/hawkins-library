@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
     FROM books
   `)
 
+  // Duplicate book title
   if (updateBooks.error && updateBooks.error.code === 'ER_DUP_ENTRY') {
     res
       .status(200)

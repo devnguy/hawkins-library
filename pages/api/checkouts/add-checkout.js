@@ -28,7 +28,6 @@ module.exports = async (req, res) => {
 
   let statusMessage, statusNumber
 
-  // Email not associated with any users
   if (queryForEmail.length === 0) {
     statusMessage = 'Email not found.'
     statusNumber = 3
@@ -36,10 +35,12 @@ module.exports = async (req, res) => {
     statusMessage = 'Please select at least one book to checkout.'
     statusNumber = 2
   } else if (countCustomerBooks[0]['COUNT(title)'] == 5) {
+    // Customer already has 5 books checked out
     statusMessage =
       'You have already reached the maximum amount of books that can be checked out. Your order could not be processed.'
     statusNumber = 1
   } else if (countCustomerBooks[0]['COUNT(title)'] + req.body.bookIds.length > 5) {
+    // More than 5 titles selected for a customer
     const removedBooksNum = countCustomerBooks[0]['COUNT(title)'] + req.body.bookIds.length - 5
     statusMessage =
       'Your order puts you over the maximum amount of books to be checked out. Please remove ' +
@@ -47,6 +48,7 @@ module.exports = async (req, res) => {
       (removedBooksNum === 1 ? ' book.' : ' books.')
     statusNumber = 1
   } else {
+    // Order can be made
     const addOrder = await db.query(escape`
       INSERT INTO checkoutOrders (cid) 
       VALUES ((SELECT customerId FROM customers WHERE email = ${req.body.email}))

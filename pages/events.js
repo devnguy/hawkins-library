@@ -36,7 +36,7 @@ const Events = props => {
   )
 }
 
-// Reading the initial book data from the database
+// Reading the initial events data from the database
 Events.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

@@ -25,11 +25,3 @@ module.exports = async (req, res) => {
   }
   res.status(200).json(checkouts)
 }
-
-// SELECT oid,
-// CONCAT(firstName, ' ', lastName) AS fullName, email, title,
-// DATE_FORMAT(checkoutDate, '%m/%d/%Y') AS checkoutDate
-// FROM books
-// INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
-// INNER JOIN customers ON checkoutOrders.cid = customers.customerId
-// ORDER BY oid, email

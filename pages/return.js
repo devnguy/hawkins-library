@@ -81,7 +81,9 @@ const Return = () => {
     setCheckedBookIds(checkedBookIds.filter(checkedId => checkedId !== id))
   }
 
-  // Reading the books that have been checked out by a customer to be displayed
+  /* One-to-many relationship between books and checkoutOrders and one-to-many relationship
+   * between customers and checkoutOrders: Reading the books that have been checked out by
+   * a customer in each checkout order to be displayed. */
   const getCheckedOutBooks = async e => {
     e.preventDefault()
     setIsLoading(true)

@@ -10,6 +10,7 @@ const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
+  // Reading books table for library page
   const books = await db.query(escape`
     SELECT * FROM books WHERE oid is NULL;
   `)

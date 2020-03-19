@@ -26,14 +26,13 @@ module.exports = async (req, res) => {
     FROM customers
   `)
 
+  // Duplicate email address
   if (updateCustomer.error && updateCustomer.error.code === 'ER_DUP_ENTRY') {
-    res
-      .status(200)
-      .json({
-        statusNo: 1,
-        statusMessage: 'Error: A customer with that email already exists',
-        customers
-      })
+    res.status(200).json({
+      statusNo: 1,
+      statusMessage: 'Error: A customer with that email already exists',
+      customers
+    })
   } else {
     res.status(200).json({ statusNo: 0, statusMessage: 'Update successful', customers })
   }

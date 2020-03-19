@@ -48,7 +48,8 @@ const ManageRegistrations = props => {
   )
 }
 
-// Reading the initial registration data from the eventRegistrations table
+/* Many-to-many relationship between customers and events: Reading the initial registration
+ * data from the eventRegistrations table */
 ManageRegistrations.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT

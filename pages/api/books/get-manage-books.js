@@ -9,6 +9,7 @@ const db = require('../../../lib/db')
 const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
+  // Reading books data for manage books page
   const books = await db.query(escape`
     SELECT bookId, oid, title, author, publisher, genre
     FROM books

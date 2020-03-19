@@ -229,7 +229,7 @@ const Library = props => {
   )
 }
 
-// Reading the initial book data from the books table
+// Reading the initial books data from the books table
 Library.getInitialProps = async () => {
   const url =
     process.env.NODE_ENV !== 'production' ? process.env.DEV_ENDPOINT : process.env.PROD_ENDPOINT
