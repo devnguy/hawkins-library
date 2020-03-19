@@ -30,23 +30,27 @@ const ManageCustomers = props => {
   )
 
   // Functionality: updating a row from the customers table
-  const handleUpdateCustomer = async data => {
-    // e.preventDefault()
+  const handleUpdateCustomer = async body => {
     setIsLoading(true)
     try {
       const response = await fetch('/api/customers/update-customer', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      const res = await response.json()
-      const updatedCustomers = res.map(customer => ({ id: customer.customerId, ...customer }))
+      const data = await response.json()
+      const updatedCustomers = data.customers.map(customer => ({
+        id: customer.customerId,
+        ...customer
+      }))
 
       // Setting table with updated information
       setTableData(updatedCustomers)
       setIsLoading(false)
+      // Return true/false depending on whether row was successfully updated.
+      return data.statusNo === 0 ? true : false
     } catch (error) {
       console.log(error)
     }
