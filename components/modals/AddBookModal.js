@@ -29,7 +29,15 @@ const StyledModalHeader = styled.div`
 `
 
 const AddBookModal = props => {
-  const { isOpen, closeModal, setTableData } = useContext(ModalContext)
+  const {
+    isOpen,
+    openModal,
+    closeModal,
+    setTableData,
+    isUniqueTitle,
+    setIsUniqueTitle
+  } = useContext(ModalContext)
+
   const [status, setStatus] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   // Form state
@@ -73,7 +81,7 @@ const AddBookModal = props => {
       // Convert returned promise to json and set state.
       const bookData = await response.json()
       setTableData(
-        bookData.map(book => ({
+        bookData.books.map(book => ({
           id: book.bookId,
           oid: book.oid,
           title: book.title,
@@ -82,36 +90,28 @@ const AddBookModal = props => {
           genre: book.genre
         }))
       )
+
       setTitle('')
       setAuthor('')
       setPublisher('')
       setGenre('')
       setImgUrl('')
       closeModal()
+
+      if (bookData.statusNo === 0) {
+        setIsUniqueTitle(true)
+      } else {
+        setIsUniqueTitle(false)
+        openModal()
+      }
     } catch (error) {
       console.log(error)
     }
-    setIsLoading(false)
   }
 
-  // Render the modal.
-  return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      style={modalStyle}
-      ariaHideApp={false}
-      closeTimeoutMS={100}
-    >
-      <StyledModalContent>
-        <StyledModalHeader>
-          <h2>Adding Book {isLoading ? <Spinner /> : null}</h2>
-          <i className="material-icons" onClick={closeModal}>
-            close
-          </i>
-        </StyledModalHeader>
-
-        <Divider />
+  const modalMessage = () => {
+    if (isUniqueTitle === true) {
+      return (
         <form onSubmit={handleAddBook}>
           <FormFields>
             <Input
@@ -172,6 +172,36 @@ const AddBookModal = props => {
           <Button>Add Book</Button>
           <a onClick={closeModal}>CANCEL</a>
         </form>
+      )
+    } else {
+      return (
+        <div>
+          <p>The book title entered is not unique, so it was not added to the library.</p>
+          <Button onClick={closeModal}>Return</Button>
+        </div>
+      )
+    }
+  }
+
+  // Render the modal.
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      style={modalStyle}
+      ariaHideApp={false}
+      closeTimeoutMS={100}
+    >
+      <StyledModalContent>
+        <StyledModalHeader>
+          <h2>Adding Book {isLoading ? <Spinner /> : null}</h2>
+          <i className="material-icons" onClick={closeModal}>
+            close
+          </i>
+        </StyledModalHeader>
+
+        <Divider />
+        {modalMessage()}
       </StyledModalContent>
     </Modal>
   )

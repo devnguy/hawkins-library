@@ -56,6 +56,8 @@ const ManageBooks = props => {
     isEditable ? () => [...props.keys, 'modify'] : () => [...props.keys]
   )
 
+  const [isUniqueTitle, setIsUniqueTitle] = useState(true)
+
   // Modal state and functions
   const [isOpen, setIsOpen] = useState(false)
   const openModal = () => {
@@ -63,6 +65,7 @@ const ManageBooks = props => {
   }
   const closeModal = () => {
     setIsOpen(false)
+    setIsUniqueTitle(true)
   }
 
   // Functionality: updating a row from the books table
@@ -127,8 +130,11 @@ const ManageBooks = props => {
           <ModalContext.Provider
             value={{
               isOpen,
+              openModal,
               closeModal,
-              setTableData
+              setTableData,
+              isUniqueTitle,
+              setIsUniqueTitle
             }}
           >
             <AddBookModal />
