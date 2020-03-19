@@ -101,7 +101,6 @@ const TdRow = props => {
       openModal(true)
     }
     setIsLoading(false)
-    setIsUniqueInput(true)
   }
   const openModal = () => {
     setIsOpen(true)
