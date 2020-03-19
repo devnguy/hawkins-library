@@ -13,23 +13,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/lodash": "^4.14.149",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.2.1",
     "nprogress": "^0.2.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-dropdown": "^1.6.4",
     "react-modal": "^3.11.1",
-    "react-native-elements": "^1.2.7",
-    "react-transition-group": "^4.3.0",
-    "react-utils": "^1.0.0",
     "serverless-mysql": "^1.5.3",
     "sql-template-strings": "^2.2.2",
     "styled-components": "^5.0.1",
     "utils": "^0.3.1"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+  "devDependencies": {}
 }
