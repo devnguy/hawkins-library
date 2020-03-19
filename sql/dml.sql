@@ -23,7 +23,7 @@ INSERT INTO customers (firstName, lastName, email, phone)
 VALUES  (:firstNameInput, :lastNameInput, :emailInput, phoneInput)
 
 -- Delete customer (admin)
-DELETE FROM `customers` 
+DELETE FROM customers 
 WHERE customerId = :customerIdFromTableRow
 
 -- Update customers (admin)
@@ -58,7 +58,7 @@ VALUES (:nameInput, :dateInput, :guestInput,
         :descriptionInput, :imgUrlInput)
 
 -- Delete event (admin).
-DELETE FROM `events` 
+DELETE FROM events 
 WHERE eventId = :eventIdFromTableRow
 
 -- Update event (admin).
@@ -92,7 +92,7 @@ VALUES  ((SELECT customerId FROM customers WHERE email = :emailInput),
 -- Get book information to display on library page. By default, select 
 --      books that have not been checked out.
 SELECT * 
-FROM `books`
+FROM books
 WHERE oid IS NULL;
 
 -- Get all book information except imgUrl (admin).
@@ -125,12 +125,12 @@ INSERT INTO `books` (`title`, `author`, `publisher`, `genre`, `imgUrl`)
 VALUES (:titleInput, :authorInput, :publisherInput, :genreInput, :imgUrlInput)
 
 -- Delete a book from the library.
-DELETE FROM `books`
+DELETE FROM books
 WHERE bookId = :bookIdFromTableRow
 
 -- Update a book's order number in the library when it gets returned.
 --      A loop is used to update all selected books using IDs from a list.
-UPDATE `books`
+UPDATE books
 SET oid = (NULL)
 WHERE (bookId = :bookIdFromIdList)
 
@@ -141,7 +141,7 @@ SET oid = (:orderNumberOfNewOrder)
 WHERE (bookId = :bookIdFromIdList}
 
 -- Update a book's title, author, publisher, and genre in the library.
-UPDATE `books`
+UPDATE books
 SET title = :titleInput, 
     author = :authorInput, 
     publisher = :publisherInput, 
