@@ -131,7 +131,7 @@ const LibraryModal = props => {
         <StyledCheckoutForm>
           <h2>Selected Books:</h2>
           <Divider />
-          <p>No books selected. Please select at least one book.</p>
+          <p>No books were selected. Please select at least one book.</p>
           <Button onClick={closeModal}>Return</Button>
         </StyledCheckoutForm>
       )

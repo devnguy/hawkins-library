@@ -20,6 +20,7 @@ import LibraryModal from '../components/modals/LibraryModal'
 import ModalContext from '../context/modal-context'
 import Input from '../components/Input'
 import Dropdown from '../components/Dropdown'
+import Divider from '../components/styles/Divider'
 
 const StyledLibraryContent = styled.div`
   margin: auto;
@@ -160,6 +161,12 @@ const Library = props => {
       <PageBanner bannerUrl="/banners/library-banner.jpeg" />
       <Layout>
         <PageContent pageTitle="Library">
+          <p>
+            Each customer can make a checkout containing at most five books. If more than five books
+            are selected or if creating the new checkout order will put the customer over their five
+            book limit, then the checkout will not be processed.
+          </p>
+          <Divider />
           <StyledSearchBar>
             <Input
               type="text"

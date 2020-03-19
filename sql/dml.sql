@@ -152,13 +152,13 @@ WHERE (bookId = :bookIdFromTableRow)
 -- checkoutOrders
 --
 -- Displaying books and customers associated with checkout orders (admin).
-SELECT oid, 
+SELECT orderId,
 CONCAT(firstName, ' ', lastName) AS fullName, email, title, 
 DATE_FORMAT(checkoutDate, '%m/%d/%Y') AS checkoutDate
-FROM books
-INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
+FROM checkoutOrders
+INNER JOIN books on checkoutOrders.orderId = books.oid
 INNER JOIN customers ON checkoutOrders.cid = customers.customerId
-ORDER BY oid, email
+ORDER BY oid
 
 -- Query to add a new checkout order.
 INSERT INTO checkoutOrders (cid) 

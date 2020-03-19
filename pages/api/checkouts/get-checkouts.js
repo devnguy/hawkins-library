@@ -12,16 +12,24 @@ const escape = require('sql-template-strings')
 
 module.exports = async (req, res) => {
   const checkouts = await db.query(escape`
-    SELECT oid, 
+    SELECT orderId,
     CONCAT(firstName, ' ', lastName) AS fullName, email, title, 
     DATE_FORMAT(checkoutDate, '%m/%d/%Y') AS checkoutDate
-    FROM books
-    INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
+    FROM checkoutOrders
+    INNER JOIN books on checkoutOrders.orderId = books.oid
     INNER JOIN customers ON checkoutOrders.cid = customers.customerId
-    ORDER BY oid, email
+    ORDER BY oid
   `)
   if (checkouts.error) {
     res.status(500).json(checkouts.error)
   }
   res.status(200).json(checkouts)
 }
+
+// SELECT oid,
+// CONCAT(firstName, ' ', lastName) AS fullName, email, title,
+// DATE_FORMAT(checkoutDate, '%m/%d/%Y') AS checkoutDate
+// FROM books
+// INNER JOIN checkoutOrders ON books.oid = checkoutOrders.orderId
+// INNER JOIN customers ON checkoutOrders.cid = customers.customerId
+// ORDER BY oid, email

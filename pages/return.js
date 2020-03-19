@@ -164,7 +164,7 @@ const Return = () => {
             <p>
               Enter your email to see which books are currently checked out under your account. Once
               the status message appears, scroll down to view results. Click on each book you want
-              to return, then click 'Return Selected Books'
+              to return, then click 'Return Selected Books.'
             </p>
             {isLoading ? (
               <Spinner />
