@@ -12,6 +12,15 @@ import Page from '../components/Page'
 import PageBanner from '../components/PageBanner'
 import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
+import PageContent from '../components/styles/PageContent'
+
+const noEvents = {
+  name: 'No events planned',
+  description: 'There are no planned events currently.',
+  button: '',
+  imgUrl: '/features/feature02.jpeg',
+  route: '/events'
+}
 
 const Events = props => {
   // Events state
@@ -22,15 +31,21 @@ const Events = props => {
     <Page>
       <PageBanner bannerUrl="/banners/events-banner.jpeg" />
       <Layout>
-        {events.map((event, index) => (
-          <Section key={index}>
-            {index % 2 ? (
-              <RightFeature content={event} button="Register" eventId={event.eventId} />
-            ) : (
-              <LeftFeature content={event} button="Register" eventId={event.eventId} />
-            )}
-          </Section>
-        ))}
+        {events.length !== 0 ? (
+          events.map((event, index) => (
+            <Section key={index}>
+              {index % 2 ? (
+                <RightFeature content={event} button="Register" eventId={event.eventId} />
+              ) : (
+                <LeftFeature content={event} button="Register" eventId={event.eventId} />
+              )}
+            </Section>
+          ))
+        ) : (
+          <PageContent pageTitle="No events planned">
+            <p>No events planned. Go to admin > manage events to add an event.</p>
+          </PageContent>
+        )}
       </Layout>
     </Page>
   )
