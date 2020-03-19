@@ -107,6 +107,7 @@ const TdRow = props => {
   }
   const closeModal = () => {
     setIsOpen(false)
+    setIsUniqueInput(true)
   }
 
   const modalMessage = () => {
