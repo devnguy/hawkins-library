@@ -14,14 +14,6 @@ import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 import PageContent from '../components/styles/PageContent'
 
-const noEvents = {
-  name: 'No events planned',
-  description: 'There are no planned events currently.',
-  button: '',
-  imgUrl: '/features/feature02.jpeg',
-  route: '/events'
-}
-
 const Events = props => {
   // Events state
   const [events, setEvents] = useState(props.eventData)
