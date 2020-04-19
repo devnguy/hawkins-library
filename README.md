@@ -18,7 +18,7 @@ npm run dev
 
 - [x] Navbar
 - [x] Footer
-- [ ] Improve Book on mobile
+- [x] Improve Book on mobile
 
 ###### Other
 
