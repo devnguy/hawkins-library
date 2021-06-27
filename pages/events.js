@@ -14,7 +14,7 @@ import { LeftFeature, RightFeature } from '../components/Feature'
 import Section from '../components/styles/Section'
 import PageContent from '../components/styles/PageContent'
 
-const Events = props => {
+const Events = (props) => {
   // Events state
   const [events, setEvents] = useState(props.eventData)
 
@@ -51,7 +51,7 @@ Events.getInitialProps = async () => {
   const data = await response.json()
 
   return {
-    eventData: data.map(entry => entry)
+    eventData: data.map((entry) => entry),
   }
 }
 
